@@ -5,20 +5,18 @@
 
 using namespace Js;
 
-//int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-//                     _In_opt_ HINSTANCE hPrevInstance,
-//                     _In_ LPWSTR    lpCmdLine,
-//                     _In_ int       nCmdShow)
-//{
-//    Core core;
-//
-//    core.CreateRegisterClass(hInstance);
-//
-//    if (core.InitInstance(g_Width, g_Height))
-//    {
-//        core.Run();
-//    }
-//}
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
+                     _In_opt_ HINSTANCE hPrevInstance,
+                     _In_ LPWSTR    lpCmdLine,
+                     _In_ int       nCmdShow)
+{
+    Core core;
 
-class Sample : public Core {};
-GAME_START(800, 600);
+    if (core.CreateWin(hInstance,g_Width, g_Height))
+    {
+        core.GameRun();
+    }
+}
+
+//class Sample : public Core {};
+//GAME_START(g_Width, g_Height);

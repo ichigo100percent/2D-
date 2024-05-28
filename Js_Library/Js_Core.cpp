@@ -20,14 +20,16 @@ namespace Js
 		Time::Init();
 		Input::Init();
 		Device::CreateDevice();
+#ifdef _DEBUG
 		{
 			wf.Init();
 			IDXGISurface* dxgiSurface = nullptr;
-			g_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface),
+			m_SwapChain->GetBuffer(0, __uuidof(IDXGISurface),
 				(void**)&dxgiSurface);
 			wf.ResetDevice(dxgiSurface);
 			dxgiSurface->Release();
 		}
+#endif
 
 		return true;
 	}
@@ -47,10 +49,7 @@ namespace Js
 		Render();
 		//Input::DebugMousePos();
 		//Input::KeyTest();
-		wf.DrawText(Time::m_csBuffer, { 0, 0 });
-		//m_Time += Time::DeltaTime();
-		//OutputDebugStringA((std::to_string(m_Time) + '\n').c_str());
-
+		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 
 		Device::PostRender();
 		return true;
@@ -68,8 +67,12 @@ namespace Js
 		EngineInit();
 		while (true)
 		{
-			if (!EngineUpdate() || !EngineRender())
+			if (Window::WindowRun() == false)
+			{
 				break;
+			}
+			EngineUpdate();
+			EngineRender();
 		}
 		EngineRelease();
 	}

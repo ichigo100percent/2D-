@@ -11,7 +11,7 @@ namespace Js
 	float Time::GameTimeTick = 0.0f;
 	float Time::SecondTime = 0.0f;
 	int   Time::FPS = 0;
-	DWORD Time::dw_FPS = {};
+	int	  Time::dw_FPS = 0;
 
 	void Time::Init()
 	{
@@ -26,10 +26,10 @@ namespace Js
 	{
 		QueryPerformanceCounter(&CurrentFrequency);
 
-		//dw세컨드퍼프레임
+
 		float differenceFrequency
 			= static_cast<float>(CurrentFrequency.QuadPart - PrevFrequency.QuadPart);
-		//세컨드퍼프레임
+
 		DeltaTimeValue = differenceFrequency / static_cast<float>(CpuFrequency.QuadPart);
 		GameTimeTick += DeltaTimeValue;
 
@@ -45,10 +45,10 @@ namespace Js
 		PrevFrequency.QuadPart = CurrentFrequency.QuadPart;	
 
 		TCHAR msgKey[MAX_PATH] = { 0, };
+		int firstTwoDigits = dw_FPS / 100;
 		_stprintf_s(msgKey,
-			L"FPS=%ld, GameTimer=%10.4f SPF=%d\n",
-			dw_FPS, GameTimeTick,
-			differenceFrequency);
+			L"FPS=%02d,   GameTimer=%0.1f\n",
+			firstTwoDigits, (float)GameTimeTick);
 		m_csBuffer = msgKey;
 	}
 }

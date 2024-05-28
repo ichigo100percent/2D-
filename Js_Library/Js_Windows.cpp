@@ -1,20 +1,49 @@
 #include "pch.h"
 #include "Js_Windows.h"
 
+Js::Window* g_pWindow = nullptr;
 namespace Js
 {
-
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		switch (message)
 		{
+			// 프로그램의 활성화(포커스)
+		case WM_ACTIVATE:
+		{
+			if (LOWORD(wParam) == WA_INACTIVE)
+			{
+				// 어플리케이션 비선택
+				if (g_pWindow != nullptr)
+					g_pWindow->m_isActive = false;
+			}
+			else
+			{
+				// 어플리케이션 선택
+				if (g_pWindow != nullptr)
+					g_pWindow->m_isActive = true;
+			}
+		}return 0;
 		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
+			PostQuitMessage(0);// WM_QUIT
+			return 0;
 		}
-		return 0;
+		return DefWindowProc(hWnd, message, wParam, lParam);
+
+		//switch (message)
+		//{
+		//case WM_DESTROY:
+		//	PostQuitMessage(0);
+		//	break;
+		//default:
+		//	return DefWindowProc(hWnd, message, wParam, lParam);
+		//}
+		//return 0;
+	}
+
+	Window::Window()
+	{
+		g_pWindow = this;
 	}
 	void Window::CreateRegisterClass(HINSTANCE _hInstance)
 	{
@@ -28,7 +57,7 @@ namespace Js
 		m_HInstance = _hInstance;
 	}
 
-	BOOL Window::CreateWin(HINSTANCE _hInstance, const int& _width, const int& _height)
+	bool Window::CreateWin(HINSTANCE _hInstance, const int& _width, const int& _height)
 	{
 		CreateRegisterClass(_hInstance);
 		// 윈도우 클래스 생성
@@ -46,15 +75,15 @@ namespace Js
 			, NULL);
 
 		if (hwnd == NULL)
-			return FALSE;
+			return false;
 
 		m_Hwnd = hwnd;
 
 		ShowWindow(hwnd, SW_SHOW);
 
-		return TRUE;
+		return true;
 	}
-	BOOL Window::WindowRun()
+	bool Window::WindowRun()
 	{
 		MSG msg = { };
 
@@ -67,9 +96,9 @@ namespace Js
 			}
 			else
 			{
-				return TRUE;
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 }
