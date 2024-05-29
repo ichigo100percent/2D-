@@ -14,7 +14,7 @@ namespace Js
 
 		hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&m_pWriteFactory);
 		hr = m_pWriteFactory->CreateTextFormat(
-			L"±Ã¼­",
+			L"¸¼Àº °íµñ",
 			nullptr,
 			DWRITE_FONT_WEIGHT_THIN,
 			DWRITE_FONT_STYLE_NORMAL,

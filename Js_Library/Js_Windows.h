@@ -10,13 +10,13 @@ namespace Js
 		bool WindowRun();
 		HWND GetHWND() { return m_Hwnd; }
 		HINSTANCE GetHINSTANCE() { return m_HInstance; }
-		//void SetActive(bool _isActive) { m_isActive = _isActive; }
-		//bool GetActive() { return m_isActive; }
+		void SetActive(bool _isActive) { m_isActive = _isActive; }
+		bool GetActive() { return m_isActive; }
 
-		bool m_isActive;
+		
 	protected:
 		HWND		m_Hwnd;
 		HINSTANCE	m_HInstance;
-		//bool        m_isActive;
+		bool        m_isActive;
 	};
 }

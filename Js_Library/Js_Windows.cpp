@@ -15,13 +15,13 @@ namespace Js
 			{
 				// 어플리케이션 비선택
 				if (g_pWindow != nullptr)
-					g_pWindow->m_isActive = false;
+					g_pWindow->SetActive(false); 
 			}
 			else
 			{
 				// 어플리케이션 선택
 				if (g_pWindow != nullptr)
-					g_pWindow->m_isActive = true;
+					g_pWindow->SetActive(true);
 			}
 		}return 0;
 		case WM_DESTROY:
@@ -29,19 +29,12 @@ namespace Js
 			return 0;
 		}
 		return DefWindowProc(hWnd, message, wParam, lParam);
-
-		//switch (message)
-		//{
-		//case WM_DESTROY:
-		//	PostQuitMessage(0);
-		//	break;
-		//default:
-		//	return DefWindowProc(hWnd, message, wParam, lParam);
-		//}
-		//return 0;
 	}
 
 	Window::Window()
+		: m_Hwnd{}
+		, m_HInstance{}
+		, m_isActive(false)
 	{
 		g_pWindow = this;
 	}
