@@ -1,28 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Input">
+      <UniqueIdentifier>{5b0cab6f-1c25-412d-9410-8fdbc7d01857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{473816b4-4b2d-4e0f-8ba9-aa2f69355c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{c7a0f8f8-0911-4bba-b747-8e6228399379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{4049ae1d-2223-4d5f-a3e1-1b288c9cc54a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h" />
     <ClInclude Include="Js_Windows.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Js_Device.h" />
     <ClInclude Include="Js_Core.h" />
-    <ClInclude Include="Js_Input.h" />
-    <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_WriterFont.h" />
+    <ClInclude Include="Js_Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Time.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_DxObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Js_Windows.cpp" />
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Js_Device.cpp" />
     <ClCompile Include="Js_Core.cpp" />
-    <ClCompile Include="Js_Input.cpp" />
-    <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_WriterFont.cpp" />
+    <ClCompile Include="Js_Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Time.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_DxObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="DefaultVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="DefaultPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="VS.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="PS.txt">
+      <Filter>Shader</Filter>
+    </Text>
   </ItemGroup>
 </Project>

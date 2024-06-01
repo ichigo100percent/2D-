@@ -11,6 +11,9 @@
 #include <algorithm> 
 #include <assert.h>
 #include <tchar.h>
+#include <memory>
+#include <unordered_map>
+#include <unordered_set>
 
 
 #include <d3d11.h>
@@ -46,3 +49,14 @@ class BaseCore
 #define SAMPLE_END };
 #define GAME_START(x, y) int WINAPI wWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance,PWSTR pCmdLine,int nCmdShow){	Sample win;	if (win.CreateWin(hInstance, x, y))	{		win.GameRun();	}	return 0;}
 #define GAME(x,y)  SAMPLE_CREATE SAMPLE_END T_GAME_START(x,y)
+
+
+using Vector2 = DirectX::SimpleMath::Vector2;
+using Vector3 = DirectX::SimpleMath::Vector3;
+using Vector4 = DirectX::SimpleMath::Vector4;
+
+struct Vertex
+{
+	Vector3 position;
+	//Vector2 uv;
+};

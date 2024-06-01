@@ -103,7 +103,7 @@ namespace Js
 	void WriterFont::DrawText(std::wstring msg, POINT pos)
 	{
 		m_pd2dRT->BeginDraw();
-		D2D1_RECT_F layoutRect = { pos.x,pos.y, 800, 600 };
+		D2D1_RECT_F layoutRect = { pos.x,pos.y, g_Width, g_Height };
 		m_pDefaultColor->SetColor({ 1,1,1,1 });
 		m_pd2dRT->DrawText(msg.c_str(), msg.size(),
 			m_pWriteTF30.Get(), &layoutRect, m_pDefaultColor.Get());

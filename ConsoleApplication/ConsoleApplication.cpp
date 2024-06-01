@@ -1,21 +1,28 @@
-﻿#include <iostream>
-#include <string>
-
+﻿#include <string>
+#include <vector>
+#include <iostream>
 using namespace std;
 
-int solution(int a, int b) 
-{
-	auto a1 = to_string(a) + to_string(b);
-	int answer = max(stoi(a1), 2 * a * b);
-
-	return answer;
+string solution(string n_str) {
+    string answer = to_string(stoi(n_str));
+    return answer;
 }
+
+class Test
+{
+public:
+    void T1() { cout << "Hellow World"; }
+};
+
+class Test2 : public Test
+{
+public:
+    void T2() { Test::T1(); }
+};
 
 int main()
 {
-	int c = solution(2, 91);
+   
 
-	cout << c << endl;
-
-	return 0;
+    return 0;
 }

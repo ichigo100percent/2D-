@@ -30,7 +30,7 @@ namespace Js
 			dxgiSurface->Release();
 		}
 #endif
-
+		Init();
 		return true;
 	}
 	bool Core::EngineUpdate()
@@ -40,7 +40,6 @@ namespace Js
 		wf.Update();
 
 		Update();
-
 		return true;
 	}
 	bool Core::EngineRender()
@@ -57,8 +56,8 @@ namespace Js
 
 	bool Core::EngineRelease()
 	{
-		Release();
 		Device::DeleteDeivce();
+		Release();
 		return true;
 	}
 

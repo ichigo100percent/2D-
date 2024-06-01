@@ -47,7 +47,7 @@ namespace Js
 		TCHAR msgKey[MAX_PATH] = { 0, };
 		int firstTwoDigits = dw_FPS / 100;
 		_stprintf_s(msgKey,
-			L"FPS=%02d   GameTimer=%0.1f\n",
+			L"FPS=%02d		GameTimer=%0.1f\n",
 			firstTwoDigits, (float)GameTimeTick);
 		m_csBuffer = msgKey;
 	}
