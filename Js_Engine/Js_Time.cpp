@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Js_Time.h"
 namespace Js
 {
@@ -42,7 +41,7 @@ namespace Js
 		}
 		FPS++;
 
-		PrevFrequency.QuadPart = CurrentFrequency.QuadPart;	
+		PrevFrequency.QuadPart = CurrentFrequency.QuadPart;
 
 		TCHAR msgKey[MAX_PATH] = { 0, };
 		int firstTwoDigits = dw_FPS / 100;

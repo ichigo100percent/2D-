@@ -1,4 +1,6 @@
 #pragma once
+#include "std.h"
+
 namespace Js
 {
 	class Time
@@ -23,3 +25,4 @@ namespace Js
 		static int dw_FPS;
 	};
 }
+

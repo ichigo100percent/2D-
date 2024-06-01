@@ -1,7 +1,4 @@
-﻿#pragma once
-
-
-#include "framework.h"
+#pragma once
 #include <Windows.h>
 #include <iostream>
 #include <string>
@@ -45,18 +42,12 @@ class BaseCore
 	virtual void Release() = 0;
 };
 
-#define SAMPLE_CREATE class Sample : public Core {
-#define SAMPLE_END };
-#define GAME_START(x, y) int WINAPI wWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance,PWSTR pCmdLine,int nCmdShow){	Sample win;	if (win.CreateWin(hInstance, x, y))	{		win.GameRun();	}	return 0;}
-#define GAME(x,y)  SAMPLE_CREATE SAMPLE_END T_GAME_START(x,y)
-
-
 using Vector2 = DirectX::SimpleMath::Vector2;
 using Vector3 = DirectX::SimpleMath::Vector3;
 using Vector4 = DirectX::SimpleMath::Vector4;
 
-struct Vertex
-{
-	Vector3 position;
-	//Vector2 uv;
-};
+
+#define SAMPLE_CREATE class Sample : public Core {
+#define SAMPLE_END };
+#define GAME_START(x, y) int WINAPI wWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance,PWSTR pCmdLine,int nCmdShow){	Sample win;	if (win.CreateWin(hInstance, x, y))	{		win.GameRun();	}	return 0;}
+#define GAME(x,y)  SAMPLE_CREATE SAMPLE_END GAME_START(x,y)

@@ -1,11 +1,10 @@
 #pragma once
 #include "Js_Device.h"
-#include "Js_WriterFont.h"
+#include "Js_DxWrite.h"
 
 namespace Js
 {
-
-	class Core : public Device , BaseCore
+	class Core : public Device, BaseCore
 	{
 	public:
 		Core();
@@ -22,6 +21,6 @@ namespace Js
 		bool EngineRelease();
 
 	private:
-		WriterFont wf;
+		class DxWrite wf;
 	};
 }

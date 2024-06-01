@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
@@ -45,10 +44,10 @@ namespace Js
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
-		Render();
 		//Input::DebugMousePos();
 		//Input::KeyTest();
 		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
+		Render();
 
 		Device::PostRender();
 		return true;

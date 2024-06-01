@@ -1,4 +1,5 @@
 #pragma once
+#include "std.h"
 
 namespace Js
 {
@@ -14,7 +15,7 @@ namespace Js
 		void SetActive(bool _isActive) { m_isActive = _isActive; }
 		bool GetActive() { return m_isActive; }
 
-		
+
 	protected:
 		HWND		m_Hwnd;
 		HINSTANCE	m_HInstance;

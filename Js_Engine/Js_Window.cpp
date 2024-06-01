@@ -1,6 +1,4 @@
-#include "pch.h"
-#include "Js_Windows.h"
-
+#include "Js_Window.h"
 Js::Window* g_pWindow = nullptr;
 namespace Js
 {
@@ -15,7 +13,7 @@ namespace Js
 			{
 				// 어플리케이션 비선택
 				if (g_pWindow != nullptr)
-					g_pWindow->SetActive(false); 
+					g_pWindow->SetActive(false);
 			}
 			else
 			{

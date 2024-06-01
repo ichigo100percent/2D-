@@ -1,6 +1,4 @@
-#include "pch.h"
 #include "Js_Device.h"
-
 
 namespace Js
 {
@@ -9,7 +7,7 @@ namespace Js
 		m_Context(nullptr),
 		m_RenderTargetView(nullptr),
 		m_SwapChain(nullptr),
-		m_Viewport {}
+		m_Viewport{}
 	{
 
 	}
@@ -72,7 +70,7 @@ namespace Js
 
 			CHECK(hr);
 		}
-		
+
 	}
 	void Device::SetViewport()
 	{
@@ -81,7 +79,7 @@ namespace Js
 		m_Viewport.Width = static_cast<float>(g_Width);
 		m_Viewport.Height = static_cast<float>(g_Height);
 		m_Viewport.MinDepth = 0;
-		m_Viewport.Height = 1;
+		m_Viewport.MaxDepth = 1;
 	}
 
 	void Device::DeleteDeivce()
@@ -112,7 +110,7 @@ namespace Js
 	{
 		m_Context->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), nullptr);
 		m_Context->ClearRenderTargetView(m_RenderTargetView.Get(), clearColor);
-		m_Context->RSSetViewports(1, &m_Viewport);	
+		m_Context->RSSetViewports(1, &m_Viewport);
 	}
 	void Device::PostRender()
 	{

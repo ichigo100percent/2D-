@@ -1,11 +1,12 @@
 #pragma once
+#include "std.h"
 
 namespace Js
 {
-	class WriterFont : public BaseCore
+	class DxWrite : public BaseCore
 	{
 	public:
-		WriterFont();
+		DxWrite();
 
 		virtual void Init() override;
 		virtual void Update() override;

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{f552c11a-b819-4a1c-8fa5-bf459d6c3e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{c531e59f-7d30-460b-876a-f76165ebb65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{ce00af92-59e5-43f6-8cc3-0093cfb157e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Engine.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="std.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Window.h" />
+    <ClInclude Include="Js_Device.h" />
+    <ClInclude Include="Js_Core.h" />
+    <ClInclude Include="Js_DxObject.h" />
+    <ClInclude Include="Js_DxWrite.h" />
+    <ClInclude Include="Js_Input.h" />
+    <ClInclude Include="Js_Time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Js_Engine.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Js_Engine.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Js_Window.cpp" />
+    <ClCompile Include="Js_Device.cpp" />
+    <ClCompile Include="Js_Core.cpp" />
+    <ClCompile Include="Js_DxObject.cpp" />
+    <ClCompile Include="Js_DxWrite.cpp" />
+    <ClCompile Include="Js_Input.cpp" />
+    <ClCompile Include="Js_Time.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PS.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="VS.txt">
+      <Filter>Shader</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

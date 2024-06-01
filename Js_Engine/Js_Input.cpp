@@ -1,6 +1,4 @@
-#include "pch.h"
 #include "Js_Input.h"
-
 namespace Js
 {
 	DWORD Input::KeyCode[256] = {};
