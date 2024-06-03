@@ -1,6 +1,4 @@
 #include "Js_DxObject.h"
-#include "Js_Input.h"
-
 
 namespace Js
 {
@@ -17,14 +15,10 @@ namespace Js
 	}
 	void DxObject::Init()
 	{
-		CreateGeometry();
 		CreateVertexBuffer();
-		CreateIndexBuffer();
 		CreateVS();
 		CreateInputLayout();
 		CreatePS();
-
-		CreateRasterizerState();
 
 	}
 	void DxObject::Render()
@@ -36,22 +30,17 @@ namespace Js
 
 		// IA
 		m_Context->IASetVertexBuffers(StartSlot, NumBuffers, m_VertexBuffer.GetAddressOf(), &Stride, &Offset);
-		m_Context->IASetIndexBuffer(m_IndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 		m_Context->IASetInputLayout(m_InputLayout.Get());
 		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// VS
 		m_Context->VSSetShader(m_VertexShader.Get(), nullptr, 0);
-		
-		// RS
-		m_Context->RSSetState(m_RasterizerState.Get());
 
 		// PS
 		m_Context->PSSetShader(m_PixelShader.Get(), nullptr, 0);
 
 		// OM
-		//m_Context->Draw(m_Vertices.size(), 0);
-		m_Context->DrawIndexed(m_Indices.size(), 0, 0);
+		m_Context->Draw(m_Vertices.size(), 0);
 	}
 	void DxObject::Update()
 	{
@@ -59,61 +48,31 @@ namespace Js
 	void DxObject::Release()
 	{
 	}
-	void DxObject::Move()
-	{
-
-	}
-	void DxObject::CreateGeometry()
-	{
-		m_Vertices.resize(4);
-		m_Vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
-		m_Vertices[1].position = Vector3(-0.5f, 0.5f, 0.0f);
-		m_Vertices[2].position = Vector3(0.5f, -0.5f, 0.0f);
-		m_Vertices[3].position = Vector3(0.5f, 0.5f, 0.0f);
-
-		m_Vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		m_Vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		m_Vertices[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		m_Vertices[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	}
 	void DxObject::CreateVertexBuffer()
 	{
+		m_Vertices.resize(3);
+		m_Vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
+		m_Vertices[1].position = Vector3(0.0f, 0.5f, 0.0f);
+		m_Vertices[2].position = Vector3(0.5f, -0.5f, 0.0f);
+
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		desc.ByteWidth = (UINT)sizeof(VertexData) * m_Vertices.size();
 
-		D3D11_SUBRESOURCE_DATA data;
-		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
-		data.pSysMem = m_Vertices.data();
+		D3D11_SUBRESOURCE_DATA sd;
+		ZeroMemory(&sd, sizeof(D3D11_SUBRESOURCE_DATA));
+		sd.pSysMem = m_Vertices.data();
 
-		HRESULT hr = m_Device->CreateBuffer(&desc, &data, m_VertexBuffer.GetAddressOf());
+		HRESULT hr = m_Device->CreateBuffer(&desc, &sd, m_VertexBuffer.GetAddressOf());
 
-		CHECK(hr);
-	}
-	void DxObject::CreateIndexBuffer()
-	{
-		m_Indices = { 0,1,2,2,1,3 };
-
-		D3D11_BUFFER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		desc.ByteWidth = (UINT)(sizeof(UINT) * m_Indices.size());
-
-		D3D11_SUBRESOURCE_DATA data;
-		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
-		data.pSysMem = m_Indices.data();
-
-		HRESULT hr = m_Device->CreateBuffer(&desc, &data, m_IndexBuffer.GetAddressOf());
-		
 		CHECK(hr);
 	}
 	void DxObject::CreateInputLayout()
 	{
 		const D3D11_INPUT_ELEMENT_DESC layout[] =
 		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "POS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 		const UINT count = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		HRESULT hr = m_Device->CreateInputLayout
@@ -147,7 +106,7 @@ namespace Js
 	}
 	void DxObject::CreateVS()
 	{
-		LoadShader(L"Default.hlsl", "VS", "vs_5_0", m_VSBlob);
+		LoadShader(L"VS.txt", "VSMain", "vs_5_0", m_VSBlob);
 		HRESULT hr =
 			m_Device->CreateVertexShader
 			(
@@ -161,7 +120,7 @@ namespace Js
 	}
 	void DxObject::CreatePS()
 	{
-		LoadShader(L"Default.hlsl", "PS", "ps_5_0", m_PSBlob);
+		LoadShader(L"PS.txt", "PSMain", "ps_5_0", m_PSBlob);
 		HRESULT hr =
 			m_Device->CreatePixelShader
 			(
@@ -172,30 +131,5 @@ namespace Js
 			);
 
 		CHECK(hr);
-	}
-	void DxObject::CreateRasterizerState()
-	{
-		D3D11_RASTERIZER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
-		desc.FillMode = D3D11_FILL_SOLID;
-		// 뒷면을 렌더링하지 않음
-		desc.CullMode = D3D11_CULL_BACK;
-		// 시계 방향으로 정의된 삼각형을 앞면으로 간주
-		desc.FrontCounterClockwise = false;
-
-		HRESULT hr = m_Device->CreateRasterizerState(&desc, m_RasterizerState.GetAddressOf());
-		CHECK(hr);
-	}
-	void DxObject::CreateSamplerState()
-	{
-	}
-	void DxObject::CreateBlendState()
-	{
-	}
-	void DxObject::CreateSubResourceView()
-	{
-	}
-	void DxObject::CreateConstantBuffer()
-	{
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include <Windows.h>
+
+// STL
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,7 +13,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
+// DX
+#include <Windows.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl.h>
@@ -27,27 +29,15 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-const int g_Width = 800;
-const int g_Height = 600;
-
+using namespace DirectX;
 using namespace Microsoft::WRL;
 
-#define CHECK(p)	assert(SUCCEEDED(p))
-
-class BaseCore
-{
-	virtual void Init() = 0;
-	virtual void Update() = 0;
-	virtual void Render() = 0;
-	virtual void Release() = 0;
-};
-
-using Vector2 = DirectX::SimpleMath::Vector2;
-using Vector3 = DirectX::SimpleMath::Vector3;
-using Vector4 = DirectX::SimpleMath::Vector4;
+#include "Entity.h"
+#include "value.h"
+#include "type.h"
+#include "struct.h"
+#include "macro.h"
 
 
-#define SAMPLE_CREATE class Sample : public Core {
-#define SAMPLE_END };
-#define GAME_START(x, y) int WINAPI wWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance,PWSTR pCmdLine,int nCmdShow){	Sample win;	if (win.CreateWin(hInstance, x, y))	{		win.GameRun();	}	return 0;}
-#define GAME(x,y)  SAMPLE_CREATE SAMPLE_END GAME_START(x,y)
+
+

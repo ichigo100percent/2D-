@@ -23,7 +23,7 @@ namespace Js
 		static DWORD   KeyCheck(DWORD dwKey);
 		static void    KeyTest();
 
-	public:
+	private:
 		static DWORD   KeyCode[256];
 		static POINT   m_MousePos;
 	};

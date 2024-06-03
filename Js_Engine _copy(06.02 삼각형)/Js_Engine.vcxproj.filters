@@ -23,6 +23,9 @@
     <Filter Include="소스 파일\99. Shader">
       <UniqueIdentifier>{ce00af92-59e5-43f6-8cc3-0093cfb157e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01. GameObject">
+      <UniqueIdentifier>{af4505e2-8bea-49f9-a494-842dd07ff5df}</UniqueIdentifier>
+    </Filter>
     <Filter Include="소스 파일\98. Header">
       <UniqueIdentifier>{f552c11a-b819-4a1c-8fa5-bf459d6c3e31}</UniqueIdentifier>
     </Filter>
@@ -37,21 +40,6 @@
     </Filter>
     <Filter Include="소스 파일\98. Header\WriteFont">
       <UniqueIdentifier>{951726b9-f4ac-427a-aabc-5d8a41db87c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02. Component">
-      <UniqueIdentifier>{60f3ce2e-ca51-4bdd-a544-f0f53a41dff6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics">
-      <UniqueIdentifier>{ed05993b-5bbb-4122-ad20-73a6280bc34e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\10. GameObject">
-      <UniqueIdentifier>{af4505e2-8bea-49f9-a494-842dd07ff5df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\10. GameObject\00. DxObject">
-      <UniqueIdentifier>{3a7f303b-4510-4eb8-b6c8-eb583a75db71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\03. Scene">
-      <UniqueIdentifier>{292637ce-bc02-4d53-84d2-27ce765827a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +64,9 @@
     <ClInclude Include="Js_Time.h">
       <Filter>소스 파일\98. Header\Time</Filter>
     </ClInclude>
+    <ClInclude Include="Js_DxObject.h">
+      <Filter>소스 파일\01. GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="Js_DxWrite.h">
       <Filter>소스 파일\98. Header\WriteFont</Filter>
     </ClInclude>
@@ -87,30 +78,6 @@
     </ClInclude>
     <ClInclude Include="Js_Core.h">
       <Filter>소스 파일\00. Engine\02. Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_DxObject.h">
-      <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
-    </ClInclude>
-    <ClInclude Include="macro.h">
-      <Filter>소스 파일\98. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="value.h">
-      <Filter>소스 파일\98. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="struct.h">
-      <Filter>소스 파일\98. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="type.h">
-      <Filter>소스 파일\98. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>소스 파일\03. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>소스 파일\98. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneMgr.h">
-      <Filter>소스 파일\03. Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +101,9 @@
     <ClCompile Include="Js_Time.cpp">
       <Filter>소스 파일\98. Header\Time</Filter>
     </ClCompile>
+    <ClCompile Include="Js_DxObject.cpp">
+      <Filter>소스 파일\01. GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="Js_DxWrite.cpp">
       <Filter>소스 파일\98. Header\WriteFont</Filter>
     </ClCompile>
@@ -146,15 +116,6 @@
     <ClCompile Include="Js_Core.cpp">
       <Filter>소스 파일\00. Engine\02. Core</Filter>
     </ClCompile>
-    <ClCompile Include="Js_DxObject.cpp">
-      <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일\03. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMgr.cpp">
-      <Filter>소스 파일\03. Scene</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PS.txt">
@@ -163,10 +124,5 @@
     <Text Include="VS.txt">
       <Filter>소스 파일\99. Shader</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Default.hlsl">
-      <Filter>소스 파일\99. Shader</Filter>
-    </FxCompile>
   </ItemGroup>
 </Project>

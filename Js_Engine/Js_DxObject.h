@@ -3,13 +3,7 @@
 
 namespace Js
 {
-	struct VertexData
-	{
-		Vector2 position;
-		//Vector2 uv;
-	};
-
-	class DxObject
+	class DxObject : public Entity
 	{
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context);
@@ -19,28 +13,58 @@ namespace Js
 		virtual void Update();
 		virtual void Release();
 
+		virtual void Move();
+
+		// Graphics
+		virtual void CreateGeometry();
 		virtual void CreateVertexBuffer();
+		virtual void CreateIndexBuffer();
 		virtual void CreateInputLayout();
 		virtual void LoadShader(const std::wstring& _path,
-			const std::string& _name,
-			const std::string& _version,
-			ComPtr<ID3DBlob>& _blob);
+								const std::string& _name,
+								const std::string& _version,
+								ComPtr<ID3DBlob>& _blob);
 
 		virtual void CreateVS();
 		virtual void CreatePS();
 
+		virtual void CreateRasterizerState();
+		virtual void CreateSamplerState();
+		virtual void CreateBlendState();
+		virtual void CreateSubResourceView();
+
+		virtual void CreateConstantBuffer();
 	private:
 		ComPtr<ID3D11Device>	     m_Device;
 		ComPtr<ID3D11DeviceContext>  m_Context;
 
+		// VS
 		std::vector<VertexData>		 m_Vertices;
 		ComPtr<ID3D11Buffer>		 m_VertexBuffer;
+		// Index
+		std::vector<UINT>			 m_Indices;
+		ComPtr<ID3D11Buffer>		 m_IndexBuffer;
+		// Constant SRT
+		TransformData				 m_TransformData;
+		ComPtr<ID3D11Buffer>		 m_ConstantBuffer;
+
 		ComPtr<ID3D11InputLayout>	 m_InputLayout;
 
+
+		// PS
 		ComPtr<ID3D11VertexShader>	 m_VertexShader;
 		ComPtr<ID3D11PixelShader>	 m_PixelShader;
 		ComPtr<ID3DBlob>			 m_VSBlob;
 		ComPtr<ID3DBlob>			 m_PSBlob;
+
+		// RS
+		ComPtr<ID3D11RasterizerState> m_RasterizerState;
+		// Sampler
+		ComPtr<ID3D11SamplerState>    m_SamplerState;
+		// Blend
+		ComPtr<ID3D11BlendState>      m_BlendState;
+		// SRV
+		ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView;
 	};
 }
 
