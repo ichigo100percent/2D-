@@ -1,8 +1,11 @@
 #pragma once
 #include "std.h"
-#include "Js_DxObject.h"
+//#include "Js_DxObject.h"
+
 namespace Js
 {
+	class DxObject {};
+
 	class Scene : public Entity
 	{
 	public:

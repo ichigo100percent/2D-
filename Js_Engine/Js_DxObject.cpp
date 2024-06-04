@@ -1,10 +1,10 @@
 #include "Js_DxObject.h"
 #include "Js_Input.h"
 
-
 namespace Js
 {
-	DxObject::DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context) :
+	DxObject::DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name) :
+		Entity(_name),
 		m_Device(_device),
 		m_Context(_context),
 		m_VertexBuffer(nullptr),
@@ -25,7 +25,7 @@ namespace Js
 		CreatePS();
 
 		CreateRasterizerState();
-
+		CreateSRV();
 	}
 	void DxObject::Render()
 	{
@@ -48,6 +48,7 @@ namespace Js
 
 		// PS
 		m_Context->PSSetShader(m_PixelShader.Get(), nullptr, 0);
+		m_Context->PSSetShaderResources(0, 1, m_ShaderResourceView.GetAddressOf());
 
 		// OM
 		//m_Context->Draw(m_Vertices.size(), 0);
@@ -63,18 +64,42 @@ namespace Js
 	{
 
 	}
+	Vector2 DxObject::ConvertScreenToNDC(Vector2& _pos)
+	{
+		// 0 ~ 800 -> 0 ~ 1
+		_pos.x = _pos.x / g_Width;
+		_pos.y = _pos.y / g_Height;
+		
+		// NDC ÁÂÇ¥°è
+		// 0 ~ 1 -> -1 ~ 1
+		Vector2 ret;
+		ret.x = _pos.x * 2.0f - 1.0f;
+
+		return Vector2();
+	}
 	void DxObject::CreateGeometry()
 	{
 		m_Vertices.resize(4);
-		m_Vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
-		m_Vertices[1].position = Vector3(-0.5f, 0.5f, 0.0f);
-		m_Vertices[2].position = Vector3(0.5f, -0.5f, 0.0f);
-		m_Vertices[3].position = Vector3(0.5f, 0.5f, 0.0f);
+		m_Vertices[0].position = Vector2(-1.f, -1.f);
+		m_Vertices[1].position = Vector2(-1.f, 1.f);
+		m_Vertices[2].position = Vector2(1.f, -1.f);
+		m_Vertices[3].position = Vector2(1.f, 1.f);
 
 		m_Vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_Vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		m_Vertices[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		m_Vertices[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+		m_Vertices[0].texture = Vector2(0.0f, 1.0f);
+		m_Vertices[1].texture = Vector2(0.0f, 0.0f);
+		m_Vertices[2].texture = Vector2(1.0f, 1.0f);
+		m_Vertices[3].texture = Vector2(1.0f, 0.0f);
+
+		// ÁÂ¿ì ¹ÝÀü
+		//m_Vertices[0].texture = Vector2(1.0f, 1.0f); 
+		//m_Vertices[1].texture = Vector2(1.0f, 0.0f); 
+		//m_Vertices[2].texture = Vector2(0.0f, 1.0f); 
+		//m_Vertices[3].texture = Vector2(0.0f, 0.0f); 
 	}
 	void DxObject::CreateVertexBuffer()
 	{
@@ -112,8 +137,10 @@ namespace Js
 	{
 		const D3D11_INPUT_ELEMENT_DESC layout[] =
 		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			// RGBA = float 4°³ 
+			{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 8, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXTURE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 		const UINT count = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		HRESULT hr = m_Device->CreateInputLayout
@@ -192,8 +219,14 @@ namespace Js
 	void DxObject::CreateBlendState()
 	{
 	}
-	void DxObject::CreateSubResourceView()
+	void DxObject::CreateSRV()
 	{
+		HRESULT hr = 
+			CreateWICTextureFromFile(m_Device.Get(),
+									L"¿øÈñ.png",
+									m_Texture.GetAddressOf(),
+									m_ShaderResourceView.GetAddressOf());
+		CHECK(hr);
 	}
 	void DxObject::CreateConstantBuffer()
 	{

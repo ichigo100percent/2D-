@@ -24,10 +24,17 @@
 
 #include "SimpleMath.h"
 #include "DirectXTex.h"
+#include "WICTextureLoader.h"
 #pragma comment( lib, "d2d1.lib")
 #pragma comment( lib, "dwrite.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
+
+#ifdef _DEBUG
+#pragma comment(lib, "DirectXTK_D.lib")
+#else
+#pragma comment(lib, "DirectXTK_R.lib")
+#endif
 
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -37,6 +44,7 @@ using namespace Microsoft::WRL;
 #include "type.h"
 #include "struct.h"
 #include "macro.h"
+
 
 
 

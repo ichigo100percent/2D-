@@ -9,6 +9,10 @@ namespace Js
 
 	}
 
+	Core::~Core()
+	{
+	}
+
 	void Core::Init() {}
 	void Core::Update() {}
 	void Core::Render() {}
@@ -46,8 +50,8 @@ namespace Js
 		Device::PreRender();
 		//Input::DebugMousePos();
 		//Input::KeyTest();
-		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 		Render();
+		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 
 		Device::PostRender();
 		return true;

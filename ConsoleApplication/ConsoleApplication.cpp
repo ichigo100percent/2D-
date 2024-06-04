@@ -3,26 +3,37 @@
 #include <iostream>
 using namespace std;
 
-string solution(string n_str) {
-    string answer = to_string(stoi(n_str));
-    return answer;
-}
-
-class Test
+class Entity
 {
 public:
-    void T1() { cout << "Hellow World"; }
+	Entity() = default;
+	Entity(const string& _name)
+		: m_Name(_name)
+	{
+	}
+
+	string GetName() { return m_Name; }
+
+protected:
+	string m_Name;
 };
 
-class Test2 : public Test
+class Object : public Entity
 {
 public:
-    void T2() { Test::T1(); }
+	Object(const string& _name = {})
+		: Entity(_name)
+	{
+
+	}
+
+private:
 };
 
 int main()
 {
-   
+	Object obj;
 
-    return 0;
+	cout << obj.GetName();
+	return 0;
 }

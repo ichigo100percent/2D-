@@ -13,7 +13,7 @@ namespace Js
 		void SetName(const std::wstring& _name) { m_Name = _name; }
 		std::wstring GetName() const { return m_Name; }
 
-	private:
+	protected:
 		std::wstring m_Name;
 	};
 

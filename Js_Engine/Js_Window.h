@@ -7,6 +7,8 @@ namespace Js
 	{
 	public:
 		Window();
+		virtual ~Window();
+
 		void CreateRegisterClass(HINSTANCE _hInstance);
 		bool CreateWin(HINSTANCE _hInstance, const int& _width, const int& _height);
 		bool WindowRun();

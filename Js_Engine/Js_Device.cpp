@@ -12,6 +12,9 @@ namespace Js
 	{
 
 	}
+	Device::~Device()
+	{
+	}
 	void Device::CreateDevice()
 	{
 		CreateDeviceAndSwapChain();
@@ -115,7 +118,7 @@ namespace Js
 	}
 	void Device::PostRender()
 	{
-		HRESULT hr = m_SwapChain->Present(0, 0);
+		HRESULT hr = m_SwapChain->Present(1, 0);
 		CHECK(hr);
 	}
 }

@@ -36,6 +36,9 @@ namespace Js
 	{
 		g_pWindow = this;
 	}
+	Window::~Window()
+	{
+	}
 	void Window::CreateRegisterClass(HINSTANCE _hInstance)
 	{
 		WNDCLASS wc = { };

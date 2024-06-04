@@ -7,6 +7,7 @@ namespace Js
 	{
 	public:
 		Device();
+		virtual ~Device();
 
 		void CreateDevice();
 
