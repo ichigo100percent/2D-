@@ -8,16 +8,18 @@ namespace Js
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 
-		virtual void Init();
+		virtual void Init(JsRect& _rect, const std::wstring& _texName);
 		virtual void Render();
 		virtual void Update();
 		virtual void Release();
 
-		virtual void Move();
-		Vector2 ConvertScreenToNDC(Vector2& _pos);
+		virtual DxObject& Move(float _dx, float _dy);
+		Vector2& ConvertScreenToNDC(Vector2& _pos);
+
+		virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
 
 		// Graphics
-		virtual void CreateGeometry();
+		virtual void CreateGeometry(JsRect& _rect);
 		virtual void CreateVertexBuffer();
 		virtual void CreateIndexBuffer();
 		virtual void CreateInputLayout();
@@ -28,7 +30,7 @@ namespace Js
 
 		virtual void CreateVS();
 		virtual void CreatePS();
-		virtual void CreateSRV();
+		virtual void CreateSRV(const std::wstring& _texName);
 
 		virtual void CreateRasterizerState();
 		virtual void CreateSamplerState();
@@ -39,6 +41,9 @@ namespace Js
 		ComPtr<ID3D11Device>	     m_Device;
 		ComPtr<ID3D11DeviceContext>  m_Context;
 
+
+		std::vector<VertexData>      m_NdcVertices;
+		Vector2						 m_Position;
 		// VS
 		std::vector<VertexData>		 m_Vertices;
 		ComPtr<ID3D11Buffer>		 m_VertexBuffer;

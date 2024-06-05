@@ -28,3 +28,11 @@ struct TransformData
 	Vector3 transform;
 	float dummy;
 };
+
+struct JsRect
+{
+	float x, y, w, h;
+	JsRect() = default;
+	JsRect(float _x, float _y, float _w, float _h)
+		: x(_x), y(_y), w(_w), h(_h) {}
+};

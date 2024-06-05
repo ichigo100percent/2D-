@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{21e71e0e-d03d-488a-a17c-a30bd70d8cb9}</ProjectGuid>
+    <ProjectGuid>{642596B5-1280-42AC-802E-400EB616EE62}</ProjectGuid>
     <RootNamespace>JsEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

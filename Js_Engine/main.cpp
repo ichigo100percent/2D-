@@ -14,11 +14,13 @@ public:
     void Init() override
     {
         obj = std::make_shared<DxObject>(GetDevice(), GetContext());
-        obj->Init();
+        JsRect rt(g_Width / 2, g_Height/2, 100, 100);
+        //obj->Init(rt, L"원희.png");
+        obj->CreateObject(Vector2(400, 300), L"원희.png");
     }
     void Update() override
     {
-
+        //obj->Update();
     }
     void Render() override
     {

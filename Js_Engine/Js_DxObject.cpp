@@ -1,5 +1,6 @@
 #include "Js_DxObject.h"
 #include "Js_Input.h"
+#include "Js_Time.h"
 
 namespace Js
 {
@@ -15,9 +16,9 @@ namespace Js
 		m_PSBlob(nullptr)
 	{
 	}
-	void DxObject::Init()
+	void DxObject::Init(JsRect& _rect, const std::wstring& _texName)
 	{
-		CreateGeometry();
+		CreateGeometry(_rect);
 		CreateVertexBuffer();
 		CreateIndexBuffer();
 		CreateVS();
@@ -25,7 +26,7 @@ namespace Js
 		CreatePS();
 
 		CreateRasterizerState();
-		CreateSRV();
+		CreateSRV(_texName);
 	}
 	void DxObject::Render()
 	{
@@ -56,15 +57,33 @@ namespace Js
 	}
 	void DxObject::Update()
 	{
+		//float speed = 100 * Time::DeltaTime();
+		//if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+		//{
+		//	Move(0, -speed);
+		//}
+		//if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
+		//{
+		//	Move(0, speed);
+		//}
+		//if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
+		//{
+		//	Move(-speed, 0);
+		//}
+		//if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
+		//{
+		//	Move(speed, 0);
+		//}
+
+		std::string pos;
+		pos += "X = " + std::to_string((int)m_Position.x) + " Y = " + std::to_string((int)m_Position.y) + "\n";
+		OutputDebugStringA(pos.c_str());
 	}
 	void DxObject::Release()
 	{
 	}
-	void DxObject::Move()
-	{
 
-	}
-	Vector2 DxObject::ConvertScreenToNDC(Vector2& _pos)
+	Vector2& DxObject::ConvertScreenToNDC(Vector2& _pos)
 	{
 		// 0 ~ 800 -> 0 ~ 1
 		_pos.x = _pos.x / g_Width;
@@ -74,16 +93,57 @@ namespace Js
 		// 0 ~ 1 -> -1 ~ 1
 		Vector2 ret;
 		ret.x = _pos.x * 2.0f - 1.0f;
-
-		return Vector2();
+		ret.y = -(_pos.y * 2.0f - 1.0f);
+		
+		// -1 ~ 1  -> 0 ~ +1
+		/*v.X = v.X * 0.5f + 0.5f;
+		v.Y = v.Y * 0.5f + 0.5f;*/
+		return ret;
 	}
-	void DxObject::CreateGeometry()
+
+	void DxObject::CreateObject(const Vector2& _pos, const std::wstring& _texName)
+	{
+		m_Position = _pos;
+		JsRect rt = { (_pos.x - (100 * .5f)), (_pos.y - (100 * .5f)), 100, 100 };
+
+		CreateGeometry(rt);
+		CreateVertexBuffer();
+		CreateIndexBuffer();
+		CreateVS();
+		CreateInputLayout();
+		CreatePS();
+
+		CreateRasterizerState();
+		CreateSRV(_texName);
+	}
+
+	DxObject& DxObject::Move(float _dx, float _dy)
+	{
+
+		for (auto& pos : m_Vertices)
+		{
+			pos.position += { _dx, _dy };
+		}
+		m_Position = { _dx, _dy };
+
+		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
+			[&](VertexData& _data)
+			{
+				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
+			});
+
+		m_Context->UpdateSubresource(m_VertexBuffer.Get(), 0, NULL, m_NdcVertices.data(), 0, 0);
+
+		return *this;
+	}
+	void DxObject::CreateGeometry(JsRect& _rect)
 	{
 		m_Vertices.resize(4);
-		m_Vertices[0].position = Vector2(-1.f, -1.f);
-		m_Vertices[1].position = Vector2(-1.f, 1.f);
-		m_Vertices[2].position = Vector2(1.f, -1.f);
-		m_Vertices[3].position = Vector2(1.f, 1.f);
+		m_NdcVertices.resize(4);
+		m_Vertices[0].position = Vector2(_rect.x, _rect.y + _rect.h);
+		m_Vertices[1].position = Vector2(_rect.x, _rect.y);
+		m_Vertices[2].position = Vector2(_rect.x + _rect.w, _rect.y +_rect.h);
+		m_Vertices[3].position = Vector2(_rect.x + _rect.w, _rect.y);
 
 		m_Vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_Vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -100,17 +160,23 @@ namespace Js
 		//m_Vertices[1].texture = Vector2(1.0f, 0.0f); 
 		//m_Vertices[2].texture = Vector2(0.0f, 1.0f); 
 		//m_Vertices[3].texture = Vector2(0.0f, 0.0f); 
+
+		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
+			[&](VertexData& _data)
+			{
+				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
+			});
 	}
 	void DxObject::CreateVertexBuffer()
 	{
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = (UINT)sizeof(VertexData) * m_Vertices.size();
+		desc.ByteWidth = (UINT)sizeof(VertexData) * m_NdcVertices.size();
 
 		D3D11_SUBRESOURCE_DATA data;
 		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
-		data.pSysMem = m_Vertices.data();
+		data.pSysMem = m_NdcVertices.data();
 
 		HRESULT hr = m_Device->CreateBuffer(&desc, &data, m_VertexBuffer.GetAddressOf());
 
@@ -219,11 +285,11 @@ namespace Js
 	void DxObject::CreateBlendState()
 	{
 	}
-	void DxObject::CreateSRV()
+	void DxObject::CreateSRV(const std::wstring& _texName)
 	{
 		HRESULT hr = 
 			CreateWICTextureFromFile(m_Device.Get(),
-									L"¿øÈñ.png",
+									_texName.c_str(),
 									m_Texture.GetAddressOf(),
 									m_ShaderResourceView.GetAddressOf());
 		CHECK(hr);
