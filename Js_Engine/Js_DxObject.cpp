@@ -121,8 +121,6 @@ namespace Js
 
 	DxObject& DxObject::Move(float _dx, float _dy)
 	{ 
-		//m_Position += { _dx, _dy };
-
 		for (auto& pos : m_Vertices)
 		{
 			pos.position += { _dx, _dy };
@@ -169,7 +167,6 @@ namespace Js
 			{
 				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
 			});
-		int a = 0;
 	}
 	void DxObject::CreateVertexBuffer()
 	{

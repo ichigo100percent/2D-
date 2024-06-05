@@ -10,7 +10,7 @@ namespace Js
 	float Time::GameTimeTick = 0.0f;
 	float Time::SecondTime = 0.0f;
 	int   Time::FPS = 0;
-	int	  Time::dw_FPS = 0;
+	DWORD  Time::dw_FPS = {};
 
 	void Time::Init()
 	{
@@ -44,10 +44,9 @@ namespace Js
 		PrevFrequency.QuadPart = CurrentFrequency.QuadPart;
 
 		TCHAR msgKey[MAX_PATH] = { 0, };
-		int firstTwoDigits = dw_FPS / 100;
 		_stprintf_s(msgKey,
-			L"FPS=%d		GameTimer=%0.1f\n",
-			firstTwoDigits, (float)GameTimeTick);
+			L"FPS=%ld	    GameTimer=%0.1f\n",
+			dw_FPS, (float)GameTimeTick);
 		m_csBuffer = msgKey;
 	}
 }

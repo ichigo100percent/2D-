@@ -22,7 +22,7 @@ namespace Js
 		static float GameTimeTick;
 		static float SecondTime;
 		static int FPS;
-		static int dw_FPS;
+		static DWORD dw_FPS;
 	};
 }
 
