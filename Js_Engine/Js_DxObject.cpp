@@ -57,23 +57,23 @@ namespace Js
 	}
 	void DxObject::Update()
 	{
-		//float speed = 100 * Time::DeltaTime();
-		//if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-		//{
-		//	Move(0, -speed);
-		//}
-		//if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-		//{
-		//	Move(0, speed);
-		//}
-		//if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-		//{
-		//	Move(-speed, 0);
-		//}
-		//if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-		//{
-		//	Move(speed, 0);
-		//}
+		float speed = 100 * Time::DeltaTime();
+		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+		{
+			Move(0, -speed);
+		}
+		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
+		{
+			Move(0, speed);
+		}
+		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
+		{
+			Move(-speed, 0);
+		}
+		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
+		{
+			Move(speed, 0);
+		}
 
 		std::string pos;
 		pos += "X = " + std::to_string((int)m_Position.x) + " Y = " + std::to_string((int)m_Position.y) + "\n";
@@ -83,21 +83,23 @@ namespace Js
 	{
 	}
 
-	Vector2& DxObject::ConvertScreenToNDC(Vector2& _pos)
+	Vector2& DxObject::ConvertScreenToNDC(const Vector2& _pos)
 	{
+		// 스크린 좌표계를 NDC 좌표계로 변환
 		// 0 ~ 800 -> 0 ~ 1
-		_pos.x = _pos.x / g_Width;
-		_pos.y = _pos.y / g_Height;
-		
+		float normalizedX = _pos.x / g_Width;
+		float normalizedY = _pos.y / g_Height;
+
 		// NDC 좌표계
 		// 0 ~ 1 -> -1 ~ 1
 		Vector2 ret;
-		ret.x = _pos.x * 2.0f - 1.0f;
-		ret.y = -(_pos.y * 2.0f - 1.0f);
-		
-		// -1 ~ 1  -> 0 ~ +1
-		/*v.X = v.X * 0.5f + 0.5f;
-		v.Y = v.Y * 0.5f + 0.5f;*/
+		ret.x = normalizedX * 2.0f - 1.0f;
+		ret.y = -(normalizedY * 2.0f - 1.0f);
+
+		// -1 ~ 1  -> 0 ~ +1 (이 부분은 필요에 따라 주석 해제)
+		// ret.x = ret.x * 0.5f + 0.5f;
+		// ret.y = ret.y * 0.5f + 0.5f;
+
 		return ret;
 	}
 
@@ -118,13 +120,14 @@ namespace Js
 	}
 
 	DxObject& DxObject::Move(float _dx, float _dy)
-	{
+	{ 
+		//m_Position += { _dx, _dy };
 
 		for (auto& pos : m_Vertices)
 		{
 			pos.position += { _dx, _dy };
 		}
-		m_Position = { _dx, _dy };
+		m_Position += { _dx, _dy };
 
 		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
 			[&](VertexData& _data)
@@ -162,10 +165,11 @@ namespace Js
 		//m_Vertices[3].texture = Vector2(0.0f, 0.0f); 
 
 		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
-			[&](VertexData& _data)
+			[&](const VertexData& _data)
 			{
 				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
 			});
+		int a = 0;
 	}
 	void DxObject::CreateVertexBuffer()
 	{

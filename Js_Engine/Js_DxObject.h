@@ -14,7 +14,7 @@ namespace Js
 		virtual void Release();
 
 		virtual DxObject& Move(float _dx, float _dy);
-		Vector2& ConvertScreenToNDC(Vector2& _pos);
+		Vector2& ConvertScreenToNDC(const Vector2& _pos);
 
 		virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
 
