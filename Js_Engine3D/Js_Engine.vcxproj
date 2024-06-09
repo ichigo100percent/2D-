@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{642596B5-1280-42AC-802E-400EB616EE62}</ProjectGuid>
+    <ProjectGuid>{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}</ProjectGuid>
     <RootNamespace>JsEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Js_Engine3D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>../../output/</OutDir>
-    <IntDir>../../output/Js_Engine</IntDir>
+    <IntDir>../../output/Js_Engine3D</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,12 +110,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../../library/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../library/include;../../DxTk/Incldue/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../../library/lib;../../DxTk/lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,28 +136,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_Core.h" />
     <ClInclude Include="Js_Device.h" />
     <ClInclude Include="Js_DxObject.h" />
     <ClInclude Include="Js_DxWrite.h" />
     <ClInclude Include="Js_Engine.h" />
+    <ClInclude Include="Js_GameObject.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_Window.h" />
+    <ClInclude Include="macro.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="std.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="type.h" />
+    <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Js_Core.cpp" />
     <ClCompile Include="Js_Device.cpp" />
     <ClCompile Include="Js_DxObject.cpp" />
     <ClCompile Include="Js_DxWrite.cpp" />
+    <ClCompile Include="Js_GameObject.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc" />
@@ -167,6 +180,16 @@
   <ItemGroup>
     <Text Include="PS.txt" />
     <Text Include="VS.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

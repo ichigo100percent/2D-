@@ -5,9 +5,13 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.vcxproj", "{D7984606-5662-481E-9769-12977D750B6A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GAME_ENGINE", "GAME_ENGINE", "{F44B8C28-B97E-451C-BDCD-A94E7E052953}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GAME_ENGINE2D", "GAME_ENGINE2D", "{F44B8C28-B97E-451C-BDCD-A94E7E052953}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Js_Engine", "Js_Engine\Js_Engine.vcxproj", "{21E71E0E-D03D-488A-A17C-A30BD70D8CB9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Js_Engine2D", "Js_Engine\Js_Engine.vcxproj", "{21E71E0E-D03D-488A-A17C-A30BD70D8CB9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Js_Engine3D", "Js_Engine3D\Js_Engine.vcxproj", "{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GAME_ENGINE3D", "GAME_ENGINE3D", "{6254BB3A-2D92-4C0C-98A3-C53178480410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,12 +37,21 @@ Global
 		{21E71E0E-D03D-488A-A17C-A30BD70D8CB9}.Release|x64.Build.0 = Release|x64
 		{21E71E0E-D03D-488A-A17C-A30BD70D8CB9}.Release|x86.ActiveCfg = Release|Win32
 		{21E71E0E-D03D-488A-A17C-A30BD70D8CB9}.Release|x86.Build.0 = Release|Win32
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Debug|x64.ActiveCfg = Debug|x64
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Debug|x64.Build.0 = Debug|x64
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Debug|x86.ActiveCfg = Debug|Win32
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Debug|x86.Build.0 = Debug|Win32
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Release|x64.ActiveCfg = Release|x64
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Release|x64.Build.0 = Release|x64
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Release|x86.ActiveCfg = Release|Win32
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{21E71E0E-D03D-488A-A17C-A30BD70D8CB9} = {F44B8C28-B97E-451C-BDCD-A94E7E052953}
+		{6E94DDD3-52DF-437A-8CD8-5245B4E9B5AA} = {6254BB3A-2D92-4C0C-98A3-C53178480410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F232A228-31F4-4348-919C-2542C962F4EF}

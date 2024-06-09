@@ -7,14 +7,22 @@ namespace Js
 	{
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
+		virtual ~DxObject();
 
 		virtual void Init(JsRect& _rect, const std::wstring& _texName);
 		virtual void Render();
 		virtual void Update();
 		virtual void Release();
 
+		void test();
+		DxObject& test1();
+		float m_angle = 0.0f;
+		float m_length = 100.0f;
+		
 		virtual DxObject& Move(float _dx, float _dy);
 		Vector2& ConvertScreenToNDC(const Vector2& _pos);
+		//void SetRect(const JsRect& _rt) { m_Rect = _rt; }
+		//JsRect GetRect() { return m_Rect; }
 
 		virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
 
@@ -37,13 +45,15 @@ namespace Js
 		virtual void CreateBlendState();
 
 		virtual void CreateConstantBuffer();
-	private:
+	public:
 		ComPtr<ID3D11Device>	     m_Device;
 		ComPtr<ID3D11DeviceContext>  m_Context;
+	protected:
 
 
 		std::vector<VertexData>      m_NdcVertices;
 		Vector2						 m_Position;
+		JsRect						 m_Rect;
 		// VS
 		std::vector<VertexData>		 m_Vertices;
 		ComPtr<ID3D11Buffer>		 m_VertexBuffer;
@@ -53,10 +63,7 @@ namespace Js
 		// Constant SRT
 		TransformData				 m_TransformData;
 		ComPtr<ID3D11Buffer>		 m_ConstantBuffer;
-
 		ComPtr<ID3D11InputLayout>	 m_InputLayout;
-
-
 		// PS
 		ComPtr<ID3D11VertexShader>	 m_VertexShader;
 		ComPtr<ID3D11PixelShader>	 m_PixelShader;
@@ -69,7 +76,7 @@ namespace Js
 		ComPtr<ID3D11SamplerState>    m_SamplerState;
 		// Blend
 		ComPtr<ID3D11BlendState>      m_BlendState;
-		// SRV
+		// ShaderResourceView
 		// 렌더링 파이브라인(픽셀쉐이더)에 전송 데이터
 		ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView;
 		// 텍스처(이미지) 로드 데이터

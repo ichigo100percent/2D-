@@ -97,35 +97,6 @@ namespace Js
 		{
 			DebugPrint('A');
 		}
-
-		//if (g_dwKeyState[VK_LBUTTON] == KEY_PUSH)
-		//{
-		//	DebugPrint(VK_LBUTTON);
-		//}
-		//if (g_dwKeyState[VK_RBUTTON] == KEY_PUSH)
-		//{
-		//	DebugPrint(VK_RBUTTON);
-		//}
-		//if (g_dwKeyState[VK_MBUTTON] == KEY_PUSH)
-		//{
-		//	DebugPrint(VK_MBUTTON);
-		//}
-		//if (g_dwKeyState['W'] == KEY_PUSH)
-		//{
-		//	DebugPrint('W');
-		//}
-		//if (g_dwKeyState['S'] == KEY_PUSH)
-		//{
-		//	DebugPrint('S');
-		//}
-		//if (g_dwKeyState['A'] == KEY_PUSH)
-		//{
-		//	DebugPrint('A');
-		//}
-		//if (g_dwKeyState['D'] == KEY_PUSH)
-		//{
-		//	DebugPrint('D');
-		//}	
 	}
 	DWORD   Input::KeyCheck(DWORD dwKey)
 	{

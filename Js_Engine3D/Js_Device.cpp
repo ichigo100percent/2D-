@@ -12,6 +12,9 @@ namespace Js
 	{
 
 	}
+	Device::~Device()
+	{
+	}
 	void Device::CreateDevice()
 	{
 		CreateDeviceAndSwapChain();
@@ -28,11 +31,15 @@ namespace Js
 			desc.BufferDesc.RefreshRate.Numerator = 60;
 			desc.BufferDesc.RefreshRate.Denominator = 1;
 			desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+			desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 			desc.SampleDesc.Count = 1;
+			desc.SampleDesc.Quality = 0;
 			desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 			desc.BufferCount = 1;
 			desc.OutputWindow = m_Hwnd;
 			desc.Windowed = true;
+			desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 		}
 
 		// dwrite 연동에 필요
@@ -115,7 +122,7 @@ namespace Js
 	}
 	void Device::PostRender()
 	{
-		HRESULT hr = m_SwapChain->Present(0, 0);
+		HRESULT hr = m_SwapChain->Present(1, 0);
 		CHECK(hr);
 	}
 }

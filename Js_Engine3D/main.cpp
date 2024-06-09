@@ -2,24 +2,22 @@
 #include "Js_Core.h"
 #include "Js_DxObject.h"
 
-
 using namespace Js;
 
 class Sample : public Core
 {
 public:
-    Sample()
-    {
-    }
+    Sample() {}
+    ~Sample() {}
 
     void Init() override
     {
-        obj = std::make_shared<DxObject>(GetDevice(), GetContext());
-        obj->Init();
+        obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
+        obj->CreateObject(L"dopa.jpg");
     }
     void Update() override
     {
-
+        obj->Update();
     }
     void Render() override
     {
@@ -29,11 +27,11 @@ public:
     {
 
     }
-
 private:
     std::shared_ptr<DxObject> obj;
 };
 
+GAME_START(g_Width, g_Height);
 
 //int WINAPI wWinMain(HINSTANCE hInstance,
 //    HINSTANCE hPrevInstance,
@@ -48,5 +46,3 @@ private:
 //    }
 //    return 0;
 //};
-
-GAME_START(g_Width, g_Height);

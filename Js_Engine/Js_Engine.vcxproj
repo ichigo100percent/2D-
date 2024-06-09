@@ -24,6 +24,7 @@
     <ProjectGuid>{21e71e0e-d03d-488a-a17c-a30bd70d8cb9}</ProjectGuid>
     <RootNamespace>JsEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Js_Engine2D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -142,6 +143,7 @@
     <ClInclude Include="Js_DxObject.h" />
     <ClInclude Include="Js_DxWrite.h" />
     <ClInclude Include="Js_Engine.h" />
+    <ClInclude Include="Js_GameObject.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_Window.h" />
@@ -160,6 +162,7 @@
     <ClCompile Include="Js_Device.cpp" />
     <ClCompile Include="Js_DxObject.cpp" />
     <ClCompile Include="Js_DxWrite.cpp" />
+    <ClCompile Include="Js_GameObject.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_Window.cpp" />

@@ -16,6 +16,9 @@ namespace Js
 		m_PSBlob(nullptr)
 	{
 	}
+	DxObject::~DxObject()
+	{
+	}
 	void DxObject::Init(JsRect& _rect, const std::wstring& _texName)
 	{
 		CreateGeometry(_rect);

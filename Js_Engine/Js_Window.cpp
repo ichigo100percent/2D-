@@ -1,5 +1,7 @@
 #include "Js_Window.h"
+
 Js::Window* g_pWindow = nullptr;
+
 namespace Js
 {
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

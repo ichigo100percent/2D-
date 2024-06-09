@@ -7,8 +7,10 @@ namespace Js
 	{
 	public:
 		Device();
+		virtual ~Device();
 
 		void CreateDevice();
+
 		void CreateDeviceAndSwapChain();
 		void CreateRenderTargetView();
 		void SetViewport();
@@ -16,8 +18,8 @@ namespace Js
 		void PreRender();
 		void PostRender();
 
-		ComPtr<ID3D11Device> GetDevice() { return m_Device; }
-		ComPtr<ID3D11DeviceContext> GetContext() { return m_Context; }
+		const ComPtr<ID3D11Device> GetDevice() const { return m_Device; } 
+		const ComPtr<ID3D11DeviceContext> GetContext() const { return m_Context; } 
 
 	protected:
 		ComPtr<ID3D11Device>			m_Device;

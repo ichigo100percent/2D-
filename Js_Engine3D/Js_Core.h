@@ -8,6 +8,7 @@ namespace Js
 	{
 	public:
 		Core();
+		virtual ~Core();
 
 		virtual void Init();
 		virtual void Update();
@@ -21,6 +22,6 @@ namespace Js
 		bool EngineRelease();
 
 	private:
-		class DxWrite wf;
+		DxWrite wf;
 	};
 }

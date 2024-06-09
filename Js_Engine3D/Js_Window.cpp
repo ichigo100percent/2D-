@@ -1,5 +1,7 @@
 #include "Js_Window.h"
+
 Js::Window* g_pWindow = nullptr;
+
 namespace Js
 {
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -36,6 +38,9 @@ namespace Js
 	{
 		g_pWindow = this;
 	}
+	Window::~Window()
+	{
+	}
 	void Window::CreateRegisterClass(HINSTANCE _hInstance)
 	{
 		WNDCLASS wc = { };
@@ -50,6 +55,9 @@ namespace Js
 
 	bool Window::CreateWin(HINSTANCE _hInstance, const int& _width, const int& _height)
 	{
+		RECT rt = { 0,0, _width, _height };
+		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
+
 		CreateRegisterClass(_hInstance);
 		// 윈도우 클래스 생성
 		HWND hwnd = CreateWindowEx(0
@@ -58,8 +66,8 @@ namespace Js
 			, WS_OVERLAPPEDWINDOW
 			, CW_USEDEFAULT
 			, 0
-			, _width
-			, _height
+			, rt.right - rt.left
+			, rt.bottom - rt.top
 			, NULL
 			, NULL
 			, m_HInstance
