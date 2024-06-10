@@ -1,8 +1,16 @@
 ﻿#include "std.h"
 #include "Js_Core.h"
-//#include "Js_DxObject.h"
+#include "Js_Actor.h"
 #include "Js_GameObject.h"
 using namespace Js;
+
+class Hero : public DxObject
+{
+public:
+    
+private:
+     
+};
 
 class Sample : public Core
 {
@@ -12,20 +20,23 @@ public:
 
     void Init() override
     {
-        obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
-        bg = std::make_shared<GameObject>(GetDevice(), GetContext(), L"BackGround");
-        obj->CreateObject(Vector2(400, 300), L"dopa.jpg");
-        bg->CreateObject(Vector2(0, 0), L"paka.jpg");
+        //obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
+        //obj->CreateObject(Vector2(400, 300), L"dopa.jpg");
+        //bg = std::make_shared<GameObject>(GetDevice(), GetContext(), L"BackGround");
+        //bg->CreateObject(Vector2(0, 0), L"paka.jpg");
+        player = std::make_shared<Actor>(GetDevice(), GetContext());
+        player->CreateObject(Vector2(400, 300), L"dopa.jpg");
     }
     void Update() override
     {
-        obj->Update();
-
+        //obj->Update();
+        player->Update();
     }
     void Render() override
     {
-        bg->Render();
-        obj->Render();
+        //obj->Render();
+        //bg->Render();
+        player->Render();
     }
     void Release() override
     {
@@ -34,6 +45,7 @@ public:
 private:
     std::shared_ptr<DxObject> obj;
     std::shared_ptr<GameObject> bg;
+    std::shared_ptr<Actor> player;
 };
 
 GAME_START(g_Width, g_Height);

@@ -115,6 +115,9 @@
     <ClInclude Include="Js_GameObject.h">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClInclude>
+    <ClInclude Include="Js_Actor.h">
+      <Filter>소스 파일\10. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc">
@@ -160,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="Js_GameObject.cpp">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Actor.cpp">
+      <Filter>소스 파일\10. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

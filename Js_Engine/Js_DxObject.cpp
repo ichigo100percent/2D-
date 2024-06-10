@@ -7,29 +7,11 @@ namespace Js
 	DxObject::DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name) :
 		Entity(_name),
 		m_Device(_device),
-		m_Context(_context),
-		m_VertexBuffer(nullptr),
-		m_InputLayout(nullptr),
-		m_VertexShader(nullptr),
-		m_PixelShader(nullptr),
-		m_VSBlob(nullptr),
-		m_PSBlob(nullptr)
+		m_Context(_context)
 	{
 	}
 	DxObject::~DxObject()
 	{
-	}
-	void DxObject::Init(JsRect& _rect, const std::wstring& _texName)
-	{
-		CreateGeometry(_rect);
-		CreateVertexBuffer();
-		CreateIndexBuffer();
-		CreateVS();
-		CreateInputLayout();
-		CreatePS();
-
-		CreateRasterizerState();
-		CreateSRV(_texName);
 	}
 	void DxObject::Render()
 	{
@@ -60,32 +42,7 @@ namespace Js
 	}
 	void DxObject::Update()
 	{
-		float speed = 100 * Time::DeltaTime();
-		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-		{
-			Move(0, -speed);
-		}
-		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-		{
-			Move(0, speed);
-		}
-		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-		{
-			Move(-speed, 0);
-		}
-		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-		{
-			Move(speed, 0);
-		}
-
-		std::string pos;
-		pos += "X = " + std::to_string((int)m_Position.x) + " Y = " + std::to_string((int)m_Position.y) + "\n";
-		OutputDebugStringA(pos.c_str());
 	}
-	void DxObject::Release()
-	{
-	}
-
 	Vector2& DxObject::ConvertScreenToNDC(const Vector2& _pos)
 	{
 		// 스크린 좌표계를 NDC 좌표계로 변환
@@ -106,40 +63,6 @@ namespace Js
 		return ret;
 	}
 
-	void DxObject::CreateObject(const Vector2& _pos, const std::wstring& _texName)
-	{
-		m_Position = _pos;
-		JsRect rt = { (_pos.x - (100 * .5f)), (_pos.y - (100 * .5f)), 100, 100 };
-
-		CreateGeometry(rt);
-		CreateVertexBuffer();
-		CreateIndexBuffer();
-		CreateVS();
-		CreateInputLayout();
-		CreatePS();
-
-		CreateRasterizerState();
-		CreateSRV(_texName);
-	}
-
-	DxObject& DxObject::Move(float _dx, float _dy)
-	{ 
-		for (auto& pos : m_Vertices)
-		{
-			pos.position += { _dx, _dy };
-		}
-		m_Position += { _dx, _dy };
-
-		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
-			[&](VertexData& _data)
-			{
-				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
-			});
-
-		m_Context->UpdateSubresource(m_VertexBuffer.Get(), 0, NULL, m_NdcVertices.data(), 0, 0);
-
-		return *this;
-	}
 	void DxObject::CreateGeometry(JsRect& _rect)
 	{
 		m_Vertices.resize(4);

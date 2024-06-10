@@ -8,19 +8,4 @@ namespace Js
 		: DxObject(_device, _context, _name)
 	{
 	}
-	void GameObject::CreateObject(const Vector2& _pos, const std::wstring& _texName)
-	{
-		m_Position = _pos;
-		JsRect rt = { 0, 0, g_Width, g_Height };
-
-		CreateGeometry(rt);
-		CreateVertexBuffer();
-		CreateIndexBuffer();
-		CreateVS();
-		CreateInputLayout();
-		CreatePS();
-
-		CreateRasterizerState();
-		CreateSRV(_texName);
-	}
 }

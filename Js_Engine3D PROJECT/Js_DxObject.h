@@ -31,40 +31,40 @@ namespace Js
 
 		void CreateConstantBuffer();
 
-		void LoadShaderFromFile(const wstring& path, const string& name, const string& version, ComPtr<ID3DBlob>& blob);
+		void LoadShaderFromFile(const wstring& _path, const string& _name, const string& _version, ComPtr<ID3DBlob>& _blob);
 	protected:
-		ComPtr<ID3D11Device> _device = nullptr;
-		ComPtr<ID3D11DeviceContext> _deviceContext = nullptr;
+		ComPtr<ID3D11Device> m_Device = nullptr;
+		ComPtr<ID3D11DeviceContext> m_Context = nullptr;
 
 		// Geometry
-		vector<VertexData> _vertices;
-		ComPtr<ID3D11Buffer> _vertexBuffer = nullptr;
-		vector<UINT> _indices;
-		ComPtr<ID3D11Buffer> _indexBuffer = nullptr;
+		vector<VertexData> m_Vertices;
+		ComPtr<ID3D11Buffer> m_VertexBuffer = nullptr;
+		vector<UINT> m_Indices;
+		ComPtr<ID3D11Buffer> m_IndexBuffer = nullptr;
 		ComPtr<ID3D11InputLayout> _inputLayout = nullptr;
 
 		// VS
-		ComPtr<ID3D11VertexShader> _vertexShader = nullptr;
-		ComPtr<ID3DBlob> _vsBlob = nullptr;
+		ComPtr<ID3D11VertexShader> m_VertexShader = nullptr;
+		ComPtr<ID3DBlob> m_VsBlob = nullptr;
 
 		// RS
 		ComPtr<ID3D11RasterizerState> _rasterizerState = nullptr;
 
 		// PS
-		ComPtr<ID3D11PixelShader> _pixelShader = nullptr;
-		ComPtr<ID3DBlob> _psBlob = nullptr;
+		ComPtr<ID3D11PixelShader> m_PixelShader = nullptr;
+		ComPtr<ID3DBlob> m_PsBlob = nullptr;
 
 		// SRV
-		ComPtr<ID3D11ShaderResourceView> _shaderResourveView = nullptr;
+		ComPtr<ID3D11ShaderResourceView> m_ShaderResourveView = nullptr;
 
 
-		ComPtr<ID3D11SamplerState> _samplerState = nullptr;
-		ComPtr<ID3D11BlendState> _blendState = nullptr;
+		ComPtr<ID3D11SamplerState> m_SamplerState = nullptr;
+		ComPtr<ID3D11BlendState> m_BlendState = nullptr;
 		// [ CPU<->RAM ] [GPU<->VRAM]
 	private:
 		// SRT
-		TransformData _transformData;
-		ComPtr<ID3D11Buffer> _constantBuffer;
+		TransformData m_TransformData;
+		ComPtr<ID3D11Buffer> m_ConstantBuffer;
 	};
 }
 

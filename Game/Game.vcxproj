@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{21e71e0e-d03d-488a-a17c-a30bd70d8cb9}</ProjectGuid>
-    <RootNamespace>JsEngine</RootNamespace>
+    <ProjectGuid>{3644695f-1288-46d7-ba37-ec8a3e13a71c}</ProjectGuid>
+    <RootNamespace>Game</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Js_Engine2D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -73,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>../../output/</OutDir>
-    <IntDir>../../output/Js_Engine</IntDir>
+    <IntDir>../../output/Game/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,13 +109,12 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../../library/include;../../DxTk/Incldue/</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../library/lib;../../DxTk/lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,62 +134,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Js_Actor.h" />
-    <ClInclude Include="Js_Core.h" />
-    <ClInclude Include="Js_Device.h" />
-    <ClInclude Include="Js_DxObject.h" />
-    <ClInclude Include="Js_DxWrite.h" />
-    <ClInclude Include="Js_Engine.h" />
-    <ClInclude Include="Js_GameObject.h" />
-    <ClInclude Include="Js_Input.h" />
-    <ClInclude Include="Js_Time.h" />
-    <ClInclude Include="Js_Window.h" />
-    <ClInclude Include="macro.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneMgr.h" />
-    <ClInclude Include="std.h" />
-    <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="type.h" />
-    <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Js_Actor.cpp" />
-    <ClCompile Include="Js_Core.cpp" />
-    <ClCompile Include="Js_Device.cpp" />
-    <ClCompile Include="Js_DxObject.cpp" />
-    <ClCompile Include="Js_DxWrite.cpp" />
-    <ClCompile Include="Js_GameObject.cpp" />
-    <ClCompile Include="Js_Input.cpp" />
-    <ClCompile Include="Js_Time.cpp" />
-    <ClCompile Include="Js_Window.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Js_Engine.rc" />
+    <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Js_Engine.ico" />
+    <Image Include="Game.ico" />
     <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="PS.txt" />
-    <Text Include="VS.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Default.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

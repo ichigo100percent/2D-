@@ -9,22 +9,12 @@ namespace Js
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 		virtual ~DxObject();
 
-		virtual void Init(JsRect& _rect, const std::wstring& _texName);
-		virtual void Render();
 		virtual void Update();
-		virtual void Release();
-
-		void test();
-		DxObject& test1();
-		float m_angle = 0.0f;
-		float m_length = 100.0f;
-		
-		virtual DxObject& Move(float _dx, float _dy);
+		virtual void Render();
+	
+		//virtual DxObject& Move(float _dx, float _dy);
 		Vector2& ConvertScreenToNDC(const Vector2& _pos);
-		//void SetRect(const JsRect& _rt) { m_Rect = _rt; }
-		//JsRect GetRect() { return m_Rect; }
-
-		virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
+		//virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
 
 		// Graphics
 		virtual void CreateGeometry(JsRect& _rect);
@@ -52,8 +42,6 @@ namespace Js
 
 
 		std::vector<VertexData>      m_NdcVertices;
-		Vector2						 m_Position;
-		JsRect						 m_Rect;
 		// VS
 		std::vector<VertexData>		 m_Vertices;
 		ComPtr<ID3D11Buffer>		 m_VertexBuffer;
