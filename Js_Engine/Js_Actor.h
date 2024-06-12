@@ -16,5 +16,6 @@ namespace Js
 
 	protected:
 		Vector2						 m_Position{};
+		JsRect						 m_Rt;
 	};
 }

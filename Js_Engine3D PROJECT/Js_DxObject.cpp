@@ -9,7 +9,7 @@ namespace Js
 		m_Device(_device), 
 		m_Context(_context)
 	{
-
+		
 	}
 	DxObject::~DxObject()
 	{
@@ -47,20 +47,29 @@ namespace Js
 		// Scale Rotation Translation
 		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
 		{
-			m_TransformData.offset.y += speed;
+			m_LocalPosition.y += speed;
 		}
 		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
 		{
-			m_TransformData.offset.y -= speed;
+			m_LocalPosition.y -= speed;
 		}
 		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
 		{
-			m_TransformData.offset.x -= speed;
+			m_LocalPosition.x -= speed;
 		}
 		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
 		{
-			m_TransformData.offset.x += speed;
+			m_LocalPosition.x += speed;
 		}
+	
+		Matrix matScale = Matrix::CreateScale(m_LocalScale / 3);
+		Matrix matRotation = Matrix::CreateRotationX(m_LocalRotation.x);
+		matRotation *= Matrix::CreateRotationY(m_LocalRotation.y);
+		matRotation *= Matrix::CreateRotationZ(m_LocalRotation.z);
+		Matrix matTranslation = Matrix::CreateTranslation(m_LocalPosition);
+
+		Matrix matWorld = matScale * matRotation * matTranslation; // SRT
+		m_TransformData.matWorld = matWorld;
 
 		D3D11_MAPPED_SUBRESOURCE subResource;
 		ZeroMemory(&subResource, sizeof(subResource));
@@ -70,7 +79,7 @@ namespace Js
 		m_Context->Unmap(m_ConstantBuffer.Get(), 0);
 
 		std::string pos; 
-		pos += std::to_string(m_TransformData.offset.x) + " " + to_string(m_TransformData.offset.y) + '\n';
+		pos += std::to_string(m_LocalPosition.x) + " " + to_string(m_LocalPosition.y) + '\n';
 		OutputDebugStringA(pos.c_str());
 	}
 	void DxObject::Release()

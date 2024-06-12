@@ -17,8 +17,7 @@ namespace Js
 
 		virtual void CreateObject(const std::wstring& _texName);
 
-
-	private:
+	protected:
 		void CreateGeometry();
 		void CreateInputLayout();
 		void CreateVS();
@@ -32,6 +31,7 @@ namespace Js
 		void CreateConstantBuffer();
 
 		void LoadShaderFromFile(const wstring& _path, const string& _name, const string& _version, ComPtr<ID3DBlob>& _blob);
+
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;
 		ComPtr<ID3D11DeviceContext> m_Context = nullptr;
@@ -61,10 +61,14 @@ namespace Js
 		ComPtr<ID3D11SamplerState> m_SamplerState = nullptr;
 		ComPtr<ID3D11BlendState> m_BlendState = nullptr;
 		// [ CPU<->RAM ] [GPU<->VRAM]
-	private:
+
 		// SRT
 		TransformData m_TransformData;
 		ComPtr<ID3D11Buffer> m_ConstantBuffer;
+
+		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
+		Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
+		Vector3 m_LocalScale = { 1.f, 1.f, 1.f };
 	};
 }
 

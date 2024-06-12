@@ -10,23 +10,6 @@ namespace Js
 	}
 	void Actor::Update()
 	{
-		//if (m_Position.x > g_Width)
-		//{
-		//	m_Position.x = -1;
-		//}
-		//if (m_Position.x < g_Width)
-		//{
-		//	m_Position.x = 1;
-		//}
-		//if (m_Position.y > g_Height)
-		//{
-		//	m_Position.y = -1;
-		//}
-		//if (m_Position.y < g_Height)
-		//{
-		//	m_Position.y = 1;
-		//}
-
 		float speed = 100 * Time::DeltaTime();
 		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
 		{
@@ -74,9 +57,9 @@ namespace Js
 	void Actor::CreateObject(const Vector2& _pos, const std::wstring& _texName)
 	{
 		m_Position = _pos;
-		JsRect rt = { (_pos.x - (100 * .5f)), (_pos.y - (100 * .5f)), 100, 100 };
+		m_Rt = { (_pos.x - (100 * .5f)), (_pos.y - (100 * .5f)), 100, 100 };
 
-		CreateGeometry(rt);
+		CreateGeometry(m_Rt);
 		CreateVertexBuffer();
 		CreateIndexBuffer();
 		CreateVS();

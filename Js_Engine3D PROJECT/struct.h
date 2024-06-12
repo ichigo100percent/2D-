@@ -19,8 +19,9 @@ struct VertexData
 
 struct TransformData
 {
-	Vector3 offset;
-	float dummy = 0;
+	Matrix matWorld = Matrix::Identity;
+	Matrix matView = Matrix::Identity;
+	Matrix matProjection = Matrix::Identity;
 };
 
 struct JsRect

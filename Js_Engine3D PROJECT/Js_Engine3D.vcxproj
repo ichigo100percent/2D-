@@ -144,6 +144,7 @@
     <ClInclude Include="Js_DxObject.h" />
     <ClInclude Include="Js_DxWrite.h" />
     <ClInclude Include="Js_Engine.h" />
+    <ClInclude Include="Js_GameObject.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_Window.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Js_Device.cpp" />
     <ClCompile Include="Js_DxObject.cpp" />
     <ClCompile Include="Js_DxWrite.cpp" />
+    <ClCompile Include="Js_GameObject.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_Window.cpp" />
