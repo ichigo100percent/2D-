@@ -139,6 +139,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_Actor.h" />
+    <ClInclude Include="Js_Camera.h" />
     <ClInclude Include="Js_Core.h" />
     <ClInclude Include="Js_Device.h" />
     <ClInclude Include="Js_DxObject.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Js_Actor.cpp" />
+    <ClCompile Include="Js_Camera.cpp" />
     <ClCompile Include="Js_Core.cpp" />
     <ClCompile Include="Js_Device.cpp" />
     <ClCompile Include="Js_DxObject.cpp" />

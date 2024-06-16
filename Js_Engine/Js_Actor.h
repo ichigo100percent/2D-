@@ -19,6 +19,8 @@ namespace Js
 
 		virtual void SetPos(Vector3& _pos);
 		virtual void SetPos(float& _dx, float& _dy);
+		void SetTransform(const Matrix& _mat);
+
 		virtual void SetWorld(const Matrix& _mat);
 		virtual void SetCenterMove(const Vector3& _pos);
 		virtual void SetScale(const Vector3& _scale);

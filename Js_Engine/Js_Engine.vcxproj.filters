@@ -118,6 +118,7 @@
     <ClInclude Include="Js_Actor.h">
       <Filter>소스 파일\10. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Js_Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc">
@@ -167,6 +168,7 @@
     <ClCompile Include="Js_Actor.cpp">
       <Filter>소스 파일\10. GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Js_Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PS.txt">

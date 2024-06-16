@@ -11,8 +11,8 @@ namespace Js
 	void Actor::Update()
 	{
 		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;
-
 		Transform(m_MatWorld);
+		m_Offset = Vector3::Zero;
 	}
 	void Actor::Render()
 	{
@@ -73,6 +73,15 @@ namespace Js
 	{
 		m_LocalPosition.x = _dx;
 		m_LocalPosition.y = _dy;
+	}
+	void Actor::SetTransform(const Matrix& _mat)
+	{
+		for (int i = 0; i < m_Vertices.size(); ++i)
+		{
+			m_List[i].position = Vector3::Transform(m_List[i].position, _mat);
+		}
+
+		UpdateVertexBuffer();
 	}
 	void Actor::SetWorld(const Matrix& _m)
 	{

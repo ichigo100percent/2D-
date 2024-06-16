@@ -20,7 +20,9 @@ struct VertexData
 
 struct ConstantBuffer
 {
-	DirectX::SimpleMath::Matrix worldMatrix;
+	Matrix mView;
+	Matrix mProjection;
+	Matrix mWorld;
 };
 
 struct TransformData
