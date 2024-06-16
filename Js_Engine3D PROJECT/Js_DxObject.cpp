@@ -65,7 +65,7 @@ namespace Js
 		Matrix matScale = Matrix::CreateScale(m_LocalScale / 3);
 		Matrix matRotation = Matrix::CreateRotationX(m_LocalRotation.x);
 		matRotation *= Matrix::CreateRotationY(m_LocalRotation.y);
-		matRotation *= Matrix::CreateRotationZ(m_LocalRotation.z);
+		matRotation *= Matrix::CreateRotationZ(Time::GetGameTime());
 		Matrix matTranslation = Matrix::CreateTranslation(m_LocalPosition);
 
 		Matrix matWorld = matScale * matRotation * matTranslation; // SRT

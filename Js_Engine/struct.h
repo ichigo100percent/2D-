@@ -10,12 +10,12 @@ class BaseCore
 
 struct VertexData
 {
-	Vector2 position;
+	Vector3 position;
 	Vector4 color;
 	Vector2 texture;
 
 	VertexData() = default;
-	VertexData(Vector2 _pos, Vector4 _col, Vector2 _tex) : position(_pos), color(_col), texture(_tex) {}
+	VertexData(Vector3 _pos, Vector4 _col, Vector2 _tex) : position(_pos), color(_col), texture(_tex) {}
 };
 
 struct ConstantBuffer

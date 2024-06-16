@@ -43,7 +43,20 @@ namespace Js
 	void DxObject::Update()
 	{
 	}
-	Vector2& DxObject::ConvertScreenToNDC(const Vector2& _pos)
+	void DxObject::UpdateVertexBuffer()
+	{
+		std::transform(std::begin(m_List), std::end(m_List), std::begin(m_NdcVertices),
+			[&](const VertexData& _data)
+			{
+				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
+			});
+
+		if (m_VertexBuffer != nullptr)
+		{
+			m_Context->UpdateSubresource(m_VertexBuffer.Get(), 0, NULL, m_NdcVertices.data(), 0, 0);
+		}
+	}
+	Vector3& DxObject::ConvertScreenToNDC(const Vector3& _pos)
 	{
 		// 스크린 좌표계를 NDC 좌표계로 변환
 		// 0 ~ 800 -> 0 ~ 1
@@ -52,10 +65,10 @@ namespace Js
 
 		// NDC 좌표계
 		// 0 ~ 1 -> -1 ~ 1
-		Vector2 ret;
+		Vector3 ret;
 		ret.x = normalizedX * 2.0f - 1.0f;
 		ret.y = -(normalizedY * 2.0f - 1.0f);
-
+		ret.z = 0;
 		// -1 ~ 1  -> 0 ~ +1 (이 부분은 필요에 따라 주석 해제)
 		// ret.x = ret.x * 0.5f + 0.5f;
 		// ret.y = ret.y * 0.5f + 0.5f;
@@ -63,14 +76,14 @@ namespace Js
 		return ret;
 	}
 
-	void DxObject::CreateGeometry(JsRect& _rect)
+	void DxObject::CreateGeometry(const RECT& _rect)
 	{
 		m_Vertices.resize(4);
-		m_NdcVertices.resize(4);
-		m_Vertices[0].position = Vector2(_rect.x, _rect.y + _rect.h);
-		m_Vertices[1].position = Vector2(_rect.x, _rect.y);
-		m_Vertices[2].position = Vector2(_rect.x + _rect.w, _rect.y +_rect.h);
-		m_Vertices[3].position = Vector2(_rect.x + _rect.w, _rect.y);
+		m_NdcVertices.resize(4);	   
+		m_Vertices[0].position = Vector3(_rect.left,_rect.bottom, 0);
+		m_Vertices[1].position = Vector3(_rect.left, _rect.top, 0);
+		m_Vertices[2].position = Vector3(_rect.right, _rect.bottom, 0);
+		m_Vertices[3].position = Vector3(_rect.right, _rect.top, 0);
 
 		m_Vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_Vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -88,11 +101,8 @@ namespace Js
 		//m_Vertices[2].texture = Vector2(0.0f, 1.0f); 
 		//m_Vertices[3].texture = Vector2(0.0f, 0.0f); 
 
-		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
-			[&](const VertexData& _data)
-			{
-				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
-			});
+		m_List = m_Vertices;
+		UpdateVertexBuffer();
 	}
 	void DxObject::CreateVertexBuffer()
 	{
@@ -131,9 +141,9 @@ namespace Js
 		const D3D11_INPUT_ELEMENT_DESC layout[] =
 		{
 			// RGBA = float 4개 
-			{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 8, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "TEXTURE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXTURE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 		const UINT count = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		HRESULT hr = m_Device->CreateInputLayout

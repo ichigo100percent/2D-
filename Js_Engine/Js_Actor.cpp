@@ -10,56 +10,49 @@ namespace Js
 	}
 	void Actor::Update()
 	{
-		float speed = 100 * Time::DeltaTime();
-		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-		{
-			Move(0, -speed);
-		}
-		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-		{
-			Move(0, speed);
-		}
-		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-		{
-			Move(-speed, 0);
-		}
-		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-		{
-			Move(speed, 0);
-		}
+		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;
 
-		std::string pos;
-		pos += "X = " + std::to_string((int)m_Position.x) + " Y = " + std::to_string((int)m_Position.y) + "\n";
-		OutputDebugStringA(pos.c_str());
+		Transform(m_MatWorld);
 	}
 	void Actor::Render()
 	{
 		DxObject::Render();
 	}
-	Actor& Actor::Move(float _dx, float _dy)
+	Actor& Actor::Move(float _dx, float _dy, float _dz)
 	{
-		for (auto& pos : m_Vertices)
-		{
-			pos.position += { _dx, _dy };
-		}
-		m_Position += { _dx, _dy };
+		Move(_dx, _dy, _dz);
+		return *this;
+	}
+	Actor& Actor::Move(Vector3 _direction)
+	{
+		Vector3 offset = _direction * 100 * Time::DeltaTime();
+		m_LocalPosition += offset;
+		m_Offset += offset;
 
-		std::transform(std::begin(m_Vertices), std::end(m_Vertices), std::begin(m_NdcVertices),
-			[&](VertexData& _data)
-			{
-				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
-			});
-
-		m_Context->UpdateSubresource(m_VertexBuffer.Get(), 0, NULL, m_NdcVertices.data(), 0, 0);
+		SetTranslate(m_LocalPosition);
+		m_Rt.left = m_List[1].position.x;
+		m_Rt.right = m_List[2].position.x;
+		m_Rt.top = m_List[1].position.y;
+		m_Rt.bottom = m_List[0].position.y;
 
 		return *this;
 	}
-	void Actor::CreateObject(const Vector2& _pos, const std::wstring& _texName)
+	void Actor::CreateGeometry(const RECT& _rect)
 	{
-		m_Position = _pos;
-		m_Rt = { (_pos.x - (100 * .5f)), (_pos.y - (100 * .5f)), 100, 100 };
+		DxObject::CreateGeometry(_rect);
+		// 사각형의 센터를 포지션으로
+		m_LocalPosition.x = (_rect.left + _rect.right) * 0.5f;
+		m_LocalPosition.y = (_rect.bottom + _rect.top) * 0.5f;
+		m_LocalPosition.z = 0;
 
-		CreateGeometry(m_Rt);
+		Vector3 Center = -m_LocalPosition;
+		SetCenterMove(Center);
+		SetTranslate(m_LocalPosition);
+		m_Rt = _rect;
+	}
+	void Actor::CreateObject(const RECT& _rt, const std::wstring& _texName)
+	{
+		CreateGeometry(_rt);
 		CreateVertexBuffer();
 		CreateIndexBuffer();
 		CreateVS();
@@ -68,5 +61,57 @@ namespace Js
 
 		CreateRasterizerState();
 		CreateSRV(_texName);
+	}
+	void Actor::SetPos(Vector3& _pos)
+	{
+		m_LocalPosition = _pos;
+		m_MatWorld._41 = m_LocalPosition.x;
+		m_MatWorld._42 = m_LocalPosition.y;
+		m_MatWorld._43 = m_LocalPosition.z;
+	}
+	void Actor::SetPos(float& _dx, float& _dy)
+	{
+		m_LocalPosition.x = _dx;
+		m_LocalPosition.y = _dy;
+	}
+	void Actor::SetWorld(const Matrix& _m)
+	{
+		m_MatWorld = _m;
+	}
+	void Actor::SetCenterMove(const Vector3& _pos)
+	{
+		m_MatCenter = Matrix::CreateTranslation(_pos);
+	}
+	void Actor::SetScale(const Vector3& _scale)
+	{
+		m_MatScale = Matrix::CreateScale(_scale);
+	}
+	void Actor::SetRotate(float& _rotate)
+	{
+		// x -> y -> z 순서
+		m_MatRotate = Matrix::CreateRotationZ(_rotate);
+	}
+	void Actor::SetTranslate(const Vector3& _pos)
+	{
+		m_MatTranslate = Matrix::CreateTranslation(_pos);		
+	}
+	Actor& Actor::Transform(Matrix& _m)
+	{
+		for (int i = 0; i < m_Vertices.size(); i++)
+		{
+			m_List[i].position = Vector3::Transform(m_Vertices[i].position, _m);
+		}
+		UpdateVertexBuffer();
+		return *this;
+	}
+	Actor& Actor::Transform()
+	{
+		for (int i = 0; i < m_Vertices.size(); i++)
+		{
+			m_List[i].position = Vector3::Transform(m_Vertices[i].position, m_MatWorld);
+		}
+		UpdateVertexBuffer();
+
+		return *this;
 	}
 }

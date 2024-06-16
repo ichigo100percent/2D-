@@ -12,12 +12,11 @@ namespace Js
 		virtual void Update();
 		virtual void Render();
 	
-		//virtual DxObject& Move(float _dx, float _dy);
-		Vector2& ConvertScreenToNDC(const Vector2& _pos);
-		//virtual void CreateObject(const Vector2& _pos, const std::wstring& _texName);
+		virtual void UpdateVertexBuffer();
+		Vector3& ConvertScreenToNDC(const Vector3& _pos);
 
 		// Graphics
-		virtual void CreateGeometry(JsRect& _rect);
+		virtual void CreateGeometry(const RECT& _rect);
 		virtual void CreateVertexBuffer();
 		virtual void CreateIndexBuffer();
 		virtual void CreateInputLayout();
@@ -41,9 +40,10 @@ namespace Js
 	protected:
 
 
+		std::vector<VertexData>		 m_Vertices;
+		std::vector<VertexData>      m_List;
 		std::vector<VertexData>      m_NdcVertices;
 		// VS
-		std::vector<VertexData>		 m_Vertices;
 		ComPtr<ID3D11Buffer>		 m_VertexBuffer;
 		// Index
 		std::vector<UINT>			 m_Indices;

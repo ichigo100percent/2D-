@@ -2,15 +2,11 @@
 #include "Js_Core.h"
 #include "Js_Actor.h"
 #include "Js_GameObject.h"
+#include "Js_Time.h"
+#include "Js_Input.h"
+
 using namespace Js;
 
-class Hero : public DxObject
-{
-public:
-    
-private:
-     
-};
 
 class Sample : public Core
 {
@@ -20,22 +16,51 @@ public:
 
     void Init() override
     {
-        //obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
-        //obj->CreateObject(Vector2(400, 300), L"dopa.jpg");
-        //bg = std::make_shared<GameObject>(GetDevice(), GetContext(), L"BackGround");
-        //bg->CreateObject(Vector2(0, 0), L"paka.jpg");
+        RECT rt = { 0, 0, 100, 100 };
         player = std::make_shared<Actor>(GetDevice(), GetContext());
-        player->CreateObject(Vector2(400, 300), L"dopa.jpg");
+        player->CreateObject(rt, L"dopa.jpg");
     }
     void Update() override
     {
-        //obj->Update();
+        //Vector3 scale = { cos(Time::GetGameTime()) * 0.5f + 0.5f,
+        //                  cos(Time::GetGameTime()) * 0.5f + 0.5f, 
+        //                  0 };
+        //Vector3 center = { - 400, -300 , 0 };
+
+
+        //Matrix matCenter = Matrix::CreateTranslation(center);
+        //Matrix MatScale = Matrix::CreateScale(1);
+        //Matrix MatRotate = Matrix::CreateRotationX(0);
+        //MatRotate *= Matrix::CreateRotationY(0);
+        //MatRotate *= Matrix::CreateRotationZ(0);
+        //Matrix MatTranslation = Matrix::CreateTranslation(400,300,0);
+
+        //Matrix matWorld = matCenter * MatScale * MatRotate * MatTranslation;
+        //player->SetWorld(matWorld);
+        if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+        {
+            player->Move({ 0.0f, -1.0f, 0 });
+        }
+        if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
+        {
+            player->Move({ 0.0f, 1.0f, 0 });
+        }
+        if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
+        {
+            player->Move({ -1.0f, 0.0f, 0 });
+        }
+        if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
+        {
+            player->Move({ 1.0f, 0.0f, 0 });
+        }
+        std::string pos;
+        pos += "X = " + std::to_string(player->GetPosition().x) + " Y = " + std::to_string(player->GetPosition().y) + "\n";
+        OutputDebugStringA(pos.c_str());
+
         player->Update();
     }
     void Render() override
     {
-        //obj->Render();
-        //bg->Render();
         player->Render();
     }
     void Release() override

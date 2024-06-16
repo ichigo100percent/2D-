@@ -1,36 +1,30 @@
 ﻿#include <iostream>
 #include <vector>
 #include <string>
-#include <queue>
-#include <set>
-#include <memory>
+
 using namespace std;
 
-class Monster
+
+class Person
 {
 public:
-	Monster(const string& _name) : m_Name(_name) {}
-
-	string GetName() { return m_Name; }
-
-protected:
-	string m_Name;
-};
-
-
-
-class Kinght
-{
-public:
-	Kinght() = default;
+	void SetName(string& _name) { m_Name = _name; }
+	string& GetName() { return m_Name; }
+	void SetAge(const int& _age) { m_Age = _age; }
+	int& GetAge() { return m_Age; }
 
 private:
-	weak_ptr<Monster> m_Target;
+	string m_Name;
+	int m_Age;
 };
 
 int main()
-{	
-	
+{
+
+	Person p1;
+	int a = 100;
+
+	p1.SetAge(a);
 
 	return 0;
 }

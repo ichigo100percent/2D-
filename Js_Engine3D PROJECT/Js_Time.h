@@ -10,6 +10,7 @@ namespace Js
 		static void Update();
 
 		static float DeltaTime() { return DeltaTimeValue; }
+		static float GetGameTime() { return GameTimeTick; }
 
 	public:
 		static std::wstring   m_csBuffer;

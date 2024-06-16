@@ -1,6 +1,6 @@
 ﻿#include "std.h"
 #include "Js_Core.h"
-#include "Js_DxObject.h"
+#include "Js_GameObject.h"
 
 using namespace Js;
 
@@ -12,8 +12,9 @@ public:
 
     void Init() override
     {
-        obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
+        obj = std::make_shared<GameObject>(GetDevice(), GetContext(), L"player");
         obj->CreateObject(L"dopa.jpg");
+        obj->SetPosition(Vector3(0.f, 0.f, 0));
     }
     void Update() override
     {
@@ -28,7 +29,7 @@ public:
 
     }
 private:
-    std::shared_ptr<DxObject> obj;
+    std::shared_ptr<GameObject> obj;
 };
 
 GAME_START(g_Width, g_Height);
