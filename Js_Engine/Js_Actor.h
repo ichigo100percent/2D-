@@ -9,7 +9,6 @@ namespace Js
 		Actor(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 
 		virtual void Update() override;
-		virtual void Render() override;
 
 		virtual Actor& Move(float _dx, float _dy, float _dz);
 		virtual Actor& Move(Vector3 _direction);
@@ -24,7 +23,7 @@ namespace Js
 		virtual void SetWorld(const Matrix& _mat);
 		virtual void SetCenterMove(const Vector3& _pos);
 		virtual void SetScale(const Vector3& _scale);
-		virtual void SetRotate(float& _rotate);
+		virtual void SetRotate(float _rotate);
 		virtual void SetTranslate(const Vector3& _pos);
 
 		virtual Actor& Transform(Matrix& _m);
@@ -32,6 +31,7 @@ namespace Js
 
 		Vector3	GetPosition() { return m_LocalPosition; }
 		RECT GetRect() { return m_Rt; }
+		Vector3 GetOffset() { return m_Offset; }
 
 	protected:
 		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };

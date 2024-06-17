@@ -14,10 +14,6 @@ namespace Js
 		Transform(m_MatWorld);
 		m_Offset = Vector3::Zero;
 	}
-	void Actor::Render()
-	{
-		DxObject::Render();
-	}
 	Actor& Actor::Move(float _dx, float _dy, float _dz)
 	{
 		Move(_dx, _dy, _dz);
@@ -95,9 +91,9 @@ namespace Js
 	{
 		m_MatScale = Matrix::CreateScale(_scale);
 	}
-	void Actor::SetRotate(float& _rotate)
+	void Actor::SetRotate(float _rotate)
 	{
-		// x -> y -> z ¼ø¼­
+		// x -> y -> z
 		m_MatRotate = Matrix::CreateRotationZ(_rotate);
 	}
 	void Actor::SetTranslate(const Vector3& _pos)
