@@ -21,7 +21,7 @@ namespace Js
 	}
 	Actor& Actor::Move(Vector3 _direction)
 	{
-		Vector3 offset = _direction * 100 * Time::DeltaTime();
+		Vector3 offset = _direction * 300 * Time::DeltaTime();
 		m_LocalPosition += offset;
 		m_Offset += offset;
 
@@ -56,6 +56,7 @@ namespace Js
 		CreatePS();
 
 		CreateRasterizerState();
+		CreateBlendState();
 		CreateSRV(_texName);
 	}
 	void Actor::SetPos(Vector3& _pos)
@@ -76,7 +77,10 @@ namespace Js
 		{
 			m_List[i].position = Vector3::Transform(m_List[i].position, _mat);
 		}
-
+		m_Rt.left = m_List[1].position.x;
+		m_Rt.right = m_List[2].position.x;
+		m_Rt.top = m_List[1].position.y;
+		m_Rt.bottom = m_List[0].position.y;
 		UpdateVertexBuffer();
 	}
 	void Actor::SetWorld(const Matrix& _m)

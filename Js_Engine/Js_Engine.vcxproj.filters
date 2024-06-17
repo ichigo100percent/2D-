@@ -112,13 +112,16 @@
     <ClInclude Include="SceneMgr.h">
       <Filter>소스 파일\03. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Js_GameObject.h">
+    <ClInclude Include="Js_Actor.h">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClInclude>
-    <ClInclude Include="Js_Actor.h">
-      <Filter>소스 파일\10. GameObject</Filter>
+    <ClInclude Include="Js_PlayerObject.h">
+      <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClInclude>
-    <ClInclude Include="Js_Camera.h" />
+    <ClInclude Include="Js_Collision.h" />
+    <ClInclude Include="Js_Camera.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc">
@@ -162,13 +165,16 @@
     <ClCompile Include="SceneMgr.cpp">
       <Filter>소스 파일\03. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Js_GameObject.cpp">
+    <ClCompile Include="Js_Actor.cpp">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClCompile>
-    <ClCompile Include="Js_Actor.cpp">
-      <Filter>소스 파일\10. GameObject</Filter>
+    <ClCompile Include="Js_PlayerObject.cpp">
+      <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClCompile>
-    <ClCompile Include="Js_Camera.cpp" />
+    <ClCompile Include="Js_Collision.cpp" />
+    <ClCompile Include="Js_Camera.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PS.txt">

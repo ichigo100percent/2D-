@@ -32,14 +32,15 @@ namespace Js
 		Vector3	GetPosition() { return m_LocalPosition; }
 		RECT GetRect() { return m_Rt; }
 		Vector3 GetOffset() { return m_Offset; }
-
+		void SetActive(const bool& _active) { m_Active = _active; }
+		bool GetActive() { return m_Active; }
 	protected:
 		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
 		Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
 		Vector3 m_LocalScale    = { 1.f, 1.f, 1.f };
 		Vector3 m_Offset = { 0,0,0 };
-		RECT						m_Rt = {};
-
+		RECT    m_Rt = {};
+		bool    m_Active = true;
 	protected:
 		Matrix		 m_MatWorld;        // c * s * r * t
 		Matrix	     m_MatCenter;

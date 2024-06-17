@@ -1,5 +1,5 @@
 #include "Js_Camera.h"
-
+#include "Js_Time.h"
 namespace Js
 {
 	Camera::Camera()
@@ -17,9 +17,13 @@ namespace Js
 ;	}
 	void Camera::Up()
 	{
+		Vector2 vCamDirection = { 0.0f, 1.0f };
+		m_CameraPosition = m_CameraPosition + vCamDirection * 100.0f * Time::DeltaTime();
 	}
 	void Camera::Down()
 	{
+		Vector2 vCamDirection = { 0.0f, -1.0f };
+		m_CameraPosition = m_CameraPosition + vCamDirection * 100.0f * Time::DeltaTime();
 	}
 	void Camera::Right(float fValue)
 	{
