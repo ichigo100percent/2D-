@@ -16,25 +16,56 @@ public:
 
     void Init() override
     {
-        RECT rt1 = { 0, 0, 800, 600 };
-        bg = std::make_shared<Actor>(GetDevice(), GetContext());
-        bg->CreateObject(rt1, L"bg_blue.jpg");
-
-        RECT rt2 = { 400, 300, 450, 380 };
-        player = std::make_shared<PlayerObject>(GetDevice(), GetContext());
-        player->CreateObject(rt2, L"bitmap1Alpha.bmp");
-
-    
-        for (int i = 0; i < 10; i++)
+  
         {
-            RECT rt3{ i * 32, 0, 32 + (32 * i), 32 };
-            objects.push_back(std::make_shared<Actor>(GetDevice(), GetContext()));
-            objects[i]->CreateObject(rt3, L"bg_ground01.png");
+            RECT rt1 = { 0, 0, 800, 600 };
+            bg = std::make_shared<Actor>(GetDevice(), GetContext());
+            bg->CreateObject(rt1, L"bg_blue.jpg");
         }
+        {
+            RECT rt2 = { 400, 300, 450, 380 };
+            player = std::make_shared<PlayerObject>(GetDevice(), GetContext());
+            player->CreateObject(rt2, L"bitmap1Alpha.bmp");
+        }
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                RECT rt3{ i * 32, 0, 32 + (32 * i), 32 };
+                objects.push_back(std::make_shared<Actor>(GetDevice(), GetContext()));
+                objects[i]->CreateObject(rt3, L"bg_ground01.png");
+            }
+            objCounter = objects.size();
+        }
+        {
+            std::wstring texPath = L"../../Res/";
+            for (int i = 0; i < 10; i++)
+            {
+                std::wstring texFileName = texPath + std::to_wstring(i) + L".bmp";
+                ComPtr<ID3D11ShaderResourceView> texSRV;
+                HRESULT hr = CreateWICTextureFromFile(GetDevice().Get(), texFileName.c_str(), nullptr, texSRV.GetAddressOf());
+                CHECK(hr);
+                m_objNumberTex.push_back(texSRV);
+            }
 
-        // 카메라 초기 위치 설정
-        camera = std::make_shared<Camera>();
-        camera->SetPosition(Vector3::Zero);
+            ui.resize(4);
+            RECT rt[4] =
+            {
+                {0,0,50,50},
+                {750,0,800,50},
+                {0,430,50,480},
+                {750,430,800,480},
+            };
+            for (int i = 0; i < ui.size(); i++)
+            {
+                ui[i] = std::make_shared<Actor>(GetDevice(), GetContext(), std::to_wstring(i));
+                ui[i]->CreateObject(rt[i], L"dopa.jpg");
+            }
+        }
+        {
+            // 카메라 초기 위치 설정
+            camera = std::make_shared<Camera>();
+            camera->SetPosition(Vector3::Zero);
+        }
     }
     void Update() override
     {
@@ -66,9 +97,10 @@ public:
             if (obj->GetActive() && Collision::RectToRect(obj->GetRect(), player->GetRect()))
             {
                 obj->SetActive(false);
-                // count --;
+                objCounter = max(1, objCounter - 1);
             }
         }
+
 
         //std::string pos;
         //pos += "X = " + std::to_string(player->GetPosition().x) + " Y = " + std::to_string(player->GetPosition().y) + "\n";
@@ -84,6 +116,10 @@ public:
         for (int i = 0; i < objects.size(); i++)
         {
             objects[i]->Update();
+        }
+        for (auto& obj : ui)
+        {
+            obj->Update();
         }
     }
     void Render() override
@@ -102,6 +138,15 @@ public:
                 objects[i]->Render();
             }
         }
+        
+        auto func = [&](std::shared_ptr<Actor > ui)
+            {
+                ui->PreRender();
+                ui->GetContext()->PSSetShaderResources(0, 1, m_objNumberTex[objCounter - 1].GetAddressOf());
+                ui->PostRender();
+            };
+        std::for_each(std::begin(ui), std::end(ui), func);
+        
     }
     void Release() override
     {
@@ -114,6 +159,10 @@ private:
     std::shared_ptr<PlayerObject> player;
     std::shared_ptr<Camera> camera;
     std::vector<std::shared_ptr<Actor>> objects; // 모든 객체들을 저장
+
+    std::vector<std::shared_ptr<Actor>> ui;
+    UINT objCounter = 0;
+    std::vector<ComPtr<ID3D11ShaderResourceView>> m_objNumberTex;
 };
 
 //GAME_START(g_Width, g_Height);

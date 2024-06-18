@@ -11,6 +11,8 @@ namespace Js
 
 		virtual void Update();
 		virtual void Render();
+		virtual void PreRender();
+		virtual void PostRender();
 	
 		virtual void UpdateVertexBuffer();
 		Vector3& ConvertScreenToNDC(const Vector3& _pos);
@@ -34,6 +36,10 @@ namespace Js
 		virtual void CreateBlendState();
 
 		virtual void CreateConstantBuffer();
+
+		const ComPtr<ID3D11Device> GetDevice() const { return m_Device; }
+		const ComPtr<ID3D11DeviceContext> GetContext() const { return m_Context; }
+
 	public:
 		ComPtr<ID3D11Device>	     m_Device;
 		ComPtr<ID3D11DeviceContext>  m_Context;

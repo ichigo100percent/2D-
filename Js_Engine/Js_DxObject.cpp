@@ -15,6 +15,11 @@ namespace Js
 	}
 	void DxObject::Render()
 	{
+		PreRender();
+		PostRender();
+	}
+	void DxObject::PreRender()
+	{
 		UINT StartSlot = 0;
 		UINT NumBuffers = 1;
 		UINT Stride = sizeof(VertexData);
@@ -28,7 +33,7 @@ namespace Js
 
 		// VS
 		m_Context->VSSetShader(m_VertexShader.Get(), nullptr, 0);
-		
+
 		// RS
 		m_Context->RSSetState(m_RasterizerState.Get());
 
@@ -38,6 +43,10 @@ namespace Js
 
 		// OM
 		m_Context->OMSetBlendState(m_BlendState.Get(), nullptr, 0xFFFFFFFF);
+	}
+	void DxObject::PostRender()
+	{
+		// OM
 		//m_Context->Draw(m_Vertices.size(), 0);
 		m_Context->DrawIndexed(m_Indices.size(), 0, 0);
 	}
