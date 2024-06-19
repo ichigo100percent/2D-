@@ -53,6 +53,9 @@
     <Filter Include="소스 파일\03. Scene">
       <UniqueIdentifier>{292637ce-bc02-4d53-84d2-27ce765827a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\04. Mgr">
+      <UniqueIdentifier>{6f527491-9593-4999-931b-2ccb41ecc859}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -118,9 +121,26 @@
     <ClInclude Include="Js_PlayerObject.h">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClInclude>
-    <ClInclude Include="Js_Collision.h" />
     <ClInclude Include="Js_Camera.h">
       <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Collision.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_BaseMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_ShaderMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_AssetMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_TextureMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_AnimationMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +191,26 @@
     <ClCompile Include="Js_PlayerObject.cpp">
       <Filter>소스 파일\10. GameObject\00. DxObject</Filter>
     </ClCompile>
-    <ClCompile Include="Js_Collision.cpp" />
     <ClCompile Include="Js_Camera.cpp">
       <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Collision.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_BaseMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_AssetMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_ShaderMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_TextureMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_AnimationMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

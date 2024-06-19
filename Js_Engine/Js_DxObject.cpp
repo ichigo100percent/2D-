@@ -1,6 +1,7 @@
 #include "Js_DxObject.h"
 #include "Js_Input.h"
 #include "Js_Time.h"
+#include "Js_TextureMgr.h"
 
 namespace Js
 {
@@ -250,12 +251,10 @@ namespace Js
 	}
 	void DxObject::CreateSRV(const std::wstring& _texName)
 	{
-		HRESULT hr = 
-			CreateWICTextureFromFile(m_Device.Get(),
-									_texName.c_str(),
-									m_Texture.GetAddressOf(),
-									m_ShaderResourceView.GetAddressOf());
-		CHECK(hr);
+		m_Texture = TEXTURE.Load(_texName);
+
+		if (m_Texture != nullptr)
+			m_ShaderResourceView = m_Texture->m_ShaderResourceView;
 	}
 	void DxObject::CreateConstantBuffer()
 	{

@@ -148,6 +148,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_Actor.h" />
+    <ClInclude Include="Js_AnimationMgr.h" />
+    <ClInclude Include="Js_AssetMgr.h" />
+    <ClInclude Include="Js_BaseMgr.h" />
     <ClInclude Include="Js_Camera.h" />
     <ClInclude Include="Js_Collision.h" />
     <ClInclude Include="Js_Core.h" />
@@ -157,6 +160,7 @@
     <ClInclude Include="Js_Engine.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_PlayerObject.h" />
+    <ClInclude Include="Js_ShaderMgr.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_Window.h" />
     <ClInclude Include="macro.h" />
@@ -166,11 +170,15 @@
     <ClInclude Include="std.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Js_TextureMgr.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Js_Actor.cpp" />
+    <ClCompile Include="Js_AnimationMgr.cpp" />
+    <ClCompile Include="Js_AssetMgr.cpp" />
+    <ClCompile Include="Js_BaseMgr.cpp" />
     <ClCompile Include="Js_Camera.cpp" />
     <ClCompile Include="Js_Collision.cpp" />
     <ClCompile Include="Js_Core.cpp" />
@@ -179,11 +187,13 @@
     <ClCompile Include="Js_DxWrite.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_PlayerObject.cpp" />
+    <ClCompile Include="Js_ShaderMgr.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="Js_TextureMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc" />

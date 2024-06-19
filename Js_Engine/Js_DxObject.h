@@ -70,11 +70,12 @@ namespace Js
 		ComPtr<ID3D11SamplerState>    m_SamplerState;
 		// Blend
 		ComPtr<ID3D11BlendState>      m_BlendState;
+
 		// ShaderResourceView
 		// 렌더링 파이브라인(픽셀쉐이더)에 전송 데이터
 		ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView;
 		// 텍스처(이미지) 로드 데이터
-		ComPtr<ID3D11Resource>			 m_Texture;
+		std::shared_ptr<class Texture> m_Texture;
 	};
 }
 

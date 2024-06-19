@@ -1,6 +1,7 @@
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
+#include "Js_TextureMgr.h"
 
 namespace Js
 {
@@ -23,6 +24,9 @@ namespace Js
 		Time::Init();
 		Input::Init();
 		Device::CreateDevice();
+		TEXTURE.Set(m_Device.Get(), m_Context.Get());
+
+
 #ifdef _DEBUG
 		{
 			wf.Init();
