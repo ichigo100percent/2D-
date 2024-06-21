@@ -4,6 +4,7 @@
 #include "Js_TextureMgr.h"
 #include "Js_ShaderMgr.h"
 
+
 namespace Js
 {
 	Actor::Actor(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name)
@@ -14,7 +15,29 @@ namespace Js
 	{
 		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;
 		Transform(m_MatWorld);
+
+		if (m_Sprite != nullptr)
+		{
+			m_Sprite->Update();
+			if (m_Sprite->m_List.size() > 0)
+			{
+				for(int i = 0; i < m_Sprite->m_List.size(); i++)
+				{
+					m_List[i].texture = m_Sprite->m_List[i].texture;
+				}
+			}
+		}
+
 		m_Offset = Vector3::Zero;
+	}
+	void Actor::Render()
+	{
+		DxObject::PreRender();
+		if (m_Sprite != nullptr)
+		{
+			m_Context->PSSetShaderResources(0, 1, m_Sprite->GetSRV().GetAddressOf());
+		}
+		DxObject::PostRender();
 	}
 	Actor& Actor::Move(float _dx, float _dy, float _dz)
 	{

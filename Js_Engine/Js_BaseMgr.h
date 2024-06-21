@@ -22,7 +22,7 @@ namespace Js
 		std::wstring m_csName = L"none";
 	public:
 		virtual void Set(ComPtr<ID3D11Device> _device) {}
-		virtual void Release() = 0;
+		virtual void Release() {}
 		virtual bool Load(const std::wstring& _fileName) = 0;
 	};
 

@@ -12,20 +12,20 @@ namespace Js
 	{
 		DxObject::CreateGeometry(_rect);
 
-		//POINT imgSize = { 1420, 80 };
-		//RECT  texRt = { 0, 0, 55, 80 };
+		POINT imgSize = { 1420, 80 };
+		RECT  texRt = { 0, 0, 55, 80 };
 
-		//m_Vertices[0].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
-		//m_Vertices[1].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
-		//m_Vertices[2].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
-		//m_Vertices[3].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
-
-		POINT  imgSize = { 400, 300 };
-		RECT texRt = { 91, 2, 91 + 40, 1 + 59 };
 		m_Vertices[0].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
 		m_Vertices[1].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
 		m_Vertices[2].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
 		m_Vertices[3].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
+
+		//POINT  imgSize = { 400, 300 };
+		//RECT	texRt = { 91, 2, 91 + 40, 1 + 59 };
+		//m_Vertices[0].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
+		//m_Vertices[1].texture = { (float)texRt.left / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
+		//m_Vertices[2].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.bottom / (float)imgSize.y };
+		//m_Vertices[3].texture = { (float)texRt.right / (float)imgSize.x, (float)texRt.top / (float)imgSize.y };
 
 		m_List = m_Vertices;
 

@@ -17,8 +17,20 @@ namespace Js
 
 		if (FAILED(hr))
 		{
-			return false;
+			hr = DirectX::CreateDDSTextureFromFile(m_Device.Get(),
+				_fileName.c_str(),
+				m_Texture.GetAddressOf(),
+				m_ShaderResourceView.GetAddressOf());
+
+			if (FAILED(hr))
+				return false;
 		}
+
+		ID3D11Texture2D* pTex = (ID3D11Texture2D*)m_Texture.Get();
+		pTex->GetDesc(&td);
+		m_Size.x = td.Width;
+		m_Size.y = td.Height;
+
 		return true;
 	}
 }

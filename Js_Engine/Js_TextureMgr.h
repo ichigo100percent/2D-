@@ -10,6 +10,8 @@ namespace Js
 		void Release() override;
 		bool Load(const std::wstring& _fileName) override;
 
+		Vector2 GetSize() { return m_Size; }
+
 	public:
 		std::wstring m_csName;
 		ComPtr<ID3D11Device> m_Device;
@@ -18,6 +20,8 @@ namespace Js
 		ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView;
 		// 텍스처(이미지) 로드 데이터
 		ComPtr<ID3D11Resource>			 m_Texture;
+		D3D11_TEXTURE2D_DESC td;
+		Vector2 m_Size;
 	};
 
 

@@ -8,6 +8,7 @@
 #include "Js_TextureMgr.h"
 #include "Js_ShaderMgr.h"
 #include "Js_SoundMgr.h"
+#include "Js_Sprite.h"
 
 
 using namespace Js;
@@ -23,7 +24,7 @@ public:
         bgSound = SOUND.Load(L"overworld.wav");
         if (bgSound)
         {
-            bgSound->Play();
+            bgSound->Play(true);
         }
 
         {
@@ -33,8 +34,12 @@ public:
         }
         {
             RECT rt2 = { 400, 300, 450, 380 };
-            player = std::make_shared<PlayerObject>(GetDevice(), GetContext());
-            player->CreateObject(rt2, L"bitmap1Alpha.bmp");
+            player = std::make_shared<Actor>(GetDevice(), GetContext());
+            player->CreateObject(rt2, L"");
+            auto sprite = std::make_shared<Sprite>();
+            sprite->Load(L"Mario_nomal.gif", Vector2(50, 0), Vector2(50, 80), 5);
+            sprite->SetAnim(0.5f);
+            player->SetSprite(sprite);
         }
         {
             for (int i = 0; i < 10; i++)
@@ -163,7 +168,7 @@ private:
 
 private:
     std::shared_ptr<Actor> bg;
-    std::shared_ptr<PlayerObject> player;
+    std::shared_ptr<Actor> player;
     std::shared_ptr<Camera> camera;
     std::vector<std::shared_ptr<Actor>> objects; // 모든 객체들을 저장
 
@@ -174,8 +179,9 @@ private:
     std::shared_ptr<Sound> effectSound;
 };
 
-//GAME_START(g_Width, g_Height);
+GAME_START(g_Width, g_Height);
 
+/*
 int WINAPI wWinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     PWSTR pCmdLine,
@@ -189,3 +195,4 @@ int WINAPI wWinMain(HINSTANCE hInstance,
     }
     return 0;
 };
+*/

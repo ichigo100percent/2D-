@@ -58,11 +58,8 @@ namespace Js
 		TransformData				 m_TransformData;
 		ComPtr<ID3D11Buffer>		 m_ConstantBuffer;
 		ComPtr<ID3D11InputLayout>	 m_InputLayout;
-		//// PS
-		//ComPtr<ID3D11VertexShader>	 m_VertexShader;
-		//ComPtr<ID3D11PixelShader>	 m_PixelShader;
-		//ComPtr<ID3DBlob>			 m_VSBlob;
-		//ComPtr<ID3DBlob>			 m_PSBlob;
+
+		// Shader
 		std::shared_ptr<class Shader> m_Shader;
 
 		// RS
