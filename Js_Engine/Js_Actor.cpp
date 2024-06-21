@@ -1,6 +1,8 @@
 #include "Js_Actor.h"
 #include "Js_Input.h"
 #include "Js_Time.h"
+#include "Js_TextureMgr.h"
+#include "Js_ShaderMgr.h"
 
 namespace Js
 {
@@ -51,9 +53,8 @@ namespace Js
 		CreateGeometry(_rt);
 		CreateVertexBuffer();
 		CreateIndexBuffer();
-		CreateVS();
+		m_Shader = SHADER.Load(L"Default.hlsl");
 		CreateInputLayout();
-		CreatePS();
 
 		CreateRasterizerState();
 		CreateBlendState();

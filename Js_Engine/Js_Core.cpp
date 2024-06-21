@@ -2,6 +2,8 @@
 #include "Js_Time.h"
 #include "Js_Input.h"
 #include "Js_TextureMgr.h"
+#include "Js_ShaderMgr.h"
+#include "Js_SoundMgr.h"
 
 namespace Js
 {
@@ -25,7 +27,8 @@ namespace Js
 		Input::Init();
 		Device::CreateDevice();
 		TEXTURE.Set(m_Device.Get(), m_Context.Get());
-
+		SHADER.Set(m_Device.Get(), m_Context.Get());
+		SOUND.Set(nullptr, nullptr);
 
 #ifdef _DEBUG
 		{
@@ -45,7 +48,7 @@ namespace Js
 		Time::Update();
 		Input::Update(m_Hwnd);
 		wf.Update();
-
+		SOUND.Update();
 		Update();
 		return true;
 	}

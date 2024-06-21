@@ -2,6 +2,7 @@
 #include "Js_Input.h"
 #include "Js_Time.h"
 #include "Js_TextureMgr.h"
+#include "Js_ShaderMgr.h"
 
 namespace Js
 {
@@ -33,13 +34,13 @@ namespace Js
 		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// VS
-		m_Context->VSSetShader(m_VertexShader.Get(), nullptr, 0);
+		m_Context->VSSetShader(m_Shader->m_VertexShader.Get(), nullptr, 0);
 
 		// RS
 		m_Context->RSSetState(m_RasterizerState.Get());
 
 		// PS
-		m_Context->PSSetShader(m_PixelShader.Get(), nullptr, 0);
+		m_Context->PSSetShader(m_Shader->m_PixelShader.Get(), nullptr, 0);
 		m_Context->PSSetShaderResources(0, 1, m_ShaderResourceView.GetAddressOf());
 
 		// OM
@@ -161,59 +162,59 @@ namespace Js
 		(
 			layout,
 			count,
-			m_VSBlob->GetBufferPointer(),
-			m_VSBlob->GetBufferSize(),
+			m_Shader->m_VSBlob->GetBufferPointer(),
+			m_Shader->m_VSBlob->GetBufferSize(),
 			m_InputLayout.GetAddressOf()
 		);
 
 		CHECK(hr);
 	}
-	void DxObject::LoadShader(const std::wstring& _path, const std::string& _name, const std::string& _version, ComPtr<ID3DBlob>& _blob)
-	{
-		const UINT compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+	//void DxObject::LoadShader(const std::wstring& _path, const std::string& _name, const std::string& _version, ComPtr<ID3DBlob>& _blob)
+	//{
+	//	const UINT compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 
-		HRESULT hr = D3DCompileFromFile
-		(
-			_path.c_str(),
-			nullptr,
-			D3D_COMPILE_STANDARD_FILE_INCLUDE,
-			_name.c_str(),
-			_version.c_str(),
-			compileFlag,
-			0,
-			_blob.GetAddressOf(),
-			nullptr
-		);
-		CHECK(hr);
-	}
-	void DxObject::CreateVS()
-	{
-		LoadShader(L"Default.hlsl", "VS", "vs_5_0", m_VSBlob);
-		HRESULT hr =
-			m_Device->CreateVertexShader
-			(
-				m_VSBlob->GetBufferPointer(),
-				m_VSBlob->GetBufferSize(),
-				nullptr,
-				m_VertexShader.GetAddressOf()
-			);
+	//	HRESULT hr = D3DCompileFromFile
+	//	(
+	//		_path.c_str(),
+	//		nullptr,
+	//		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+	//		_name.c_str(),
+	//		_version.c_str(),
+	//		compileFlag,
+	//		0,
+	//		_blob.GetAddressOf(),
+	//		nullptr
+	//	);
+	//	CHECK(hr);
+	//}
+	//void DxObject::CreateVS()
+	//{
+	//	LoadShader(L"Default.hlsl", "VS", "vs_5_0", m_VSBlob);
+	//	HRESULT hr =
+	//		m_Device->CreateVertexShader
+	//		(
+	//			m_VSBlob->GetBufferPointer(),
+	//			m_VSBlob->GetBufferSize(),
+	//			nullptr,
+	//			m_VertexShader.GetAddressOf()
+	//		);
 
-		CHECK(hr);
-	}
-	void DxObject::CreatePS()
-	{
-		LoadShader(L"Default.hlsl", "PS", "ps_5_0", m_PSBlob);
-		HRESULT hr =
-			m_Device->CreatePixelShader
-			(
-				m_PSBlob->GetBufferPointer(),
-				m_PSBlob->GetBufferSize(),
-				nullptr,
-				m_PixelShader.GetAddressOf()
-			);
+	//	CHECK(hr);
+	//}
+	//void DxObject::CreatePS()
+	//{
+	//	LoadShader(L"Default.hlsl", "PS", "ps_5_0", m_PSBlob);
+	//	HRESULT hr =
+	//		m_Device->CreatePixelShader
+	//		(
+	//			m_PSBlob->GetBufferPointer(),
+	//			m_PSBlob->GetBufferSize(),
+	//			nullptr,
+	//			m_PixelShader.GetAddressOf()
+	//		);
 
-		CHECK(hr);
-	}
+	//	CHECK(hr);
+	//}
 	void DxObject::CreateRasterizerState()
 	{
 		D3D11_RASTERIZER_DESC desc;

@@ -133,13 +133,13 @@
     <ClInclude Include="Js_ShaderMgr.h">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClInclude>
-    <ClInclude Include="Js_AssetMgr.h">
-      <Filter>소스 파일\04. Mgr</Filter>
-    </ClInclude>
     <ClInclude Include="Js_TextureMgr.h">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClInclude>
     <ClInclude Include="Js_AnimationMgr.h">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_SoundMgr.h">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,9 +200,6 @@
     <ClCompile Include="Js_BaseMgr.cpp">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
-    <ClCompile Include="Js_AssetMgr.cpp">
-      <Filter>소스 파일\04. Mgr</Filter>
-    </ClCompile>
     <ClCompile Include="Js_ShaderMgr.cpp">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
@@ -210,6 +207,9 @@
       <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
     <ClCompile Include="Js_AnimationMgr.cpp">
+      <Filter>소스 파일\04. Mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_SoundMgr.cpp">
       <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
   </ItemGroup>

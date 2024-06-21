@@ -4,13 +4,13 @@ namespace Js
 {
 	void Texture::Release()
 	{
-		m_ShaderResourceView.Reset();
-		m_Texture.Reset();
+		if(m_ShaderResourceView) m_ShaderResourceView.Reset();
+		if(m_Texture) m_Texture.Reset();
 	}
-	bool Texture::Load(ComPtr<ID3D11Device> _device, const std::wstring& _fileName)
+	bool Texture::Load(const std::wstring& _fileName)
 	{
 		HRESULT hr =
-			CreateWICTextureFromFile(_device.Get(),
+			CreateWICTextureFromFile(m_Device.Get(),
 				_fileName.c_str(),
 				m_Texture.GetAddressOf(),
 				m_ShaderResourceView.GetAddressOf());

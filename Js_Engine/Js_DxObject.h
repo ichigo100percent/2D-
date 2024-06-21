@@ -22,13 +22,13 @@ namespace Js
 		virtual void CreateVertexBuffer();
 		virtual void CreateIndexBuffer();
 		virtual void CreateInputLayout();
-		virtual void LoadShader(const std::wstring& _path,
-								const std::string& _name,
-								const std::string& _version,
-								ComPtr<ID3DBlob>& _blob);
+		//virtual void LoadShader(const std::wstring& _path,
+		//						const std::string& _name,
+		//						const std::string& _version,
+		//						ComPtr<ID3DBlob>& _blob);
 
-		virtual void CreateVS();
-		virtual void CreatePS();
+		//virtual void CreateVS();
+		//virtual void CreatePS();
 		virtual void CreateSRV(const std::wstring& _texName);
 
 		virtual void CreateRasterizerState();
@@ -58,11 +58,12 @@ namespace Js
 		TransformData				 m_TransformData;
 		ComPtr<ID3D11Buffer>		 m_ConstantBuffer;
 		ComPtr<ID3D11InputLayout>	 m_InputLayout;
-		// PS
-		ComPtr<ID3D11VertexShader>	 m_VertexShader;
-		ComPtr<ID3D11PixelShader>	 m_PixelShader;
-		ComPtr<ID3DBlob>			 m_VSBlob;
-		ComPtr<ID3DBlob>			 m_PSBlob;
+		//// PS
+		//ComPtr<ID3D11VertexShader>	 m_VertexShader;
+		//ComPtr<ID3D11PixelShader>	 m_PixelShader;
+		//ComPtr<ID3DBlob>			 m_VSBlob;
+		//ComPtr<ID3DBlob>			 m_PSBlob;
+		std::shared_ptr<class Shader> m_Shader;
 
 		// RS
 		ComPtr<ID3D11RasterizerState> m_RasterizerState;

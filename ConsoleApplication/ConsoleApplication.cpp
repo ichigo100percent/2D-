@@ -105,5 +105,9 @@ int main()
 
     cout << "Loaded person: " << person1->m_Name << endl;
 
+    shared_ptr<int> a = make_shared<int>(5);
+
+    
+
     return 0;
 }

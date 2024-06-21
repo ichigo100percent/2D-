@@ -5,6 +5,10 @@
 #include "Js_Input.h"
 #include "Js_Camera.h"
 #include "Js_Collision.h"
+#include "Js_TextureMgr.h"
+#include "Js_ShaderMgr.h"
+#include "Js_SoundMgr.h"
+
 
 using namespace Js;
 
@@ -16,9 +20,14 @@ public:
 
     void Init() override
     {
-  
+        bgSound = SOUND.Load(L"overworld.wav");
+        if (bgSound)
         {
-            RECT rt1 = { 0, 0, 800, 600 };
+            bgSound->Play();
+        }
+
+        {
+            RECT rt1 = { 0, 0, 2500, 600 };
             bg = std::make_shared<Actor>(GetDevice(), GetContext());
             bg->CreateObject(rt1, L"bg_blue.jpg");
         }
@@ -41,10 +50,8 @@ public:
             for (int i = 0; i < 10; i++)
             {
                 std::wstring texFileName = texPath + std::to_wstring(i) + L".bmp";
-                ComPtr<ID3D11ShaderResourceView> texSRV;
-                HRESULT hr = CreateWICTextureFromFile(GetDevice().Get(), texFileName.c_str(), nullptr, texSRV.GetAddressOf());
-                CHECK(hr);
-                m_objNumberTex.push_back(texSRV);
+                std::shared_ptr<Texture> tex = TEXTURE.Load(texFileName);
+                m_objNumberTex.push_back(tex->m_ShaderResourceView);
             }
 
             ui.resize(4);
@@ -163,6 +170,8 @@ private:
     std::vector<std::shared_ptr<Actor>> ui;
     UINT objCounter = 0;
     std::vector<ComPtr<ID3D11ShaderResourceView>> m_objNumberTex;
+    std::shared_ptr<Sound> bgSound;
+    std::shared_ptr<Sound> effectSound;
 };
 
 //GAME_START(g_Width, g_Height);

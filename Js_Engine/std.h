@@ -12,6 +12,8 @@
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
+#include <atlconv.h>
+
 
 // DX
 #include <Windows.h>
@@ -36,8 +38,24 @@
 #pragma comment(lib, "DirectXTK_R.lib")
 #endif
 
+#include "fmod.hpp"
+#include "fmod_errors.h"
+#pragma comment(lib, "fmod_vc.lib")
+
 using namespace DirectX;
 using namespace Microsoft::WRL;
+
+static std::wstring to_mw(const std::string& _src)
+{
+	USES_CONVERSION;
+	return std::wstring(A2W(_src.c_str()));
+};
+
+static std::string to_wm(const std::wstring& _src)
+{
+	USES_CONVERSION;
+	return std::string(W2A(_src.c_str()));
+};
 
 #include "Entity.h"
 #include "value.h"

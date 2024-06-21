@@ -10,6 +10,7 @@
 #define RadianToDegree( radian ) ((radian) * (180.0f / TBASIS_PI))
 
 
+
 #define CHECK(p)	assert(SUCCEEDED(p))
 
 #define SAMPLE_CREATE class Sample : public Core {

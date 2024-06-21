@@ -19,8 +19,11 @@ namespace Js
 	class Resource
 	{
 	public:
+		std::wstring m_csName = L"none";
+	public:
+		virtual void Set(ComPtr<ID3D11Device> _device) {}
 		virtual void Release() = 0;
-		virtual bool Load(ComPtr<ID3D11Device> _device, const std::wstring& _fileName) = 0;
+		virtual bool Load(const std::wstring& _fileName) = 0;
 	};
 
 	template <typename T, typename S>
@@ -51,12 +54,20 @@ namespace Js
 			if (findData != nullptr)
 				return findData;
 
+			return CreateObject(_fileName, name);
+		}
+
+		virtual std::shared_ptr<T>  CreateObject(std::wstring _path, std::wstring _name)
+		{
 			std::shared_ptr<T> newData = std::make_shared<T>();
-			newData->m_csName = name;
-			if (newData->Load(m_Device, _fileName) == false) newData.reset();
-
+			newData->Set(m_Device);
+			newData->m_csName = _name;
+			if (newData->Load(_path) == false)
+			{
+				newData.reset();
+				return nullptr;
+			}
 			m_List.insert(std::make_pair(newData->m_csName, newData));
-
 			return newData;
 		}
 
@@ -75,6 +86,16 @@ namespace Js
 				name += _fileName;
 			}
 			return name;
+		}
+
+		void Release()
+		{
+			for (auto& data : m_List)
+			{
+				auto deleteData = data.second;
+				deleteData->Release();
+			}
+			m_List.clear();
 		}
 
 	public:
