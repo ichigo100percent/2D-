@@ -57,7 +57,7 @@ namespace Js
 		UINT width = m_Texure->GetSize().x;
 		UINT height = m_Texure->GetSize().y;
 
-		for (int i = 0; i < m_TexLength; i++)
+		for (UINT i = 0; i < m_TexLength; i++)
 		{
 			RECT rt;
 			rt.left = _offset.x + _size.x * i;

@@ -114,13 +114,13 @@ public:
         }
 
 
-        //std::string pos;
-        //pos += "X = " + std::to_string(player->GetPosition().x) + " Y = " + std::to_string(player->GetPosition().y) + "\n";
-        //OutputDebugStringA(pos.c_str());
-        std::string rt;
+        std::string pos;
+        pos += "X = " + std::to_string(player->GetPosition().x) + " Y = " + std::to_string(player->GetPosition().y) + "\n";
+        OutputDebugStringA(pos.c_str());
+ /*       std::string rt;
         rt += "left = " + std::to_string(player->GetRect().left) + " top = " + std::to_string(player->GetRect().top) + "\n";
         rt += "right = " + std::to_string(player->GetRect().right) + " bottom = " + std::to_string(player->GetRect().bottom) + "\n";
-        OutputDebugStringA(rt.c_str());
+        OutputDebugStringA(rt.c_str());*/
 
         camera->Update();
         bg->Update();

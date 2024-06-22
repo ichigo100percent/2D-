@@ -24,10 +24,10 @@ struct TransformData
 	Matrix matProjection = Matrix::Identity;
 };
 
-struct JsRect
+struct MyRect
 {
-	float x, y, w, h;
-	JsRect() = default;
-	JsRect(float _x, float _y, float _w, float _h)
-		: x(_x), y(_y), w(_w), h(_h) {}
+	float   left;
+	float   top;
+	float   right;
+	float   bottom;
 };

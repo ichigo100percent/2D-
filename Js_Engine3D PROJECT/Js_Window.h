@@ -14,11 +14,13 @@ namespace Js
 		bool WindowRun();
 
 		HWND GetHWND() const { return m_Hwnd; }
+		HDC  GetHdc() const { return m_Hdc; }
 		HINSTANCE GetHINSTANCE() const { return m_HInstance; }
 		void SetActive(bool _isActive) { m_isActive = _isActive; }
 		bool GetActive() const { return m_isActive; }
 
 	protected:
+		HDC         m_Hdc;
 		HWND		m_Hwnd;
 		HINSTANCE	m_HInstance;
 		bool        m_isActive;

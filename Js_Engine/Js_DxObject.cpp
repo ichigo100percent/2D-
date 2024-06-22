@@ -49,7 +49,6 @@ namespace Js
 	void DxObject::PostRender()
 	{
 		// OM
-		//m_Context->Draw(m_Vertices.size(), 0);
 		m_Context->DrawIndexed(m_Indices.size(), 0, 0);
 	}
 	void DxObject::Update()
@@ -169,52 +168,6 @@ namespace Js
 
 		CHECK(hr);
 	}
-	//void DxObject::LoadShader(const std::wstring& _path, const std::string& _name, const std::string& _version, ComPtr<ID3DBlob>& _blob)
-	//{
-	//	const UINT compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-
-	//	HRESULT hr = D3DCompileFromFile
-	//	(
-	//		_path.c_str(),
-	//		nullptr,
-	//		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-	//		_name.c_str(),
-	//		_version.c_str(),
-	//		compileFlag,
-	//		0,
-	//		_blob.GetAddressOf(),
-	//		nullptr
-	//	);
-	//	CHECK(hr);
-	//}
-	//void DxObject::CreateVS()
-	//{
-	//	LoadShader(L"Default.hlsl", "VS", "vs_5_0", m_VSBlob);
-	//	HRESULT hr =
-	//		m_Device->CreateVertexShader
-	//		(
-	//			m_VSBlob->GetBufferPointer(),
-	//			m_VSBlob->GetBufferSize(),
-	//			nullptr,
-	//			m_VertexShader.GetAddressOf()
-	//		);
-
-	//	CHECK(hr);
-	//}
-	//void DxObject::CreatePS()
-	//{
-	//	LoadShader(L"Default.hlsl", "PS", "ps_5_0", m_PSBlob);
-	//	HRESULT hr =
-	//		m_Device->CreatePixelShader
-	//		(
-	//			m_PSBlob->GetBufferPointer(),
-	//			m_PSBlob->GetBufferSize(),
-	//			nullptr,
-	//			m_PixelShader.GetAddressOf()
-	//		);
-
-	//	CHECK(hr);
-	//}
 	void DxObject::CreateRasterizerState()
 	{
 		D3D11_RASTERIZER_DESC desc;

@@ -28,6 +28,7 @@ namespace Js
 		// VS
 		m_Context->VSSetShader(m_VertexShader.Get(), nullptr, 0);
 		m_Context->VSSetConstantBuffers(0, 1, m_ConstantBuffer.GetAddressOf());
+		m_Context->PSSetConstantBuffers(0, 1, m_ConstantBuffer.GetAddressOf());
 
 		// RS
 		m_Context->RSSetState(_rasterizerState.Get());
@@ -37,8 +38,6 @@ namespace Js
 		m_Context->PSSetShaderResources(0, 1, m_ShaderResourveView.GetAddressOf());
 
 		// OM
-
-		//m_Context->Draw(m_Vertices.size(), 0);
 		m_Context->DrawIndexed(m_Indices.size(), 0, 0);
 	}
 	void DxObject::Update()
@@ -61,11 +60,11 @@ namespace Js
 		{
 			m_LocalPosition.x += speed;
 		}
-	
-		Matrix matScale = Matrix::CreateScale(m_LocalScale / 3);
+
+		Matrix matScale = Matrix::CreateScale(m_LocalScale);
 		Matrix matRotation = Matrix::CreateRotationX(m_LocalRotation.x);
 		matRotation *= Matrix::CreateRotationY(m_LocalRotation.y);
-		matRotation *= Matrix::CreateRotationZ(Time::GetGameTime());
+		matRotation *= Matrix::CreateRotationZ(m_LocalRotation.z);
 		Matrix matTranslation = Matrix::CreateTranslation(m_LocalPosition);
 
 		Matrix matWorld = matScale * matRotation * matTranslation; // SRT
@@ -81,13 +80,20 @@ namespace Js
 		std::string pos; 
 		pos += std::to_string(m_LocalPosition.x) + " " + to_string(m_LocalPosition.y) + '\n';
 		OutputDebugStringA(pos.c_str());
+
+		// Update AABB
+		m_AABB.left = m_LocalPosition.x - 0.5f * m_LocalScale.x;
+		m_AABB.right = m_LocalPosition.x + 0.5f * m_LocalScale.x;
+		m_AABB.top = m_LocalPosition.y + 0.5f * m_LocalScale.y;
+		m_AABB.bottom = m_LocalPosition.y - 0.5f * m_LocalScale.y;
+
 	}
 	void DxObject::Release()
 	{
 	}
-	void DxObject::CreateObject(const std::wstring& _texName)
+	void DxObject::CreateObject(const std::wstring& _texName, const MyRect& _rt)
 	{
-		CreateGeometry();
+		CreateGeometry(_rt);
 		CreateVS();
 		CreateInputLayout();
 		CreatePS();
@@ -97,7 +103,7 @@ namespace Js
 	}
 
 
-	void DxObject::CreateGeometry()
+	void DxObject::CreateGeometry(const MyRect& _rt)
 	{
 		// VertexData
 		{
@@ -149,6 +155,7 @@ namespace Js
 			HRESULT hr = m_Device->CreateBuffer(&desc, &data, m_IndexBuffer.GetAddressOf());
 			CHECK(hr);
 		}
+
 	}
 
 

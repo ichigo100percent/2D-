@@ -10,13 +10,22 @@
 
 using namespace std;
 
+class Test
+{
+public:
+	bool test(Test& _a)
+	{
+		return true;
+	}
+
+};
+
 int main()
 {
-	float a = 91;
-	float b = 400;
-	float c = a / b;
+	Test t1;
+	auto t2 = make_shared<Test>();
 
-	cout << c << endl;
+	t1.test(*t2.get());
 
 	return 0;
 }

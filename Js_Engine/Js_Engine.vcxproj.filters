@@ -142,6 +142,9 @@
     <ClInclude Include="Js_Sprite.h">
       <Filter>소스 파일\02. Component</Filter>
     </ClInclude>
+    <ClInclude Include="Js_Transform.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc">
@@ -210,6 +213,9 @@
       <Filter>소스 파일\04. Mgr</Filter>
     </ClCompile>
     <ClCompile Include="Js_Sprite.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Transform.cpp">
       <Filter>소스 파일\02. Component</Filter>
     </ClCompile>
   </ItemGroup>

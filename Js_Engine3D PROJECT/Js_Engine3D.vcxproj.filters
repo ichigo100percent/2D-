@@ -20,9 +20,6 @@
     <ClCompile Include="Pipeline.cpp">
       <Filter>소스 파일\01. Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Js_GameObject.cpp">
-      <Filter>소스 파일\05. GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Js_DxObject.cpp">
       <Filter>소스 파일\05. GameObject</Filter>
     </ClCompile>
@@ -35,6 +32,13 @@
     <ClCompile Include="Js_DxWrite.cpp">
       <Filter>소스 파일\99. Header\02. Font</Filter>
     </ClCompile>
+    <ClCompile Include="Js_Collision.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Component.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -54,9 +58,6 @@
     </ClInclude>
     <ClInclude Include="Pipeline.h">
       <Filter>소스 파일\01. Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_GameObject.h">
-      <Filter>소스 파일\05. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Js_DxObject.h">
       <Filter>소스 파일\05. GameObject</Filter>
@@ -100,6 +101,13 @@
     <ClInclude Include="Js_DxWrite.h">
       <Filter>소스 파일\99. Header\02. Font</Filter>
     </ClInclude>
+    <ClInclude Include="Js_Collision.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Component.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">
@@ -159,6 +167,9 @@
     </Filter>
     <Filter Include="소스 파일\01. Graphics\00. Geometry">
       <UniqueIdentifier>{045d34a7-b407-43d7-aa4c-394b4124c42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component">
+      <UniqueIdentifier>{d21a25fa-88e2-4333-bf8c-faf172a7f5fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

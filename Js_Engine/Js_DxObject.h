@@ -8,7 +8,7 @@ namespace Js
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 		virtual ~DxObject();
-
+		
 		virtual void Update();
 		virtual void Render();
 		virtual void PreRender();
@@ -22,13 +22,6 @@ namespace Js
 		virtual void CreateVertexBuffer();
 		virtual void CreateIndexBuffer();
 		virtual void CreateInputLayout();
-		//virtual void LoadShader(const std::wstring& _path,
-		//						const std::string& _name,
-		//						const std::string& _version,
-		//						ComPtr<ID3DBlob>& _blob);
-
-		//virtual void CreateVS();
-		//virtual void CreatePS();
 		virtual void CreateSRV(const std::wstring& _texName);
 
 		virtual void CreateRasterizerState();
