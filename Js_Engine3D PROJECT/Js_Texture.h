@@ -11,7 +11,7 @@ namespace Js
 
 		void Create(const std::wstring& _texName);
 
-		ComPtr<ID3D11ShaderResourceView> GetPtr() { return m_ShaderResourceView; }
+		ComPtr<ID3D11ShaderResourceView> GetComPtr() { return m_ShaderResourceView; }
 		Vector2 GetSize() { return m_Size; }
 
 	private:

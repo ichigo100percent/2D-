@@ -1,8 +1,17 @@
 #pragma once
 #include "std.h"
 
+	enum ShaderScope
+	{
+		SS_None = 0,
+		SS_VertexShader = (1 << 0),
+		SS_PixelShader = (1 << 1),
+		SS_Both = SS_VertexShader | SS_PixelShader
+	};
+
 namespace Js
 {
+
 	class Shader
 	{
 	public:

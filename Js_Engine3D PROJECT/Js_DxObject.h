@@ -1,17 +1,6 @@
 #pragma once
 #include "std.h"
-#include "Js_Geometry.h"
-#include "Js_GeometryHelper.h"
-#include "Js_VertexData.h"
-#include "Js_VertexBuffer.h"
-#include "Js_IndexBuffer.h"
-#include "Js_InputLayout.h"
-#include "Js_Shader.h"
-#include "Js_ConstantBuffer.h"
-#include "Js_RasterizerState.h"
-#include "Js_Texture.h"
-#include "Js_SamplerState.h"
-#include "Js_BlendState.h"
+#include "Js_Pipeline.h"
 
 namespace Js
 {
@@ -24,7 +13,7 @@ namespace Js
 
 		virtual void Init(const std::wstring& _texName);
 		virtual void Update();
-		virtual void Render();
+		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
 		virtual void Release();
 
 		virtual void SetWorld(const Matrix& _mat)
@@ -70,13 +59,10 @@ namespace Js
 		std::shared_ptr<VertexShader> m_VertexShader = nullptr;
 		std::shared_ptr<PixelShader>  m_PixelShader  = nullptr;
 
-		// RS
 		std::shared_ptr<RasterizerState> m_RasterizerState = nullptr;
-
-		// SRV
 		std::shared_ptr<Texture> m_ShaderResourceView = nullptr;
 		std::shared_ptr<SamplerState> m_SamplerState = nullptr;
-		ComPtr<ID3D11BlendState> m_BlendState = nullptr;
+		std::shared_ptr<BlendState> m_BlendState = nullptr;
 
 	protected:
 		// SRT

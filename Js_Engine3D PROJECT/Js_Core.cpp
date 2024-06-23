@@ -23,13 +23,15 @@ namespace Js
 		Time::Init();
 		Input::Init();
 		Device::CreateDevice();
+		m_Pipeline = std::make_shared<Pipeline>(GetContext());
 #ifdef _DEBUG
 		{
-			wf.Init();
+			m_DxWrite = std::make_shared<DxWrite>();
+			m_DxWrite->Init();
 			IDXGISurface* dxgiSurface = nullptr;
 			m_SwapChain->GetBuffer(0, __uuidof(IDXGISurface),
 				(void**)&dxgiSurface);
-			wf.ResetDevice(dxgiSurface);
+			m_DxWrite->ResetDevice(dxgiSurface);
 			dxgiSurface->Release();
 		}
 #endif
@@ -40,7 +42,7 @@ namespace Js
 	{
 		Time::Update();
 		Input::Update(m_Hwnd);
-		wf.Update();
+		m_DxWrite->Update();
 
 		Update();
 		return true;
@@ -48,7 +50,7 @@ namespace Js
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
-		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
+		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 
 		Render();
 		Device::PostRender();

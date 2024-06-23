@@ -69,7 +69,12 @@
     <ClCompile Include="Js_BlendState.cpp">
       <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
     </ClCompile>
-    <ClCompile Include="Js_SamplerState.cpp" />
+    <ClCompile Include="Js_SamplerState.cpp">
+      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Pipeline.cpp">
+      <Filter>소스 파일\01. Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -169,7 +174,12 @@
     <ClInclude Include="Js_BlendState.h">
       <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
     </ClInclude>
-    <ClInclude Include="Js_SamplerState.h" />
+    <ClInclude Include="Js_SamplerState.h">
+      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Pipeline.h">
+      <Filter>소스 파일\01. Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">

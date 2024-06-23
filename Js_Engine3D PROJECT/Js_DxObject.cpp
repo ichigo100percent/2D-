@@ -43,32 +43,51 @@ namespace Js
 
 		m_ShaderResourceView = std::make_shared<Texture>(m_Device);
 		m_ShaderResourceView->Create(_texName);
+
+		m_SamplerState = std::make_shared<SamplerState>(m_Device);
+		m_SamplerState->Create();
+		
+		m_BlendState = std::make_shared<BlendState>(m_Device);
+		m_BlendState->Create();
 	}
 
-	void DxObject::Render()
+	void DxObject::Render(std::shared_ptr<Pipeline> _pipeline)
 	{
-		// 기존 오브젝트 렌더링
-		UINT stride = sizeof(VertexData);
-		UINT offset = 0;
+		PipelineInfo info;
+		info.inputLayout = m_InputLayout;
+		info.vertexShader = m_VertexShader;
+		info.pixelShader = m_PixelShader;
+		info.rasterizerState = m_RasterizerState;
+		info.blendState = m_BlendState;
+		_pipeline->UpdatePipeline(info);
 
-		// IA
-		m_Context->IASetVertexBuffers(0, 1, m_VertexBuffer->GetComPtr().GetAddressOf(), &stride, &offset);
-		m_Context->IASetIndexBuffer(m_IndexBuffer->GetComPtr().Get(), DXGI_FORMAT_R32_UINT, 0);
-		m_Context->IASetInputLayout(m_InputLayout->GetComPtr().Get());
-		m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		_pipeline->SetVertexBuffer(m_VertexBuffer);
+		_pipeline->SetIndexBuffer(m_IndexBuffer);
+		_pipeline->SetConstantBuffer(0, SS_VertexShader, m_ConstantBuffer);
+		_pipeline->SetTexture(0, SS_PixelShader, m_ShaderResourceView);
+		_pipeline->SetSamplerState(0, SS_PixelShader, m_SamplerState);
+		_pipeline->DrawIndexed(m_Geometry->GetIndexCount(), 0, 0);
+		//// 기존 오브젝트 렌더링
+		//UINT stride = sizeof(VertexData);
+		//UINT offset = 0;
 
+		//// IA
+		//m_Context->IASetVertexBuffers(0, 1, m_VertexBuffer->GetComPtr().GetAddressOf(), &stride, &offset);
+		//m_Context->IASetIndexBuffer(m_IndexBuffer->GetComPtr().Get(), DXGI_FORMAT_R32_UINT, 0);
+		//m_Context->IASetInputLayout(m_InputLayout->GetComPtr().Get());
+		//m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		m_Context->VSSetShader(m_VertexShader->GetComPtr().Get(), nullptr, 0);
-		m_Context->VSSetConstantBuffers(0, 1, m_ConstantBuffer->GetComPtr().GetAddressOf());
-		m_Context->PSSetConstantBuffers(0, 1, m_ConstantBuffer->GetComPtr().GetAddressOf());
+		//m_Context->VSSetShader(m_VertexShader->GetComPtr().Get(), nullptr, 0);
+		//m_Context->VSSetConstantBuffers(0, 1, m_ConstantBuffer->GetComPtr().GetAddressOf());
+		//m_Context->PSSetConstantBuffers(0, 1, m_ConstantBuffer->GetComPtr().GetAddressOf());
 
-		m_Context->RSSetState(m_RasterizerState->GetComPtr().Get());
+		//m_Context->RSSetState(m_RasterizerState->GetComPtr().Get());
 
-		m_Context->PSSetShader(m_PixelShader->GetComPtr().Get(), nullptr, 0);
-		
-		m_Context->PSSetShaderResources(0, 1, m_ShaderResourceView->GetPtr().GetAddressOf());
-		
-		m_Context->DrawIndexed(m_Geometry->GetIndexCount(), 0, 0);
+		//m_Context->PSSetShader(m_PixelShader->GetComPtr().Get(), nullptr, 0);
+		//
+		//m_Context->PSSetShaderResources(0, 1, m_ShaderResourceView->GetComPtr().GetAddressOf());
+		//m_Context->OMSetBlendState(m_BlendState->GetComPtr().Get(), m_BlendState->GetBlendFactor(), m_BlendState->GetSampleMask());
+		//m_Context->DrawIndexed(m_Geometry->GetIndexCount(), 0, 0);
 	}
 	void DxObject::Update()
 	{
@@ -110,7 +129,7 @@ namespace Js
 
 
 		std::string pos; 
-		pos += "position : " + std::to_string(m_LocalPosition.x) + " " + to_string(m_LocalPosition.y) + '\n';
+		pos += "position : " + std::to_string(m_LocalPosition.x) + " " + std::to_string(m_LocalPosition.y) + '\n';
 		OutputDebugStringA(pos.c_str());
 
 		std::string rt;

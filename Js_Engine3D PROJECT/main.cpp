@@ -49,9 +49,9 @@ public:
     }
     void Render() override
     {
-        obj->Render();
+        obj->Render(m_Pipeline);
 
-        t->Render();
+        t->Render(m_Pipeline);
     }
     void Release() override
     {

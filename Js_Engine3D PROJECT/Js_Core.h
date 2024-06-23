@@ -1,6 +1,7 @@
 #pragma once
 #include "Js_Device.h"
 #include "Js_DxWrite.h"
+#include "Js_Pipeline.h"
 
 namespace Js
 {
@@ -14,6 +15,7 @@ namespace Js
 		virtual void Update();
 		virtual void Render();
 		virtual void Release();
+
 		void GameRun();
 
 		bool EngineInit();
@@ -21,7 +23,8 @@ namespace Js
 		bool EngineRender();
 		bool EngineRelease();
 
-	private:
-		DxWrite wf;
+	protected:
+		std::shared_ptr<DxWrite> m_DxWrite = nullptr;
+		std::shared_ptr<Pipeline> m_Pipeline = nullptr;
 	};
 }

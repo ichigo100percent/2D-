@@ -159,6 +159,7 @@
     <ClInclude Include="Js_IndexBuffer.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_InputLayout.h" />
+    <ClInclude Include="Js_Pipeline.h" />
     <ClInclude Include="Js_RasterizerState.h" />
     <ClInclude Include="Js_SamplerState.h" />
     <ClInclude Include="Js_Shader.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Js_IndexBuffer.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_InputLayout.cpp" />
+    <ClCompile Include="Js_Pipeline.cpp" />
     <ClCompile Include="Js_RasterizerState.cpp" />
     <ClCompile Include="Js_SamplerState.cpp" />
     <ClCompile Include="Js_Shader.cpp" />
