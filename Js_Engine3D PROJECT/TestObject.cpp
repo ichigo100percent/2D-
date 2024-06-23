@@ -8,23 +8,23 @@ namespace Js
 		: DxObject(_device, _context, _name)
 	{
 	}
-	void TestObject::Update()
-	{
-		Matrix matScale = Matrix::CreateScale(m_LocalScale);
-		Matrix matRotation = Matrix::CreateRotationX(m_LocalRotation.x);
-		matRotation *= Matrix::CreateRotationY(m_LocalRotation.y);
-		matRotation *= Matrix::CreateRotationZ(m_LocalRotation.z);
-		Matrix matTranslation = Matrix::CreateTranslation(m_LocalPosition);
+	//void TestObject::Update()
+	//{
+	//	//Matrix matScale = Matrix::CreateScale(m_LocalScale);
+	//	//Matrix matRotation = Matrix::CreateRotationX(m_LocalRotation.x);
+	//	//matRotation *= Matrix::CreateRotationY(m_LocalRotation.y);
+	//	//matRotation *= Matrix::CreateRotationZ(m_LocalRotation.z);
+	//	//Matrix matTranslation = Matrix::CreateTranslation(m_LocalPosition);
 
-		Matrix matWorld = matScale * matRotation * matTranslation; // SRT
-		m_TransformData.matWorld = matWorld;
+	//	//Matrix matWorld = matScale * matRotation * matTranslation; // SRT
+	//	//m_TransformData.matWorld = matWorld;
 
-		// AABB 업데이트
-		m_Rt.left = m_LocalPosition.x - m_LocalScale.x;
-		m_Rt.right = m_LocalPosition.x + m_LocalScale.x;
-		m_Rt.top = m_LocalPosition.y + m_LocalScale.y;
-		m_Rt.bottom = m_LocalPosition.y - m_LocalScale.y;
+	//	//// AABB 업데이트
+	//	//m_Rt.left = m_LocalPosition.x - m_LocalScale.x;
+	//	//m_Rt.right = m_LocalPosition.x + m_LocalScale.x;
+	//	//m_Rt.top = m_LocalPosition.y + m_LocalScale.y;
+	//	//m_Rt.bottom = m_LocalPosition.y - m_LocalScale.y;
 
-		m_ConstantBuffer->CopyData(m_TransformData);
-	}
+	//	//m_ConstantBuffer->CopyData(m_TransformData);
+	//}
 }

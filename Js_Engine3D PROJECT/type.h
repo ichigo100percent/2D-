@@ -6,3 +6,4 @@ using Vector3 = DirectX::SimpleMath::Vector3;
 using Vector4 = DirectX::SimpleMath::Vector4;
 using Matrix  = DirectX::SimpleMath::Matrix;
 using DXRect =  DirectX::SimpleMath::Rectangle;
+using Quaternion = DirectX::SimpleMath::Quaternion;

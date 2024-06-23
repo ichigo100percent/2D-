@@ -258,6 +258,9 @@
     <Filter Include="소스 파일\01. Graphics\05. OutputMerger">
       <UniqueIdentifier>{bb674cf5-674e-415e-b44f-5acff175d0d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Resource">
+      <UniqueIdentifier>{0c70e67b-5e98-4f6d-81d6-7417688b15cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc">

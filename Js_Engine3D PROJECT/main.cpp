@@ -29,22 +29,22 @@ public:
     void Init() override
     {
         obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"player");
-        obj->SetScale(Vector3(.5f, .5f, 1));
+        //obj->SetScale(Vector3(.5f, .5f, 1));
         obj->Init(L"dopa.jpg");
 
         
         t = std::make_shared<TestObject>(GetDevice(), GetContext());
-        t->SetScale(Vector3(.3f, .3f, 1));
+        //t->SetScale(Vector3(.3f, .3f, 1));
         t->Init(L"dopa.jpg");
     }
     void Update() override
     {
         obj->Update();
         t->Update();
-        if (CheckCollision(obj->GetAABB(), t->GetAABB())) 
-        {    
-            OutputDebugStringA("Collision detected!\n");
-        }
+        //if (CheckCollision(obj->GetAABB(), t->GetAABB())) 
+        //{    
+        //    OutputDebugStringA("Collision detected!\n");
+        //}
 
     }
     void Render() override
