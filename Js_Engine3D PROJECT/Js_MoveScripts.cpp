@@ -10,7 +10,7 @@ namespace Js
 	void MoveScript::Init()
 	{
 		GetOwner()->GetOrAddTransform();
-		GetOwner()->GetTransform()->SetScale(Vector3(.3f, .3f, 0));
+		//GetOwner()->GetTransform()->SetScale(Vector3(.3f, .3f, 0));
 	}
 	void MoveScript::Update()
 	{

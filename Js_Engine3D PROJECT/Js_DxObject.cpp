@@ -69,7 +69,8 @@ namespace Js
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			script->Update();
+			if (script)
+				script->Update();
 		}
 		m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();
 		m_ConstantBuffer->CopyData(m_TransformData);
@@ -115,7 +116,7 @@ namespace Js
 			script->Release();
 		}
 	}
-	std::shared_ptr<Component> DxObject::GetFixedComponent(ComponentType _type)
+	std::shared_ptr<Component> DxObject::GetComponent(ComponentType _type)
 	{
 		UINT index = static_cast<UINT>(_type);
 		assert(index < FIXED_COMPONENT_COUNT);
@@ -138,7 +139,7 @@ namespace Js
 	}
 	std::shared_ptr<Transform> DxObject::GetTransform()
 	{
-		std::shared_ptr<Component> component = GetFixedComponent(ComponentType::Transform);
+		std::shared_ptr<Component> component = GetComponent(ComponentType::Transform);
 		return std::dynamic_pointer_cast<Transform>(component);
 	}
 	std::shared_ptr<Transform> DxObject::GetOrAddTransform()

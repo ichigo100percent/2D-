@@ -5,15 +5,16 @@ namespace Js
 {
 	class DxObject;
 	class Transform;
+
 	enum class ComponentType
 	{
 		Transform,
-		Collider,
-		Rigidbody,
-		Script,
-		SpriteRenderer,
-		Animator,
+		MeshRenderer,
 		Camera,
+		Animator,
+		// ...
+		Script,
+
 		End,
 	};
 
@@ -21,7 +22,6 @@ namespace Js
 	{
 		FIXED_COMPONENT_COUNT = static_cast<UINT>(ComponentType::End) - 1
 	};
-
 
 	class Component
 	{

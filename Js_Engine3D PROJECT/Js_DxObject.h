@@ -18,7 +18,7 @@ namespace Js
 		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
 		virtual void Release();
 
-		std::shared_ptr<Component> GetFixedComponent(ComponentType _type);
+		std::shared_ptr<Component> GetComponent(ComponentType _type);
 		void AddComponent(std::shared_ptr<Component> _component);
 		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<Transform> GetOrAddTransform();
