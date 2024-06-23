@@ -36,5 +36,8 @@ namespace Js
 
 		GetOwner()->GetTransform()->SetPosition(position);
 
+		std::string pos; 
+		pos += "This Position X : " + std::to_string(position.x) + " Y : " + std::to_string(position.y) + '\n';
+		OutputDebugStringA(pos.c_str());
 	}
 }

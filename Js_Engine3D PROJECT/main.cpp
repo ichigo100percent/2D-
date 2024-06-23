@@ -30,11 +30,10 @@ public:
 
     void Init() override
     {
-        a = std::make_shared<MoveScript>();
-        obj = std::make_shared<DxObject>(GetDevice(), GetContext(), L"dopa.jpg");
-        //obj->SetScale(Vector3(.5f, .5f, 1));
-        obj->AddComponent(a);
-        obj->Init();
+        moveScript = std::make_shared<MoveScript>();
+        player = std::make_shared<DxObject>(GetDevice(), GetContext(), L"dopa.jpg");
+        player->AddComponent(moveScript);
+        player->Init();
 
         //t = std::make_shared<TestObject>(GetDevice(), GetContext(), L"dopa.jpg");
         //t->SetScale(Vector3(.3f, .3f, 1));
@@ -42,7 +41,7 @@ public:
     }
     void Update() override
     {
-        obj->Update();
+        player->Update();
         //t->Update();
 
     }
@@ -55,7 +54,7 @@ public:
     }
     void Render() override
     {
-        obj->Render(m_Pipeline);
+        player->Render(m_Pipeline);
 
         //t->Render(m_Pipeline);
     }
@@ -64,9 +63,9 @@ public:
 
     }
 private:
-    std::shared_ptr<DxObject> obj;
+    std::shared_ptr<DxObject> player;
     std::shared_ptr<TestObject> t;
-    std::shared_ptr<MoveScript> a;
+    std::shared_ptr<MoveScript> moveScript;
 };
 
 GAME_START(g_Width, g_Height);
