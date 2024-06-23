@@ -10,6 +10,5 @@ namespace Js
 
 		void Update() override;
 
-
 	};
 }

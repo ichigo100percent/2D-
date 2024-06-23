@@ -1,5 +1,6 @@
 #include "TestObject.h"
 #include "Js_Time.h"
+#include "Js_Input.h"
 
 namespace Js
 {
@@ -18,18 +19,12 @@ namespace Js
 		Matrix matWorld = matScale * matRotation * matTranslation; // SRT
 		m_TransformData.matWorld = matWorld;
 
-		D3D11_MAPPED_SUBRESOURCE subResource;
-		ZeroMemory(&subResource, sizeof(subResource));
+		// AABB 업데이트
+		m_Rt.left = m_LocalPosition.x - m_LocalScale.x;
+		m_Rt.right = m_LocalPosition.x + m_LocalScale.x;
+		m_Rt.top = m_LocalPosition.y + m_LocalScale.y;
+		m_Rt.bottom = m_LocalPosition.y - m_LocalScale.y;
 
-		m_Context->Map(m_ConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-		::memcpy(subResource.pData, &m_TransformData, sizeof(m_TransformData));
-		m_Context->Unmap(m_ConstantBuffer.Get(), 0);
-
-		// Update AABB
-		m_AABB.left = m_LocalPosition.x - 0.5f * m_LocalScale.x;
-		m_AABB.right = m_LocalPosition.x + 0.5f * m_LocalScale.x;
-		m_AABB.top = m_LocalPosition.y + 0.5f * m_LocalScale.y;
-		m_AABB.bottom = m_LocalPosition.y - 0.5f * m_LocalScale.y;
-
+		m_ConstantBuffer->CopyData(m_TransformData);
 	}
 }

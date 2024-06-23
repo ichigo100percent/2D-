@@ -1,7 +1,17 @@
 #pragma once
 #include "std.h"
-
-using namespace std;
+#include "Js_Geometry.h"
+#include "Js_GeometryHelper.h"
+#include "Js_VertexData.h"
+#include "Js_VertexBuffer.h"
+#include "Js_IndexBuffer.h"
+#include "Js_InputLayout.h"
+#include "Js_Shader.h"
+#include "Js_ConstantBuffer.h"
+#include "Js_RasterizerState.h"
+#include "Js_Texture.h"
+#include "Js_SamplerState.h"
+#include "Js_BlendState.h"
 
 namespace Js
 {
@@ -12,109 +22,70 @@ namespace Js
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 		virtual ~DxObject();
 
+		virtual void Init(const std::wstring& _texName);
 		virtual void Update();
 		virtual void Render();
 		virtual void Release();
 
-		virtual void CreateObject(const std::wstring& _texName, const MyRect& _rt);
-
-		void DrawAABB()
+		virtual void SetWorld(const Matrix& _mat)
 		{
-			// Create a wireframe rectangle using DirectX
-			Vector2 size = Vector2(m_AABB.right - m_AABB.left, m_AABB.top - m_AABB.bottom); // Calculate AABB size
-
-			// Define vertices for a wireframe rectangle
-			std::vector<VertexData> vertices = {
-				{Vector3(m_AABB.left, m_AABB.top, 0.f), Vector2(0.f, 0.f)},
-				{Vector3(m_AABB.left + size.x, m_AABB.top, 0.f), Vector2(1.f, 0.f)},
-				{Vector3(m_AABB.left + size.x, m_AABB.bottom, 0.f), Vector2(1.f, 1.f)},
-				{Vector3(m_AABB.left, m_AABB.bottom, 0.f), Vector2(0.f, 1.f)},
-				{Vector3(m_AABB.left, m_AABB.top, 0.f), Vector2(0.f, 0.f)} // Close the rectangle
-			};
-
-			UINT stride = sizeof(VertexData);
-			UINT offset = 0;
-
-			// Create a temporary vertex buffer
-			ComPtr<ID3D11Buffer> tempVertexBuffer;
-			D3D11_BUFFER_DESC desc;
-			ZeroMemory(&desc, sizeof(desc));
-			desc.Usage = D3D11_USAGE_IMMUTABLE;
-			desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-			desc.ByteWidth = (UINT)(sizeof(VertexData) * vertices.size());
-
-			D3D11_SUBRESOURCE_DATA data;
-			ZeroMemory(&data, sizeof(data));
-			data.pSysMem = vertices.data();
-
-			HRESULT hr = m_Device->CreateBuffer(&desc, &data, tempVertexBuffer.GetAddressOf());
-			CHECK(hr);
-
-			// Set IA parameters for rendering the rectangle
-			m_Context->IASetVertexBuffers(0, 1, tempVertexBuffer.GetAddressOf(), &stride, &offset);
-			m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP); // Use line strip for wireframe
-
-			// Draw the rectangle
-			m_Context->Draw(vertices.size(), 0);
+			m_MatWorld = _mat;
 		}
-		MyRect m_AABB;
-
-		MyRect GetAABB() const {
-			return m_AABB;
+		virtual void SetScale(const Vector3& _scale)
+		{
+			m_LocalScale = _scale;
+		}
+		virtual void SetRotate(float _rotate)
+		{
+			m_MatRotate = Matrix::CreateRotationZ(_rotate);
+		}
+		virtual void SetTranslate(const Vector3& _pos)
+		{
+			m_MatTranslate = Matrix::CreateTranslation(_pos);
 		}
 
-	protected:
-		void CreateGeometry(const MyRect& _rt);
-		void CreateInputLayout();
-		void CreateVS();
-		void CreatePS();
+		Matrix		 m_MatWorld;     
+		Matrix	     m_MatScale;
+		Matrix	     m_MatRotate;
+		Matrix	     m_MatTranslate;
 
-		void CreateRasterizerState();
-		void CreateSamplerState();
-		void CreateBlendState();
-		void CreateSRV(const std::wstring& _texName);
+		MyRect m_Rt;
 
-		void CreateConstantBuffer();
-
-		void LoadShaderFromFile(const wstring& _path, const string& _name, const string& _version, ComPtr<ID3DBlob>& _blob);
+		MyRect GetAABB() const 
+		{
+			return m_Rt;
+		}
 
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;
 		ComPtr<ID3D11DeviceContext> m_Context = nullptr;
 
 		// Geometry
-		vector<VertexData> m_Vertices;
-		ComPtr<ID3D11Buffer> m_VertexBuffer = nullptr;
-		vector<UINT> m_Indices;
-		ComPtr<ID3D11Buffer> m_IndexBuffer = nullptr;
-		ComPtr<ID3D11InputLayout> _inputLayout = nullptr;
-
-		// VS
-		ComPtr<ID3D11VertexShader> m_VertexShader = nullptr;
-		ComPtr<ID3DBlob> m_VsBlob = nullptr;
+		std::shared_ptr<Geometry<VertexTextureData>> m_Geometry = nullptr;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer = nullptr;
+		std::shared_ptr<IndexBuffer>  m_IndexBuffer = nullptr;
+		std::shared_ptr<InputLayout>  m_InputLayout = nullptr;
+		
+		// Shader
+		std::shared_ptr<VertexShader> m_VertexShader = nullptr;
+		std::shared_ptr<PixelShader>  m_PixelShader  = nullptr;
 
 		// RS
-		ComPtr<ID3D11RasterizerState> _rasterizerState = nullptr;
-
-		// PS
-		ComPtr<ID3D11PixelShader> m_PixelShader = nullptr;
-		ComPtr<ID3DBlob> m_PsBlob = nullptr;
+		std::shared_ptr<RasterizerState> m_RasterizerState = nullptr;
 
 		// SRV
-		ComPtr<ID3D11ShaderResourceView> m_ShaderResourveView = nullptr;
-
-
-		ComPtr<ID3D11SamplerState> m_SamplerState = nullptr;
+		std::shared_ptr<Texture> m_ShaderResourceView = nullptr;
+		std::shared_ptr<SamplerState> m_SamplerState = nullptr;
 		ComPtr<ID3D11BlendState> m_BlendState = nullptr;
-		// [ CPU<->RAM ] [GPU<->VRAM]
 
+	protected:
 		// SRT
 		TransformData m_TransformData;
-		ComPtr<ID3D11Buffer> m_ConstantBuffer;
+		std::shared_ptr<ConstantBuffer<TransformData>> m_ConstantBuffer = nullptr;
 
 		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
 		Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
-		Vector3 m_LocalScale = { 0.3f, 0.3f, 0.3f };
+		Vector3 m_LocalScale = { 1.f, 1.f, 1.f };
 	};
 }
 

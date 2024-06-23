@@ -5,7 +5,7 @@
 namespace Js
 {
 
-	enum Type
+	enum ComponentType
 	{
 		None = 0,
 		Transform,
@@ -16,9 +16,12 @@ namespace Js
 	class Component
 	{
 	public:
+		Component(ComponentType _type) : m_Type(_type) {}
+		
+		std::shared_ptr<DxObject> GetOwner() {return m_GameObject.lock(); }
 
 	private:
-		Type m_eType;
-		
+		ComponentType m_Type;
+		std::weak_ptr<DxObject> m_GameObject;
 	};
 }

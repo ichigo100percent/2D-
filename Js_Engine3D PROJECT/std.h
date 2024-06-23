@@ -14,6 +14,8 @@
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
+
 
 // DX
 #include <Windows.h>
@@ -29,11 +31,11 @@
 #include "WICTextureLoader.h"
 #include "DDSTextureLoader.h"
 
+#pragma comment( lib, "DirectXTex.lib")
 #pragma comment( lib, "d2d1.lib")
 #pragma comment( lib, "dwrite.lib")
 #pragma comment( lib, "d3d11.lib")
 #pragma comment( lib, "d3dcompiler.lib")
-#pragma comment( lib, "DirectXTex.lib")
 
 #ifdef _DEBUG
 #pragma comment( lib, "DirectXTK_D.lib")
@@ -49,7 +51,6 @@ using namespace Microsoft::WRL;
 #include "type.h"
 #include "struct.h"
 #include "macro.h"
-
 
 
 
