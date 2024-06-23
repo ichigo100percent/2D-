@@ -26,6 +26,10 @@ namespace Js
 
 
 	Transform::Transform()
+		: Component(ComponentType::Transform)
+	{
+	}
+	Transform::~Transform()
 	{
 	}
 	void Transform::Init()
@@ -49,15 +53,10 @@ namespace Js
 		m_WorldMatrix.Decompose(m_Scale, quat, m_Position);
 		m_Rotation = ToEulerAngles(quat);
 
-		m_Right = Vector3::TransformNormal(Vector3::Right, m_WorldMatrix);
-		m_Up = Vector3::TransformNormal(Vector3::Up, m_WorldMatrix);
-		m_Look = Vector3::TransformNormal(Vector3::Backward, m_WorldMatrix);
-
-		//// AABB 업데이트
-		//m_Rt.left = m_LocalPosition.x - m_LocalScale.x;
-		//m_Rt.right = m_LocalPosition.x + m_LocalScale.x;
-		//m_Rt.top = m_LocalPosition.y + m_LocalScale.y;
-		//m_Rt.bottom = m_LocalPosition.y - m_LocalScale.y;
+		m_Rect.left = m_LocalPosition.x - m_LocalScale.x;
+		m_Rect.right = m_LocalPosition.x + m_LocalScale.x;
+		m_Rect.top = m_LocalPosition.y + m_LocalScale.y;
+		m_Rect.bottom = m_LocalPosition.y - m_LocalScale.y;
 	}
 	void Transform::SetScale(const Vector3& _worldScale)
 	{

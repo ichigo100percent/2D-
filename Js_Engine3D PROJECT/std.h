@@ -3,8 +3,8 @@
 // STL
 #include <iostream>
 #include <string>
-#include <vector>
 #include <array>
+#include <vector>
 #include <list>
 #include <map>
 #include <set>
@@ -51,7 +51,5 @@ using namespace Microsoft::WRL;
 #include "type.h"
 #include "struct.h"
 #include "macro.h"
-
-
 
 

@@ -1,31 +1,51 @@
 #pragma once
 #include "std.h"
-//#include "Js_DxObject.h"
 
 namespace Js
 {
-	enum ComponentType
+	class DxObject;
+	class Transform;
+	enum class ComponentType
 	{
-		eNone = 0,
-		eTransform,
-		eMesh,
-		eCollision,
+		Transform,
+		Collider,
+		Rigidbody,
+		Script,
+		SpriteRenderer,
+		Animator,
+		Camera,
+		End,
 	};
+
+	enum
+	{
+		FIXED_COMPONENT_COUNT = static_cast<UINT>(ComponentType::End) - 1
+	};
+
 
 	class Component
 	{
 	public:
-		Component();
+		Component() = default;
+		Component(ComponentType _type);
 		virtual ~Component();
 
-		virtual void Init() abstract;
-		virtual void Update() abstract;
-		
-		//std::shared_ptr<DxObject> GetOwner() {return m_GameObject.lock(); }
-		//ComponentType GetComponentType() { return m_Type; }
+		virtual void Init() {}
+		virtual void Update() {}
+		virtual void LateUpdate() {}
+		virtual void Render() {}
+		virtual void Release() {}
+
+		std::shared_ptr<DxObject> GetOwner();
+		std::shared_ptr<Transform> GetTransform();
+		ComponentType GetType() { return m_Type; }
 
 	private:
-		//ComponentType m_Type;
-		//std::weak_ptr<DxObject> m_GameObject;
+		friend class DxObject;
+		void SetOwner(std::shared_ptr<DxObject> _owner) { m_Owner = _owner; }
+
+	protected:
+		std::weak_ptr<DxObject> m_Owner;
+		ComponentType m_Type;
 	};
 }

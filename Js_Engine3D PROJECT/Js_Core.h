@@ -13,6 +13,7 @@ namespace Js
 
 		virtual void Init();
 		virtual void Update();
+		virtual void LateUpdate();
 		virtual void Render();
 		virtual void Release();
 
@@ -20,6 +21,7 @@ namespace Js
 
 		bool EngineInit();
 		bool EngineUpdate();
+		bool EngineLateUpdate();
 		bool EngineRender();
 		bool EngineRelease();
 

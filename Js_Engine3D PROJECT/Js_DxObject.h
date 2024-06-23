@@ -1,52 +1,28 @@
 #pragma once
 #include "std.h"
 #include "Js_Pipeline.h"
-#include "Js_Transform.h"
+#include "Js_Component.h"
+#include "Js_MonoBehaviour.h"
 
-//class Transform {};
-	
 namespace Js
 {
-
-	class DxObject : public Entity
+	class DxObject : public std::enable_shared_from_this<DxObject>, public Entity
 	{
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
 		virtual ~DxObject();
 
-		virtual void Init(const std::wstring& _texName);
+		virtual void Init();
 		virtual void Update();
+		virtual void LateUpdate();
 		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
 		virtual void Release();
 
-		//virtual void SetWorld(const Matrix& _mat)
-		//{
-		//	m_MatWorld = _mat;
-		//}
-		//virtual void SetScale(const Vector3& _scale)
-		//{
-		//	m_LocalScale = _scale;
-		//}
-		//virtual void SetRotate(float _rotate)
-		//{
-		//	m_MatRotate = Matrix::CreateRotationZ(_rotate);
-		//}
-		//virtual void SetTranslate(const Vector3& _pos)
-		//{
-		//	m_MatTranslate = Matrix::CreateTranslation(_pos);
-		//}
-		//
-		//Matrix		 m_MatWorld;     
-		//Matrix	     m_MatScale;
-		//Matrix	     m_MatRotate;
-		//Matrix	     m_MatTranslate;
-		//
-		//MyRect m_Rt;
-		//
-		//MyRect GetAABB() const 
-		//{
-		//	return m_Rt;
-		//}
+		std::shared_ptr<Component> GetFixedComponent(ComponentType _type);
+		void AddComponent(std::shared_ptr<Component> _component);
+		std::shared_ptr<Transform> GetTransform();
+		std::shared_ptr<Transform> GetOrAddTransform();
+		
 
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;
@@ -71,10 +47,10 @@ namespace Js
 		// SRT
 		TransformData m_TransformData;
 		std::shared_ptr<ConstantBuffer<TransformData>> m_ConstantBuffer = nullptr;
-		std::shared_ptr<Transform> m_Transform = std::make_shared<Transform>();
-		//Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
-		//Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
-		//Vector3 m_LocalScale = { 1.f, 1.f, 1.f };
+
+	protected:
+		std::array<std::shared_ptr<Component>, FIXED_COMPONENT_COUNT> m_Components;
+		std::vector<std::shared_ptr<MonoBehaviour>>					  m_Scripts;
 	};
 }
 

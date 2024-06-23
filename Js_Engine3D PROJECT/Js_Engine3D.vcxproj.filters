@@ -75,6 +75,12 @@
     <ClCompile Include="Js_Pipeline.cpp">
       <Filter>소스 파일\01. Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Js_MonoBehaviour.cpp">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MoveScripts.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -180,6 +186,12 @@
     <ClInclude Include="Js_Pipeline.h">
       <Filter>소스 파일\01. Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Js_MonoBehaviour.h">
+      <Filter>소스 파일\02. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MoveScripts.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">
@@ -260,6 +272,9 @@
     </Filter>
     <Filter Include="소스 파일\03. Resource">
       <UniqueIdentifier>{0c70e67b-5e98-4f6d-81d6-7417688b15cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts">
+      <UniqueIdentifier>{b80293d9-8fc8-4e97-a4d7-bf94e2b9a40a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

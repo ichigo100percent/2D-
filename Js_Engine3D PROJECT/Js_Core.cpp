@@ -15,6 +15,7 @@ namespace Js
 
 	void Core::Init() {}
 	void Core::Update() {}
+	void Core::LateUpdate(){}
 	void Core::Render() {}
 	void Core::Release() {}
 
@@ -47,6 +48,11 @@ namespace Js
 		Update();
 		return true;
 	}
+	bool Core::EngineLateUpdate()
+	{
+		LateUpdate();
+		return true;
+	}
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
@@ -74,6 +80,7 @@ namespace Js
 				break;
 			}
 			EngineUpdate();
+			EngineLateUpdate();
 			EngineRender();
 		}
 		EngineRelease();

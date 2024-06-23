@@ -7,6 +7,7 @@ namespace Js
 	{
 	public:
 		Transform();
+		~Transform();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -22,6 +23,9 @@ namespace Js
 		void SetPosition(const Vector3& _position);
 
 		Matrix GetWorldMatrix() { return m_WorldMatrix; }
+		Vector3 GetRight() { return m_WorldMatrix.Right(); }
+		Vector3 GetUp() { return m_WorldMatrix.Up(); }
+		Vector3 GetLook() { return m_WorldMatrix.Backward(); }
 		MyRect GetRect() { return m_Rect; }
 
 	protected:
@@ -44,10 +48,6 @@ namespace Js
 		Vector3 m_LocalScale	= { 1.f, 1.f, 1.f };
 		Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
 		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
-
-		Vector3 m_Right;
-		Vector3 m_Up;
-		Vector3 m_Look;
 
 		MyRect m_Rect = {};
 	};
