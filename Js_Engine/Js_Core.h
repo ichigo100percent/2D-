@@ -21,7 +21,8 @@ namespace Js
 		bool EngineRender();
 		bool EngineRelease();
 
+		static bool    s_GameRun;
 	private:
-		DxWrite wf;
+		std::shared_ptr<DxWrite> wf = std::make_shared<DxWrite>();
 	};
 }

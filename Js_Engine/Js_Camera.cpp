@@ -2,6 +2,8 @@
 #include "Js_Time.h"
 namespace Js
 {
+	Matrix Camera::m_ViewMatrix = Matrix::Identity;
+
 	Camera::Camera()
 	{
 	}

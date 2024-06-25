@@ -22,8 +22,8 @@ namespace Js
 		void SetPosition(const Vector3& _pos) { m_CameraPosition = _pos; }
 		Vector3 GetCameraPos() { return m_CameraPosition; }
 			
+		static Matrix  m_ViewMatrix;
     private:
-		Matrix  m_ViewMatrix;
 		Vector3 m_CameraPosition;
 	};
 }

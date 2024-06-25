@@ -81,6 +81,9 @@
     <ClCompile Include="Js_MoveScripts.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="Js_RotateScript.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -190,6 +193,9 @@
       <Filter>소스 파일\02. Component</Filter>
     </ClInclude>
     <ClInclude Include="Js_MoveScripts.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_RotateScript.h">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClInclude>
   </ItemGroup>

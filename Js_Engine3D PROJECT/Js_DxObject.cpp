@@ -4,6 +4,7 @@
 #include "Js_Component.h"
 #include "Js_Transform.h"
 #include "Js_MonoBehaviour.h"
+#include "Js_Camera.h"
 
 namespace Js
 {
@@ -37,7 +38,10 @@ namespace Js
 		m_RasterizerState->Create();
 
 		m_ShaderResourceView = std::make_shared<Texture>(m_Device);
-		m_ShaderResourceView->Create(_name);
+		if (_name.size() > 0)
+		{
+			m_ShaderResourceView->Create(_name);
+		}
 
 		m_SamplerState = std::make_shared<SamplerState>(m_Device);
 		m_SamplerState->Create();
@@ -57,7 +61,8 @@ namespace Js
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			script->Init();
+			if (script)
+				script->Init();
 		}
 	}
 	void DxObject::Update()
@@ -72,8 +77,22 @@ namespace Js
 			if (script)
 				script->Update();
 		}
-		m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();
-		m_ConstantBuffer->CopyData(m_TransformData);
+
+		Matrix viewMatrix = Camera::m_sViewMatrix;
+		Matrix projection = Camera::m_sProjectionMatrix;
+		//m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();// *viewMatrix;//* projection;
+		//m_ConstantBuffer->CopyData(m_TransformData);
+
+		if (m_Components[0])
+		{
+			m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix() * viewMatrix * projection;
+			m_ConstantBuffer->CopyData(m_TransformData);
+		}
+		else
+		{
+			m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();// *viewMatrix;//* projection;
+			m_ConstantBuffer->CopyData(m_TransformData);
+		}
 	}
 	void DxObject::LateUpdate()
 	{
@@ -84,7 +103,8 @@ namespace Js
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			script->LateUpdate();
+			if (script)
+				script->LateUpdate();
 		}
 	}
 	void DxObject::Render(std::shared_ptr<Pipeline> _pipeline)
@@ -113,7 +133,8 @@ namespace Js
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			script->Release();
+			if (script)
+				script->Release();
 		}
 	}
 	std::shared_ptr<Component> DxObject::GetComponent(ComponentType _type)
@@ -150,5 +171,10 @@ namespace Js
 			AddComponent(transform);
 		}
 		return GetTransform();
+	}
+	Vector3 DxObject::GetSize()
+	{		
+		auto size = m_ShaderResourceView->GetSize();
+		return Vector3(size.x, size.y, 0);
 	}
 }

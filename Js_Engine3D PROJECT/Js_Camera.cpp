@@ -26,23 +26,15 @@ namespace Js
 	}
 	void Camera::UpdateMatrix()
 	{
-		m_sViewMatrix = GetTransform()->GetWorldMatrix().Invert();
-	}
+		Vector3 eyePosition = GetTransform()->GetPosition();
+		Vector3 focusPosition = eyePosition + GetTransform()->GetLook();
+		Vector3 upDirection = GetTransform()->GetUp();
+		m_sViewMatrix = XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
+		//m_sViewMatrix = GetTransform()->GetWorldMatrix().Invert();
 
-	Matrix Camera::GetViewMatrix() const
-	{
-		return m_sViewMatrix;
-	}
-
-	Matrix Camera::GetProjectionMatrix() const
-	{
-		return m_sProjectionMatrix;
-	}
-
-	void Camera::SetProjectionMatrix(const Matrix& _projectionMatrix)
-	{
-		m_sProjectionMatrix = _projectionMatrix;
+		//auto pos = GetTransform()->GetPosition();
+		//m_sViewMatrix = Matrix::CreateTranslation(pos);
+		//m_sProjectionMatrix = XMMatrixOrthographicLH(g_Width, g_Height, 0.f, 1.f);
+		m_sProjectionMatrix = XMMatrixOrthographicLH(1280, 720, 0.f, 1.f);
 	}
 }
-		//m_sProjectionMatrix = XMMatrixOrthographicLH(g_Width, g_Height, 0.f, 1.f);
-		//m_sProjectionMatrix = XMMatrixOrthographicLH(8, 6, 0.f, 1.f);

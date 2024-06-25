@@ -11,6 +11,15 @@ namespace Js
 		float    bottom;
 	};
 
+	struct SpriteData
+	{
+		UINT    Index = 0;
+		UINT    Length = 0;
+		float	PlayTimer = 0.0f;
+		float	AnimationTimer = 0.0f;
+		float	ChangeTime = 0.0f;
+	};
+
 	class Sprite
 	{
 	public:
@@ -28,11 +37,7 @@ namespace Js
 	public:
 		std::vector<VertexData>  m_List;		 // 프레임 화면 정보
 		std::shared_ptr<Texture> m_Texure;
-		UINT	m_AnimIndex = 0;
-		UINT    m_TexLength = 0;
-		float	m_PlayTimer = 0.0f;
-		float	m_AnimationTimer = 0.0f;
-		float	m_ChangeTime = 0.0f;
+		SpriteData m_SpriteData = {};
 		std::vector<ComPtr<ID3D11ShaderResourceView>> m_SRVList;
 		std::vector<RECT> m_rtList;
 		std::vector<myRECT> m_uvList;

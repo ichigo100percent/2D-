@@ -5,7 +5,7 @@ namespace Js
 {
 	enum class ProjectionType
 	{
-		Perspective, // 원근 투영
+		Perspective,  // 원근 투영
 		Orthographic, // 직교 투영
 	};
 
@@ -22,10 +22,6 @@ namespace Js
 
 		void SetProjectionType(ProjectionType _type) { m_Type = _type; }
 		ProjectionType GetProjectionType() { return m_Type; }
-
-		Matrix GetViewMatrix() const;
-		Matrix GetProjectionMatrix() const;
-		void SetProjectionMatrix(const Matrix& _projectionMatrix);
 
 	private:
 		ProjectionType m_Type = ProjectionType::Orthographic;

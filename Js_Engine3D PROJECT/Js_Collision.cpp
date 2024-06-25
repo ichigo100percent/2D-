@@ -2,5 +2,10 @@
 
 namespace Js
 {
-
+	Collision::Collision()
+	{
+	}
+	Collision::~Collision()
+	{
+	}
 }

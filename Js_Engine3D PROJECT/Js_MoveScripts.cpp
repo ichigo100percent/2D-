@@ -10,11 +10,10 @@ namespace Js
 	void MoveScript::Init()
 	{
 		GetOwner()->GetOrAddTransform();
-		//GetOwner()->GetTransform()->SetScale(Vector3(.3f, .3f, 0));
 	}
 	void MoveScript::Update()
 	{
-		float speed = 0.5 * Time::DeltaTime();
+		float speed = 100 * Time::DeltaTime();
 		auto position = GetOwner()->GetTransform()->GetPosition();
 
 		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
@@ -33,11 +32,9 @@ namespace Js
 		{
 			position.x += speed;
 		}
-
 		GetOwner()->GetTransform()->SetPosition(position);
-
-		std::string pos; 
-		pos += "This Position X : " + std::to_string(position.x) + " Y : " + std::to_string(position.y) + '\n';
-		OutputDebugStringA(pos.c_str());
+		//std::string pos; 
+		//pos += "This Position X : " + std::to_string(position.x) + " Y : " + std::to_string(position.y) + '\n';
+		//OutputDebugStringA(pos.c_str());
 	}
 }

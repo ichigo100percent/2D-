@@ -22,7 +22,7 @@ namespace Js
 		void AddComponent(std::shared_ptr<Component> _component);
 		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<Transform> GetOrAddTransform();
-		
+		Vector3 GetSize();
 
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;

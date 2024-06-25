@@ -48,6 +48,7 @@ namespace Js
 		Vector3 m_LocalScale	= { 1.f, 1.f, 1.f };
 		Vector3 m_LocalRotation = { 0.f, 0.f, 0.f };
 		Vector3 m_LocalPosition = { 0.f, 0.f, 0.f };
+		Quaternion m_LocalQuaternion = { 0.f, 0.f, 0.f, 0.f };
 
 		MyRect m_Rect = {};
 	};

@@ -56,9 +56,9 @@ namespace Js
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
-		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
-
 		Render();
+
+		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 		Device::PostRender();
 		return true;
 	}

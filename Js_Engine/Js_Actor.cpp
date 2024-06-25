@@ -3,7 +3,7 @@
 #include "Js_Time.h"
 #include "Js_TextureMgr.h"
 #include "Js_ShaderMgr.h"
-
+#include "Js_Camera.h"
 
 namespace Js
 {
@@ -13,7 +13,9 @@ namespace Js
 	}
 	void Actor::Update()
 	{
-		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;
+		auto viewMatrix = Camera::m_ViewMatrix;
+
+		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;// *viewMatrix;
 		Transform(m_MatWorld);
 
 		if (m_Sprite != nullptr)

@@ -7,6 +7,8 @@
 
 namespace Js
 {
+	bool Core::s_GameRun = true;
+
 	Core::Core()
 	{
 
@@ -32,11 +34,11 @@ namespace Js
 
 #ifdef _DEBUG
 		{
-			wf.Init();
+			wf->Init();
 			IDXGISurface* dxgiSurface = nullptr;
 			m_SwapChain->GetBuffer(0, __uuidof(IDXGISurface),
 				(void**)&dxgiSurface);
-			wf.ResetDevice(dxgiSurface);
+			wf->ResetDevice(dxgiSurface);
 			dxgiSurface->Release();
 		}
 #endif
@@ -47,7 +49,7 @@ namespace Js
 	{
 		Time::Update();
 		Input::Update(m_Hwnd);
-		wf.Update();
+		wf->Update();
 		SOUND.Update();
 		Update();
 		return true;
@@ -58,7 +60,7 @@ namespace Js
 		//Input::DebugMousePos();
 		//Input::KeyTest();
 		Render();
-		wf.DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
+		wf->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 
 		Device::PostRender();
 		return true;
@@ -74,7 +76,7 @@ namespace Js
 	void Core::GameRun()
 	{
 		EngineInit();
-		while (true)
+		while (s_GameRun)
 		{
 			if (Window::WindowRun() == false)
 			{

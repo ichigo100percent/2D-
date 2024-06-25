@@ -1,10 +1,15 @@
 ﻿#include "std.h"
 #include "Js_Core.h"
+#include "Js_Time.h"
+#include "Js_Input.h"
 #include "Js_DxObject.h"
 #include "Js_Component.h"
 #include "Js_Transform.h"
-#include "Js_MoveScripts.h"
 #include "Js_Camera.h"
+
+// Scripts
+#include "Js_MoveScripts.h"
+#include "Js_RotateScript.h"
 
 #include "TestObject.h"
 
@@ -32,28 +37,37 @@ public:
 
     void Init() override
     {
-        camera = std::make_shared<DxObject>(GetDevice(), GetContext(), L"dopa.jpg");
+        camera = std::make_shared<DxObject>(GetDevice(), GetContext());
         {
             camera->GetOrAddTransform();
             camera->AddComponent(std::make_shared<Camera>());
+            camera->AddComponent(std::make_shared<MoveScript>());
             camera->Init();
         }
+        bg = std::make_shared<DxObject>(GetDevice(), GetContext(), L"bg_blue.jpg");
+        {
+            bg->GetOrAddTransform()->SetScale(bg->GetSize());
+            bg->Init();
+        }
 
-        player = std::make_shared<DxObject>(GetDevice(), GetContext(), L"dopa.jpg");
-        player->AddComponent(std::make_shared<MoveScript>());
-        player->GetOrAddTransform()->SetScale(Vector3(.3f, .3f, 0));
-        player->Init();
-
-        t = std::make_shared<TestObject>(GetDevice(), GetContext(), L"dopa.jpg");
-        t->GetOrAddTransform()->SetScale(Vector3(.3f, .3f, 1));
-        t->Init();
+        player = std::make_shared<DxObject>(GetDevice(), GetContext(), L"1.bmp");
+        {
+            player->AddComponent(std::make_shared<MoveScript>());
+            player->GetOrAddTransform()->SetScale(player->GetSize());
+            player->Init();
+        }
+        t = std::make_shared<TestObject>(GetDevice(), GetContext(), L"1.bmp");
+        {
+            t->GetOrAddTransform()->SetScale(player->GetSize());
+            t->Init();
+        }
     }
     void Update() override
     {
         camera->Update();
+        bg->Update();
         player->Update();
         t->Update();
-
     }
     void LateUpdate() override
     {
@@ -67,6 +81,7 @@ public:
     void Render() override
     {
         camera->Render(m_Pipeline);
+        bg->Render(m_Pipeline);
         player->Render(m_Pipeline);
         t->Render(m_Pipeline);
     }
@@ -76,6 +91,7 @@ public:
     }
 private:
     std::shared_ptr<DxObject> camera;
+    std::shared_ptr<DxObject> bg;
     std::shared_ptr<DxObject> player;
     std::shared_ptr<TestObject> t;
 };

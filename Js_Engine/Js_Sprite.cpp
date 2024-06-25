@@ -5,22 +5,22 @@ namespace Js
 {
 	void Sprite::Update()
 	{
-		m_PlayTimer += Time::DeltaTime();
-		if (m_PlayTimer > m_ChangeTime)
+		m_SpriteData.PlayTimer += Time::DeltaTime();
+		if (m_SpriteData.PlayTimer > m_SpriteData.ChangeTime)
 		{
-			m_AnimIndex++;
-			m_PlayTimer -= m_ChangeTime;
-			if (m_AnimIndex >= m_TexLength)
+			m_SpriteData.Index++;
+			m_SpriteData.PlayTimer -= m_SpriteData.ChangeTime;
+			if (m_SpriteData.Index >= m_SpriteData.Length)
 			{
-				m_AnimIndex = 0;
+				m_SpriteData.Index = 0;
 			}
 		}
 		if (m_uvList.size() > 0)
 		{
-			float left = m_uvList[m_AnimIndex].left;
-			float right = m_uvList[m_AnimIndex].right;
-			float top = m_uvList[m_AnimIndex].top;
-			float bottom = m_uvList[m_AnimIndex].bottom;
+			float left = m_uvList[m_SpriteData.Index].left;
+			float right = m_uvList[m_SpriteData.Index].right;
+			float top = m_uvList[m_SpriteData.Index].top;
+			float bottom = m_uvList[m_SpriteData.Index].bottom;
 
 			m_List[0].texture = Vector2(left, bottom);
 			m_List[1].texture = Vector2(left, top);
@@ -30,15 +30,15 @@ namespace Js
 	}
 	void Sprite::SetAnim(float _animationTimer)
 	{
-		m_AnimIndex = 0;
-		m_AnimationTimer = _animationTimer;
-		m_ChangeTime = m_AnimationTimer / static_cast<float>(m_TexLength);
+		m_SpriteData.Index = 0;
+		m_SpriteData.AnimationTimer = _animationTimer;
+		m_SpriteData.ChangeTime = m_SpriteData.AnimationTimer / static_cast<float>(m_SpriteData.Length);
 	}
 	ComPtr<ID3D11ShaderResourceView> Sprite::GetSRV()
 	{
-		if (m_SRVList.size() > m_AnimIndex)
+		if (m_SRVList.size() > m_SpriteData.Index)
 		{
-			return m_SRVList[m_AnimIndex];
+			return m_SRVList[m_SpriteData.Index];
 		}
 		return m_Texure->m_ShaderResourceView;
 	}
@@ -52,12 +52,12 @@ namespace Js
 	void Sprite::Load(std::wstring _path, Vector2 _offset, Vector2 _size, UINT _length, bool _isLoop)
 	{
 		m_Texure = TEXTURE.Load(_path);
-		m_TexLength = _length;
+		m_SpriteData.Length = _length;
 
 		UINT width = m_Texure->GetSize().x;
 		UINT height = m_Texure->GetSize().y;
 
-		for (UINT i = 0; i < m_TexLength; i++)
+		for (UINT i = 0; i < m_SpriteData.Length; i++)
 		{
 			RECT rt;
 			rt.left = _offset.x + _size.x * i;
