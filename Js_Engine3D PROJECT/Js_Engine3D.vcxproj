@@ -172,6 +172,7 @@
     <ClInclude Include="Js_VertexData.h" />
     <ClInclude Include="Js_Window.h" />
     <ClInclude Include="macro.h" />
+    <ClInclude Include="Js_MeshRenderer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="std.h" />
     <ClInclude Include="struct.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Js_VertexData.cpp" />
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Js_MeshRenderer.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Js_MoveScripts.cpp" />
   </ItemGroup>

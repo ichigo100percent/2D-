@@ -27,7 +27,7 @@ namespace Js
 		ProjectionType m_Type = ProjectionType::Orthographic;
 
 	public:
-		static Matrix m_sViewMatrix;
-		static Matrix m_sProjectionMatrix;
+		static Matrix s_ViewMatrix;
+		static Matrix s_ProjectionMatrix;
 	};
 }

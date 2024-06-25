@@ -23,16 +23,7 @@
     <ClCompile Include="Js_DxWrite.cpp">
       <Filter>소스 파일\99. Header\02. Font</Filter>
     </ClCompile>
-    <ClCompile Include="Js_Collision.cpp">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClCompile>
     <ClCompile Include="Js_Component.cpp">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Js_Camera.cpp">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Js_Transform.cpp">
       <Filter>소스 파일\02. Component</Filter>
     </ClCompile>
     <ClCompile Include="Js_VertexBuffer.cpp">
@@ -75,14 +66,26 @@
     <ClCompile Include="Js_Pipeline.cpp">
       <Filter>소스 파일\01. Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Js_MonoBehaviour.cpp">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClCompile>
     <ClCompile Include="Js_MoveScripts.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Js_RotateScript.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Transform.cpp">
+      <Filter>소스 파일\02. Component\00. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MeshRenderer.cpp">
+      <Filter>소스 파일\02. Component\01. MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MonoBehaviour.cpp">
+      <Filter>소스 파일\02. Component\02. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Camera.cpp">
+      <Filter>소스 파일\02. Component\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Collision.cpp">
+      <Filter>소스 파일\02. Component\04. Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,16 +140,7 @@
     <ClInclude Include="Js_DxWrite.h">
       <Filter>소스 파일\99. Header\02. Font</Filter>
     </ClInclude>
-    <ClInclude Include="Js_Collision.h">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClInclude>
     <ClInclude Include="Js_Component.h">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_Camera.h">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_Transform.h">
       <Filter>소스 파일\02. Component</Filter>
     </ClInclude>
     <ClInclude Include="Js_VertexBuffer.h">
@@ -189,14 +183,26 @@
     <ClInclude Include="Js_Pipeline.h">
       <Filter>소스 파일\01. Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Js_MonoBehaviour.h">
-      <Filter>소스 파일\02. Component</Filter>
-    </ClInclude>
     <ClInclude Include="Js_MoveScripts.h">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Js_RotateScript.h">
       <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Transform.h">
+      <Filter>소스 파일\02. Component\00. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MeshRenderer.h">
+      <Filter>소스 파일\02. Component\01. MeshRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MonoBehaviour.h">
+      <Filter>소스 파일\02. Component\02. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Camera.h">
+      <Filter>소스 파일\02. Component\03. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Collision.h">
+      <Filter>소스 파일\02. Component\04. Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +287,21 @@
     </Filter>
     <Filter Include="소스 파일\04. Scripts">
       <UniqueIdentifier>{b80293d9-8fc8-4e97-a4d7-bf94e2b9a40a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\00. Transform">
+      <UniqueIdentifier>{a3f0fb73-6d53-4ada-853e-25aa562356f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. MeshRender">
+      <UniqueIdentifier>{9ba55449-3f40-4fbd-a32e-3f79e791f379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\02. Scripts">
+      <UniqueIdentifier>{b9c708b0-c128-41ad-ada1-a958e9b1301a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\03. Camera">
+      <UniqueIdentifier>{678f47a5-d3e1-44b7-8edc-136fe7969f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\04. Collision">
+      <UniqueIdentifier>{f262da80-ccc2-4120-9512-ad50d40aab71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

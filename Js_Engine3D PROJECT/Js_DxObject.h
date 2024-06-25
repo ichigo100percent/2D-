@@ -3,6 +3,7 @@
 #include "Js_Pipeline.h"
 #include "Js_Component.h"
 #include "Js_MonoBehaviour.h"
+#include "Js_Camera.h"
 
 namespace Js
 {
@@ -20,8 +21,9 @@ namespace Js
 
 		std::shared_ptr<Component> GetComponent(ComponentType _type);
 		void AddComponent(std::shared_ptr<Component> _component);
-		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<Transform> GetOrAddTransform();
+		std::shared_ptr<Transform> GetTransform();
+		std::shared_ptr<Camera> GetCamera();
 		Vector3 GetSize();
 
 	protected:
@@ -46,7 +48,10 @@ namespace Js
 	protected:
 		// SRT
 		TransformData m_TransformData;
-		std::shared_ptr<ConstantBuffer<TransformData>> m_ConstantBuffer = nullptr;
+		std::shared_ptr<ConstantBuffer<TransformData>> m_TransformBuffer = nullptr;
+		
+		CameraData m_CameraData;
+		std::shared_ptr<ConstantBuffer<CameraData>> m_CameraBuffer = nullptr;
 
 	protected:
 		std::array<std::shared_ptr<Component>, FIXED_COMPONENT_COUNT> m_Components;

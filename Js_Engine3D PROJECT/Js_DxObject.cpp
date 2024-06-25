@@ -31,8 +31,11 @@ namespace Js
 		m_PixelShader = std::make_shared<PixelShader>(m_Device);
 		m_PixelShader->Create(L"Default.hlsl", "PS", "ps_5_0");
 
-		m_ConstantBuffer = std::make_shared<ConstantBuffer<TransformData>>(m_Device, m_Context);
-		m_ConstantBuffer->Create();
+		m_TransformBuffer = std::make_shared<ConstantBuffer<TransformData>>(m_Device, m_Context);
+		m_TransformBuffer->Create();
+
+		m_CameraBuffer = std::make_shared<ConstantBuffer<CameraData>>(m_Device, m_Context);
+		m_CameraBuffer->Create();
 
 		m_RasterizerState = std::make_shared<RasterizerState>(m_Device);
 		m_RasterizerState->Create();
@@ -78,21 +81,15 @@ namespace Js
 				script->Update();
 		}
 
-		Matrix viewMatrix = Camera::m_sViewMatrix;
-		Matrix projection = Camera::m_sProjectionMatrix;
-		//m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();// *viewMatrix;//* projection;
-		//m_ConstantBuffer->CopyData(m_TransformData);
+		if (GetCamera())
+			return;
 
-		if (m_Components[0])
-		{
-			m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix() * viewMatrix * projection;
-			m_ConstantBuffer->CopyData(m_TransformData);
-		}
-		else
-		{
-			m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();// *viewMatrix;//* projection;
-			m_ConstantBuffer->CopyData(m_TransformData);
-		}
+		m_CameraData.matView = Camera::s_ViewMatrix;
+		m_CameraData.matProjection = Camera::s_ProjectionMatrix;
+		m_CameraBuffer->CopyData(m_CameraData);
+
+		m_TransformData.matWorld = GetOrAddTransform()->GetWorldMatrix();
+		m_TransformBuffer->CopyData(m_TransformData);
 	}
 	void DxObject::LateUpdate()
 	{
@@ -119,7 +116,8 @@ namespace Js
 
 		_pipeline->SetVertexBuffer(m_VertexBuffer);
 		_pipeline->SetIndexBuffer(m_IndexBuffer);
-		_pipeline->SetConstantBuffer(0, SS_VertexShader, m_ConstantBuffer);
+		_pipeline->SetConstantBuffer(0, SS_VertexShader, m_CameraBuffer);
+		_pipeline->SetConstantBuffer(1, SS_VertexShader, m_TransformBuffer);
 		_pipeline->SetTexture(0, SS_PixelShader, m_ShaderResourceView);
 		_pipeline->SetSamplerState(0, SS_PixelShader, m_SamplerState);
 		_pipeline->DrawIndexed(m_Geometry->GetIndexCount(), 0, 0);
@@ -162,6 +160,11 @@ namespace Js
 	{
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Transform);
 		return std::dynamic_pointer_cast<Transform>(component);
+	}
+	std::shared_ptr<Camera> DxObject::GetCamera()
+	{
+		std::shared_ptr<Component> component = GetComponent(ComponentType::Camera);
+		return std::dynamic_pointer_cast<Camera>(component);
 	}
 	std::shared_ptr<Transform> DxObject::GetOrAddTransform()
 	{
