@@ -6,6 +6,9 @@ namespace Js
 	class testscene : public Scene
 	{
 	public:
+		void Update() override;
+		void LateUpdate() override;
+
 		std::shared_ptr<Scene> LoadTestScene();
 
 		std::shared_ptr<DxObject> camera;

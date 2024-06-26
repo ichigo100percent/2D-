@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Js_FollowTarget.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_BlendState.h" />
     <ClInclude Include="Js_Camera.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Js_FollowTarget.cpp" />
     <ClCompile Include="Js_BlendState.cpp" />
     <ClCompile Include="Js_Camera.cpp" />
     <ClCompile Include="Js_Collision.cpp" />

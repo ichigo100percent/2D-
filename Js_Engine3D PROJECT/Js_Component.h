@@ -15,6 +15,7 @@ namespace Js
 		Animator,
 		// ...
 		Script,
+		Collider,
 
 		End,
 	};

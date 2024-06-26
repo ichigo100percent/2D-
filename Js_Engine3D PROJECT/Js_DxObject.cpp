@@ -118,6 +118,11 @@ namespace Js
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Camera);
 		return std::dynamic_pointer_cast<Camera>(component);
 	}
+	std::shared_ptr<MonoBehaviour> DxObject::GetScript()
+	{
+		std::shared_ptr<Component> component = GetComponent(ComponentType::Script);
+		return std::dynamic_pointer_cast<MonoBehaviour>(component);
+	}
 	std::shared_ptr<Transform> DxObject::GetOrAddTransform()
 	{
 		if (GetTransform() == nullptr)

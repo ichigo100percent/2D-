@@ -16,6 +16,8 @@ namespace Js
 		
 		static void LoadScene();
 
+		static std::shared_ptr<Scene> GetActiveScene() { return m_CurrentScene; }
+
 	private:
 		static std::map<std::wstring, std::shared_ptr<Scene>> m_SceneList;
 		static std::shared_ptr<Scene> m_CurrentScene;

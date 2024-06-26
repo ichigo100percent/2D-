@@ -100,6 +100,9 @@
     <ClCompile Include="Js_Texture.cpp">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Js_FollowTarget.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -229,6 +232,9 @@
     <ClInclude Include="testscene.h" />
     <ClInclude Include="Js_Texture.h">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FollowTarget.h">
+      <Filter>소스 파일\04. Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

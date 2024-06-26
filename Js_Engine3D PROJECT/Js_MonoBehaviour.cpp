@@ -1,4 +1,5 @@
 #include "Js_MonoBehaviour.h"
+#include "Js_Collision.h"
 
 namespace Js
 {

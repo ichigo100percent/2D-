@@ -26,6 +26,8 @@ namespace Js
 		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<MeshRenderer> GetMeshRenderer();
 		std::shared_ptr<Camera> GetCamera();
+		std::shared_ptr<MonoBehaviour> GetScript();
+
 		Vector3 GetSize();
 		bool GetActive() { return m_IsActive; }
 
