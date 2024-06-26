@@ -1,9 +1,10 @@
 #pragma once
 #include "std.h"
+#include "Js_Resource.h"
 
 namespace Js
 {
-	class Texture
+	class Texture : public BaseResource
 	{
 	public:
 		Texture(ComPtr<ID3D11Device> _device);

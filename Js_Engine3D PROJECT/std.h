@@ -51,5 +51,3 @@ using namespace Microsoft::WRL;
 #include "type.h"
 #include "struct.h"
 #include "macro.h"
-
-

@@ -1,5 +1,6 @@
 #pragma once
 #include "std.h"
+#include "Js_Pipeline.h"
 
 namespace Js
 {
@@ -23,17 +24,17 @@ namespace Js
 		FIXED_COMPONENT_COUNT = static_cast<UINT>(ComponentType::End) - 1
 	};
 
-	class Component
+	class Component : public Entity
 	{
 	public:
 		Component() = default;
-		Component(ComponentType _type);
+		Component(ComponentType _type, const std::wstring& _name = {});
 		virtual ~Component();
 
 		virtual void Init() {}
 		virtual void Update() {}
 		virtual void LateUpdate() {}
-		virtual void Render() {}
+		virtual void Render(std::shared_ptr<Pipeline> _pipeline) {}
 		virtual void Release() {}
 
 		std::shared_ptr<DxObject> GetOwner();

@@ -18,10 +18,4 @@ namespace Js
 	void MonoBehaviour::LateUpdate()
 	{
 	}
-	void MonoBehaviour::Render()
-	{
-	}
-	void MonoBehaviour::Release()
-	{
-	}
 }

@@ -3,8 +3,9 @@
 
 namespace Js
 {
-	Component::Component(ComponentType _type)
+	Component::Component(ComponentType _type, const std::wstring& _name)
 		: m_Type(_type)
+		, Entity(_name)
 	{
 	}
 	Component::~Component()

@@ -3,7 +3,8 @@
 namespace Js
 {
 	Texture::Texture(ComPtr<ID3D11Device> _device)
-		: m_Device(_device)
+		: BaseResource(ResourceType::Texture),
+		  m_Device(_device)
 	{
 	}
 	Texture::~Texture()

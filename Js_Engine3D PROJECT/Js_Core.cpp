@@ -1,6 +1,7 @@
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
+#include "Js_SceneManager.h"
 
 namespace Js
 {
@@ -25,6 +26,8 @@ namespace Js
 		Input::Init();
 		Device::CreateDevice();
 		m_Pipeline = std::make_shared<Pipeline>(GetContext());
+		m_Resource = std::make_shared<ResourceManager>(GetDevice());
+		m_Resource->Init();
 #ifdef _DEBUG
 		{
 			m_DxWrite = std::make_shared<DxWrite>();

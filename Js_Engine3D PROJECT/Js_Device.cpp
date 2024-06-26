@@ -2,9 +2,10 @@
 
 namespace Js
 {
+	ComPtr<ID3D11Device> Device::m_Device = nullptr;
+	ComPtr<ID3D11DeviceContext> Device::m_Context = nullptr;
+
 	Device::Device() :
-		m_Device(nullptr),
-		m_Context(nullptr),
 		m_RenderTargetView(nullptr),
 		m_SwapChain(nullptr),
 		m_Viewport{},

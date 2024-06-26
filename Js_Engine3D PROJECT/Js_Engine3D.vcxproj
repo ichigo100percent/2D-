@@ -162,8 +162,11 @@
     <ClInclude Include="Js_MonoBehaviour.h" />
     <ClInclude Include="Js_Pipeline.h" />
     <ClInclude Include="Js_RasterizerState.h" />
+    <ClInclude Include="Js_Resource.h" />
     <ClInclude Include="Js_RotateScript.h" />
     <ClInclude Include="Js_SamplerState.h" />
+    <ClInclude Include="Js_Scene.h" />
+    <ClInclude Include="Js_SceneManager.h" />
     <ClInclude Include="Js_Shader.h" />
     <ClInclude Include="Js_Texture.h" />
     <ClInclude Include="Js_Time.h" />
@@ -174,11 +177,13 @@
     <ClInclude Include="macro.h" />
     <ClInclude Include="Js_MeshRenderer.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Js_ResourceManager.h" />
     <ClInclude Include="std.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="Js_MoveScripts.h" />
+    <ClInclude Include="testscene.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="value.h" />
   </ItemGroup>
@@ -200,8 +205,11 @@
     <ClCompile Include="Js_MonoBehaviour.cpp" />
     <ClCompile Include="Js_Pipeline.cpp" />
     <ClCompile Include="Js_RasterizerState.cpp" />
+    <ClCompile Include="Js_Resource.cpp" />
     <ClCompile Include="Js_RotateScript.cpp" />
     <ClCompile Include="Js_SamplerState.cpp" />
+    <ClCompile Include="Js_Scene.cpp" />
+    <ClCompile Include="Js_SceneManager.cpp" />
     <ClCompile Include="Js_Shader.cpp" />
     <ClCompile Include="Js_Texture.cpp" />
     <ClCompile Include="Js_Time.cpp" />
@@ -211,8 +219,10 @@
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Js_MeshRenderer.cpp" />
+    <ClCompile Include="Js_ResourceManager.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Js_MoveScripts.cpp" />
+    <ClCompile Include="testscene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc" />

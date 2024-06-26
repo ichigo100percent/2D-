@@ -6,13 +6,14 @@
 #include "Js_Component.h"
 #include "Js_Transform.h"
 #include "Js_Camera.h"
+#include "Js_MeshRenderer.h"
+#include "Js_SceneManager.h"
 
 // Scripts
 #include "Js_MoveScripts.h"
 #include "Js_RotateScript.h"
 
 #include "TestObject.h"
-
 using namespace Js;
 
 
@@ -32,68 +33,98 @@ bool CheckCollision(const MyRect& rect1, const MyRect& rect2)
 class Sample : public Core
 {
 public:
-    Sample() {}
-    ~Sample() {}
-
     void Init() override
     {
-        camera = std::make_shared<DxObject>(GetDevice(), GetContext());
-        {
-            camera->GetOrAddTransform();
-            camera->AddComponent(std::make_shared<Camera>());
-            camera->AddComponent(std::make_shared<MoveScript>());
-            camera->Init();
-        }
-        bg = std::make_shared<DxObject>(GetDevice(), GetContext(), L"bg_blue.jpg");
-        {
-            bg->GetOrAddTransform()->SetScale(bg->GetSize());
-            bg->Init();
-        }
-
-        player = std::make_shared<DxObject>(GetDevice(), GetContext(), L"1.bmp");
-        {
-            player->AddComponent(std::make_shared<MoveScript>());
-            player->GetOrAddTransform()->SetScale(player->GetSize());
-            player->Init();
-        }
-        t = std::make_shared<TestObject>(GetDevice(), GetContext(), L"1.bmp");
-        {
-            t->GetOrAddTransform()->SetScale(player->GetSize());
-            t->Init();
-        }
+        SceneManager::LoadScene();
     }
     void Update() override
     {
-        camera->Update();
-        bg->Update();
-        player->Update();
-        t->Update();
+        SceneManager::Update();
     }
     void LateUpdate() override
     {
-		if (CheckCollision(player->GetTransform()->GetRect(), t->GetTransform()->GetRect()))
-		{
-            OutputDebugStringA("Collision detected!\n");
-		}
-        player->LateUpdate();
-        t->LateUpdate();
+        SceneManager::LateUpdate();
     }
     void Render() override
     {
-        camera->Render(m_Pipeline);
-        bg->Render(m_Pipeline);
-        player->Render(m_Pipeline);
-        t->Render(m_Pipeline);
+        SceneManager::Render(m_Pipeline);
     }
     void Release() override
     {
-
+        SceneManager::Release();
     }
-private:
-    std::shared_ptr<DxObject> camera;
-    std::shared_ptr<DxObject> bg;
-    std::shared_ptr<DxObject> player;
-    std::shared_ptr<TestObject> t;
+
 };
+
+//class Sample : public Core
+//{
+//public:
+//    Sample() {}
+//    ~Sample() {}
+//
+//    void Init() override
+//    {
+//        camera = std::make_shared<DxObject>(GetDevice(), GetContext());
+//        {
+//            camera->GetOrAddTransform();
+//            camera->AddComponent(std::make_shared<Camera>());
+//            camera->AddComponent(std::make_shared<MoveScript>());
+//            camera->Init();
+//        }
+//        bg = std::make_shared<DxObject>(GetDevice(), GetContext(), L"bg_blue.jpg");
+//        {
+//            bg->AddComponent(std::make_shared<MeshRenderer>(GetDevice(), GetContext(), L"bg_blue.jpg"));
+//            bg->GetOrAddTransform()->SetScale(bg->GetSize());
+//            bg->Init();
+//        }
+//
+//        player = std::make_shared<DxObject>(GetDevice(), GetContext(), L"1.bmp");
+//        {
+//            player->AddComponent(std::make_shared<MoveScript>());
+//            player->AddComponent(std::make_shared<MeshRenderer>(GetDevice(), GetContext(), L"1.bmp"));
+//            player->GetOrAddTransform()->SetScale(player->GetSize());
+//
+//            player->Init();
+//        }
+//        t = std::make_shared<TestObject>(GetDevice(), GetContext(), L"1.bmp");
+//        {
+//            t->AddComponent(std::make_shared<MeshRenderer>(GetDevice(), GetContext(), L"1.bmp"));
+//            t->GetOrAddTransform()->SetScale(player->GetSize());
+//            t->Init();
+//        }
+//    }
+//    void Update() override
+//    {
+//        camera->Update();
+//        bg->Update();
+//        player->Update();
+//        t->Update();
+//    }
+//    void LateUpdate() override
+//    {
+//		if (CheckCollision(player->GetTransform()->GetRect(), t->GetTransform()->GetRect()))
+//		{
+//            OutputDebugStringA("Collision detected!\n");
+//		}
+//        player->LateUpdate();
+//        t->LateUpdate();
+//    }
+//    void Render() override
+//    {
+//        camera->Render(m_Pipeline);
+//        bg->Render(m_Pipeline);
+//        player->Render(m_Pipeline);
+//        t->Render(m_Pipeline);
+//    }
+//    void Release() override
+//    {
+//
+//    }
+//private:
+//    std::shared_ptr<DxObject> camera;
+//    std::shared_ptr<DxObject> bg;
+//    std::shared_ptr<DxObject> player;
+//    std::shared_ptr<TestObject> t;
+//};
 
 GAME_START(g_Width, g_Height);

@@ -12,7 +12,7 @@
       <Filter>소스 파일\00. Engine</Filter>
     </ClCompile>
     <ClCompile Include="Js_DxObject.cpp">
-      <Filter>소스 파일\05. GameObject</Filter>
+      <Filter>소스 파일\10. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Js_Time.cpp">
       <Filter>소스 파일\99. Header\00. Time</Filter>
@@ -54,9 +54,6 @@
     <ClCompile Include="Js_RasterizerState.cpp">
       <Filter>소스 파일\01. Graphics\03. Rasterizer</Filter>
     </ClCompile>
-    <ClCompile Include="Js_Texture.cpp">
-      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
-    </ClCompile>
     <ClCompile Include="Js_BlendState.cpp">
       <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
     </ClCompile>
@@ -87,6 +84,22 @@
     <ClCompile Include="Js_Collision.cpp">
       <Filter>소스 파일\02. Component\04. Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Js_Resource.cpp">
+      <Filter>소스 파일\03. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_ResourceManager.cpp">
+      <Filter>소스 파일\03. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Scene.cpp">
+      <Filter>소스 파일\05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_SceneManager.cpp">
+      <Filter>소스 파일\05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="testscene.cpp" />
+    <ClCompile Include="Js_Texture.cpp">
+      <Filter>소스 파일\03. Resource\02. Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -99,7 +112,7 @@
       <Filter>소스 파일\00. Engine</Filter>
     </ClInclude>
     <ClInclude Include="Js_DxObject.h">
-      <Filter>소스 파일\05. GameObject</Filter>
+      <Filter>소스 파일\10. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Js_Time.h">
       <Filter>소스 파일\99. Header\00. Time</Filter>
@@ -171,9 +184,6 @@
     <ClInclude Include="Js_RasterizerState.h">
       <Filter>소스 파일\01. Graphics\03. Rasterizer</Filter>
     </ClInclude>
-    <ClInclude Include="Js_Texture.h">
-      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
-    </ClInclude>
     <ClInclude Include="Js_BlendState.h">
       <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
     </ClInclude>
@@ -203,6 +213,22 @@
     </ClInclude>
     <ClInclude Include="Js_Collision.h">
       <Filter>소스 파일\02. Component\04. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Resource.h">
+      <Filter>소스 파일\03. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_ResourceManager.h">
+      <Filter>소스 파일\03. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Scene.h">
+      <Filter>소스 파일\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_SceneManager.h">
+      <Filter>소스 파일\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="testscene.h" />
+    <ClInclude Include="Js_Texture.h">
+      <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +281,6 @@
     <Filter Include="소스 파일\99. Header\02. Font">
       <UniqueIdentifier>{58907359-fbd0-45e7-8684-a14bbe0e633a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\05. GameObject">
-      <UniqueIdentifier>{f1d04c6d-27bd-4457-82a8-17650714ab57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\01. Graphics">
       <UniqueIdentifier>{0cb8be80-8591-455c-9312-618567b70be2}</UniqueIdentifier>
     </Filter>
@@ -302,6 +325,21 @@
     </Filter>
     <Filter Include="소스 파일\02. Component\04. Collision">
       <UniqueIdentifier>{f262da80-ccc2-4120-9512-ad50d40aab71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\10. GameObject">
+      <UniqueIdentifier>{f1d04c6d-27bd-4457-82a8-17650714ab57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05. Scene">
+      <UniqueIdentifier>{9150e9ee-776e-4215-ac2e-fbdb2d431c4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Resource\00. Mesh">
+      <UniqueIdentifier>{1ad2d33d-a7b5-4ff3-aea8-ca33e67783e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Resource\01. Shader">
+      <UniqueIdentifier>{0d5e73fe-07c7-49ac-896f-827dea3c6c08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Resource\02. Texture">
+      <UniqueIdentifier>{253c66ee-bbf6-4862-ae09-da6602a25f4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
