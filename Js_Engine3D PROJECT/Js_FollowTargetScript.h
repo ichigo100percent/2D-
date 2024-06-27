@@ -2,11 +2,11 @@
 #include "Js_MonoBehaviour.h"
 namespace Js
 {
-	class FollowTarget : public MonoBehaviour
+	class FollowTargetScript : public MonoBehaviour
 	{
 	public:
-		FollowTarget(std::shared_ptr<DxObject> target) : m_Target(target) {}
-		virtual ~FollowTarget() {}
+		FollowTargetScript(std::shared_ptr<DxObject> target) : m_Target(target) {}
+		virtual ~FollowTargetScript() {}
 
 		virtual void LateUpdate() override;
 

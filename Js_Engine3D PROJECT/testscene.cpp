@@ -13,17 +13,31 @@
 // Scripts
 #include "Js_MoveScripts.h"
 #include "Js_RotateScript.h"
-#include "Js_FollowTarget.h"
+#include "Js_FollowTargetScript.h"
 
 
 namespace Js
 {
-	bool CheckCollision(const MyRect& rect1, const MyRect& rect2, Vector3& pushVector) {
+	bool CheckCollision(const MyRect& rect1, const MyRect& rect2)
+	{
+		// 두 사각형이 충돌하는지 확인
+		if (rect1.left < rect2.right &&
+			rect1.right > rect2.left &&
+			rect1.top > rect2.bottom &&
+			rect1.bottom < rect2.top)
+		{
+			return true; 
+		}
+		return false; 
+	}
+	bool CheckCollision(const MyRect& rect1, const MyRect& rect2, Vector3& pushVector)
+	{
 		// 충돌 감지
 		if (rect1.left < rect2.right &&
 			rect1.right > rect2.left &&
 			rect1.top > rect2.bottom &&
-			rect1.bottom < rect2.top) {
+			rect1.bottom < rect2.top)
+		{
 
 			// 충돌 방향 계산
 			float overlapLeft = rect2.right - rect1.left;
@@ -34,18 +48,15 @@ namespace Js
 			float overlapX = (std::abs(overlapLeft) < std::abs(overlapRight)) ? overlapLeft : -overlapRight;
 			float overlapY = (std::abs(overlapTop) < std::abs(overlapBottom)) ? overlapTop : -overlapBottom;
 
-			if (std::abs(overlapX) < std::abs(overlapY)) {
+			if (std::abs(overlapX) < std::abs(overlapY))
 				pushVector = Vector3(overlapX, 0, 0);
-			}
-			else {
+			else 
 				pushVector = Vector3(0, overlapY, 0);
-			}
-
-			return true;
+			
+			return true;				
 		}
 		return false;
 	}
-
 
 	void testscene::Update()
 	{
@@ -68,7 +79,6 @@ namespace Js
 		{
 			camera->GetOrAddTransform();
 			camera->AddComponent(std::make_shared<Camera>());
-			camera->AddComponent(std::make_shared<MoveScript>());
 			camera->Init();
 			Scene::AddGameObejct(camera);
 		}
@@ -93,7 +103,7 @@ namespace Js
 			t->GetOrAddTransform()->SetScale(player->GetSize());
 			Scene::AddGameObejct(t);
 		}
-		camera->AddComponent(std::make_shared<FollowTarget>(player));
+		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		return shared_from_this();
 	}
 }

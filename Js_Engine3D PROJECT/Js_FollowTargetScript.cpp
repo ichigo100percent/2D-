@@ -1,4 +1,4 @@
-#include "Js_FollowTarget.h"
+#include "Js_FollowTargetScript.h"
 #include "Js_Input.h"
 #include "Js_Time.h"
 #include "Js_DxObject.h"
@@ -7,7 +7,7 @@
 
 namespace Js
 {
-	void FollowTarget::LateUpdate()
+	void FollowTargetScript::LateUpdate()
 	{
         if (m_Target)
         {

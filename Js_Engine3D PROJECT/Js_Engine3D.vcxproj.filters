@@ -27,41 +27,41 @@
       <Filter>소스 파일\02. Component</Filter>
     </ClCompile>
     <ClCompile Include="Js_VertexBuffer.cpp">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClCompile>
     <ClCompile Include="Js_Geometry.cpp">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Js_GeometryHelper.cpp">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClCompile>
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Js_VertexData.cpp">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Js_IndexBuffer.cpp">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClCompile>
     <ClCompile Include="Js_InputLayout.cpp">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClCompile>
     <ClCompile Include="Js_Shader.cpp">
-      <Filter>소스 파일\01. Graphics\02. VertexShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\02. VertexShader</Filter>
     </ClCompile>
     <ClCompile Include="Js_ConstantBuffer.cpp">
-      <Filter>소스 파일\01. Graphics\02. VertexShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\02. VertexShader</Filter>
     </ClCompile>
     <ClCompile Include="Js_RasterizerState.cpp">
-      <Filter>소스 파일\01. Graphics\03. Rasterizer</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\03. Rasterizer</Filter>
     </ClCompile>
     <ClCompile Include="Js_BlendState.cpp">
-      <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\05. OutputMerger</Filter>
     </ClCompile>
     <ClCompile Include="Js_SamplerState.cpp">
-      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\04. PixelShader</Filter>
     </ClCompile>
     <ClCompile Include="Js_Pipeline.cpp">
-      <Filter>소스 파일\01. Graphics</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Js_MoveScripts.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
@@ -100,7 +100,7 @@
     <ClCompile Include="Js_Texture.cpp">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Js_FollowTarget.cpp">
+    <ClCompile Include="Js_FollowTargetScript.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
@@ -160,41 +160,41 @@
       <Filter>소스 파일\02. Component</Filter>
     </ClInclude>
     <ClInclude Include="Js_VertexBuffer.h">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClInclude>
     <ClInclude Include="Js_Geometry.h">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Js_GeometryHelper.h">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClInclude>
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="Js_VertexData.h">
-      <Filter>소스 파일\01. Graphics\00. Geometry</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Js_IndexBuffer.h">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClInclude>
     <ClInclude Include="Js_InputLayout.h">
-      <Filter>소스 파일\01. Graphics\01. InputAssembler</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\01. InputAssembler</Filter>
     </ClInclude>
     <ClInclude Include="Js_Shader.h">
-      <Filter>소스 파일\01. Graphics\02. VertexShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\02. VertexShader</Filter>
     </ClInclude>
     <ClInclude Include="Js_ConstantBuffer.h">
-      <Filter>소스 파일\01. Graphics\02. VertexShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\02. VertexShader</Filter>
     </ClInclude>
     <ClInclude Include="Js_RasterizerState.h">
-      <Filter>소스 파일\01. Graphics\03. Rasterizer</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\03. Rasterizer</Filter>
     </ClInclude>
     <ClInclude Include="Js_BlendState.h">
-      <Filter>소스 파일\01. Graphics\05. OutputMerger</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\05. OutputMerger</Filter>
     </ClInclude>
     <ClInclude Include="Js_SamplerState.h">
-      <Filter>소스 파일\01. Graphics\04. PixelShader</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics\04. PixelShader</Filter>
     </ClInclude>
     <ClInclude Include="Js_Pipeline.h">
-      <Filter>소스 파일\01. Graphics</Filter>
+      <Filter>소스 파일\02. Component\01. Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Js_MoveScripts.h">
       <Filter>소스 파일\04. Scripts</Filter>
@@ -233,7 +233,7 @@
     <ClInclude Include="Js_Texture.h">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Js_FollowTarget.h">
+    <ClInclude Include="Js_FollowTargetScript.h">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClInclude>
   </ItemGroup>
@@ -287,29 +287,8 @@
     <Filter Include="소스 파일\99. Header\02. Font">
       <UniqueIdentifier>{58907359-fbd0-45e7-8684-a14bbe0e633a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\01. Graphics">
-      <UniqueIdentifier>{0cb8be80-8591-455c-9312-618567b70be2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\00. Geometry">
-      <UniqueIdentifier>{045d34a7-b407-43d7-aa4c-394b4124c42c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02. Component">
       <UniqueIdentifier>{d21a25fa-88e2-4333-bf8c-faf172a7f5fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\01. InputAssembler">
-      <UniqueIdentifier>{13a850a2-bb9e-40d5-ba23-94ece77581fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\02. VertexShader">
-      <UniqueIdentifier>{44a96b03-33dd-42d3-950b-ae3629f76619}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\03. Rasterizer">
-      <UniqueIdentifier>{403ded74-4d7e-4926-9a8b-f49b2223a512}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\04. PixelShader">
-      <UniqueIdentifier>{f86ae00a-67a2-4c6d-b6e7-51c3566a855a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01. Graphics\05. OutputMerger">
-      <UniqueIdentifier>{bb674cf5-674e-415e-b44f-5acff175d0d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\03. Resource">
       <UniqueIdentifier>{0c70e67b-5e98-4f6d-81d6-7417688b15cd}</UniqueIdentifier>
@@ -346,6 +325,27 @@
     </Filter>
     <Filter Include="소스 파일\03. Resource\02. Texture">
       <UniqueIdentifier>{253c66ee-bbf6-4862-ae09-da6602a25f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics">
+      <UniqueIdentifier>{0cb8be80-8591-455c-9312-618567b70be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\00. Geometry">
+      <UniqueIdentifier>{045d34a7-b407-43d7-aa4c-394b4124c42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\01. InputAssembler">
+      <UniqueIdentifier>{13a850a2-bb9e-40d5-ba23-94ece77581fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\02. VertexShader">
+      <UniqueIdentifier>{44a96b03-33dd-42d3-950b-ae3629f76619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\03. Rasterizer">
+      <UniqueIdentifier>{403ded74-4d7e-4926-9a8b-f49b2223a512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\04. PixelShader">
+      <UniqueIdentifier>{f86ae00a-67a2-4c6d-b6e7-51c3566a855a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\01. Graphics\05. OutputMerger">
+      <UniqueIdentifier>{bb674cf5-674e-415e-b44f-5acff175d0d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,8 @@ namespace Js
 		m_Pipeline = std::make_shared<Pipeline>(GetContext());
 		m_Resource = std::make_shared<ResourceManager>(GetDevice());
 		m_Resource->Init();
+		SceneManager::LoadScene();
+
 #ifdef _DEBUG
 		{
 			m_DxWrite = std::make_shared<DxWrite>();
@@ -47,18 +49,20 @@ namespace Js
 		Time::Update();
 		Input::Update(m_Hwnd);
 		m_DxWrite->Update();
-
+		SceneManager::Update();
 		Update();
 		return true;
 	}
 	bool Core::EngineLateUpdate()
 	{
+		SceneManager::LateUpdate();
 		LateUpdate();
 		return true;
 	}
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
+		SceneManager::Render(GetPipeline());
 		Render();
 
 		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
@@ -68,6 +72,7 @@ namespace Js
 
 	bool Core::EngineRelease()
 	{
+		SceneManager::Release();
 		Device::DeleteDeivce();
 		Release();
 		return true;
