@@ -26,15 +26,15 @@ namespace Js
 		
 		void GameRun();
 
+		std::shared_ptr<Pipeline> GetPipeline() { return m_Pipeline; }
+		std::shared_ptr<ResourceManager> GetResource() { return m_Resource; }
+
 	private:
 		bool EngineInit();
 		bool EngineUpdate();
 		bool EngineLateUpdate();
 		bool EngineRender();
 		bool EngineRelease();
-
-		std::shared_ptr<Pipeline> GetPipeline() { return m_Pipeline; }
-		std::shared_ptr<ResourceManager> GetResource() { return m_Resource; }
 
 	protected:
 		std::shared_ptr<DxWrite>  m_DxWrite = nullptr;

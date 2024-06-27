@@ -3,7 +3,7 @@
 
 namespace Js
 {
-	std::map<std::wstring, std::shared_ptr<Scene>>  SceneManager::m_SceneList = {};
+	std::map<std::wstring, std::shared_ptr<Scene>>  SceneManager::m_Scenes = {};
 	std::shared_ptr<Scene> SceneManager::						  m_CurrentScene = nullptr;
 	std::shared_ptr<Scene> SceneManager::					      m_DontDestroyOnLoad = nullptr;
 
@@ -39,21 +39,4 @@ namespace Js
 
 		m_CurrentScene->Render(_pipeline);
 	}
-
-	void SceneManager::Release()
-	{
-		if (m_CurrentScene == nullptr)
-			return;
-
-		m_CurrentScene->Release();
-	}
-
-	void SceneManager::LoadScene()
-	{
-		auto t = std::make_shared<testscene>();
-
-		m_CurrentScene = std::dynamic_pointer_cast<testscene>(t->LoadTestScene());
-		Init();
-	}
-
 }

@@ -8,18 +8,12 @@ using Matrix  = DirectX::SimpleMath::Matrix;
 using DXRect =  DirectX::SimpleMath::Rectangle;
 using Quaternion = DirectX::SimpleMath::Quaternion;
 
-enum class eLayerType
+
+namespace Js::enums
 {
-	None,
-	BackGround,
-	Tile,
-	Npc,
-	Player,
-	Monster,
-	Item,
-	Floor,
-	Particle,
-	DeadLine,
-	//
-	Max = 16,
-};
+	enum class eLayerType
+	{
+		None,
+		Max,
+	};
+}

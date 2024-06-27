@@ -1,5 +1,6 @@
 #pragma once
 #include "Js_MonoBehaviour.h"
+
 namespace Js
 {
 	class FollowTargetScript : public MonoBehaviour

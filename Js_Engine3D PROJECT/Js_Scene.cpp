@@ -1,9 +1,9 @@
 #include "Js_Scene.h"
-#include "Js_DxObject.h"
 
 namespace Js
 {
-	Scene::Scene(const std::wstring _name)
+
+	Scene::Scene(const std::wstring& _name)
 		: Entity(_name)
 	{
 	}
@@ -12,61 +12,113 @@ namespace Js
 	}
 	void Scene::Init()
 	{
+
 		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
 		{
-			if (_gameObject != nullptr)
-				_gameObject->Init();
+			if (_gameObject == nullptr)
+				continue;
+			if (_gameObject->IsActive() == false)
+				continue;
+
+			_gameObject->Init();
 		}
 	}
 	void Scene::Update()
 	{
-		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
+		for (int i = 0; i < m_GameObjectList.size(); i++)
 		{
-			if (_gameObject != nullptr)
-				_gameObject->Update();
+			if (m_GameObjectList[i] == nullptr)
+				continue;
+			if (m_GameObjectList[i]->IsActive() == false)
+				continue;
+
+			m_GameObjectList[i]->Update();
 		}
+
+		//for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
+		//{
+		//	if (_gameObject == nullptr)
+		//		continue;
+		//	if (_gameObject->IsActive() == false)
+		//		continue;
+		//	_gameObject->Update();
+		//}
 	}
 	void Scene::LateUpdate()
 	{
 		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
 		{
-			if (_gameObject != nullptr)
-				_gameObject->LateUpdate();
+			if (_gameObject == nullptr)
+				continue;
+			if (_gameObject->IsActive() == false)
+				continue;
+
+			_gameObject->LateUpdate();
 		}
 	}
 	void Scene::Render(std::shared_ptr<Pipeline> _pipeline)
 	{
 		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
 		{
-			if (_gameObject != nullptr)
-				_gameObject->Render(_pipeline);
-		}
-	}
-	void Scene::Release()
-	{
-		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
-		{
-			if (_gameObject != nullptr)
-				_gameObject->Release();
+			if (_gameObject == nullptr)
+				continue;
+			if (_gameObject->IsActive() == false)
+				continue;
+
+			_gameObject->Render(_pipeline);
 		}
 	}
 	void Scene::OnEnter()
 	{
-
 	}
 	void Scene::OnExit()
 	{
-
 	}
-	void Scene::AddGameObejct(std::shared_ptr<DxObject> _gameObejct)
+	void Scene::Destroy()
 	{
-		m_GameObjectList.push_back(_gameObejct);
+		std::vector<std::shared_ptr<DxObject>> deleteObjects = {};
+		findDeadGameObjects(deleteObjects);
+		eraseDeadGameObject();
+		deleteGameObjects(deleteObjects);
 	}
-	void Scene::RemoveGameObject(std::shared_ptr<DxObject> _gameObject)
+	void Scene::AddGameObject(std::shared_ptr<DxObject> _gameObject)
 	{
-		auto iter = std::find(std::begin(m_GameObjectList), std::end(m_GameObjectList), _gameObject);
+		if (_gameObject == nullptr)
+			return;
 
-		if (iter != m_GameObjectList.end())
-			m_GameObjectList.erase(iter);
+		m_GameObjectList.push_back(_gameObject);
 	}
+	void Scene::EraseGameObject(std::shared_ptr<DxObject> _gameObject)
+	{
+		std::erase_if(m_GameObjectList,
+			[=](std::shared_ptr<DxObject> gameObject)
+			{
+				return gameObject == _gameObject;
+			});
+	}
+	void Scene::findDeadGameObjects(OUT std::vector<std::shared_ptr<DxObject>>& _gameObjs)
+	{
+		for (std::shared_ptr<DxObject> gameObj : m_GameObjectList)
+		{
+			DxObject::eState active = gameObj->GetState();
+			if (active == DxObject::eState::Dead)
+				_gameObjs.push_back(gameObj);
+		}
+	}
+	void Scene::deleteGameObjects(std::vector<std::shared_ptr<DxObject>> _gameObjs)
+	{
+		for (std::shared_ptr<DxObject> obj : _gameObjs)
+		{
+			obj.reset();
+		}
+	}
+	void Scene::eraseDeadGameObject()
+	{
+		std::erase_if(m_GameObjectList,
+			[](std::shared_ptr<DxObject> gameObj)
+			{
+				return (gameObj)->IsDead();
+			});
+	}
+
 }

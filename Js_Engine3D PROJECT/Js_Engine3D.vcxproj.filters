@@ -35,7 +35,6 @@
     <ClCompile Include="Js_GeometryHelper.cpp">
       <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Js_VertexData.cpp">
       <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClCompile>
@@ -103,6 +102,13 @@
     <ClCompile Include="Js_FollowTargetScript.cpp">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="Js_TitleScene.cpp">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_FireballScript.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -168,7 +174,6 @@
     <ClInclude Include="Js_GeometryHelper.h">
       <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="TestObject.h" />
     <ClInclude Include="Js_VertexData.h">
       <Filter>소스 파일\02. Component\01. Graphics\00. Geometry</Filter>
     </ClInclude>
@@ -235,6 +240,19 @@
     </ClInclude>
     <ClInclude Include="Js_FollowTargetScript.h">
       <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_LoadScenes.h">
+      <Filter>소스 파일\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_TitleScene.h">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FireballScript.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h" />
+    <ClInclude Include="Js_Object.h">
+      <Filter>소스 파일\10. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +364,9 @@
     </Filter>
     <Filter Include="소스 파일\02. Component\01. Graphics\05. OutputMerger">
       <UniqueIdentifier>{bb674cf5-674e-415e-b44f-5acff175d0d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05. Scene\SuperMario">
+      <UniqueIdentifier>{8a6b52ff-cf58-415c-bff9-8ad06721cb7e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

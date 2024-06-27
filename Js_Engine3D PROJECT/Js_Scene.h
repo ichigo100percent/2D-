@@ -1,31 +1,35 @@
 #pragma once
 #include "std.h"
-#include "Js_DxObject.h"
 #include "Js_Core.h"
+#include "Js_DxObject.h"
 
 namespace Js
 {
-	class Scene : public std::enable_shared_from_this<Scene>, public Entity
+	class Scene : public Entity
 	{
 	public:
-		Scene(const std::wstring _name = {});
-		virtual ~Scene();
+		Scene(const std::wstring& _name = {});
+		~Scene();
 
 		virtual void Init();
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
-		virtual void Release();
 
+		virtual void Destroy();
 		virtual void OnEnter();
 		virtual void OnExit();
 
-		void AddGameObejct(std::shared_ptr<DxObject> _gameObejct);
-		void RemoveGameObject(std::shared_ptr<DxObject> _gameObject);
+		void AddGameObject(std::shared_ptr<DxObject> _gameObject);
+		void EraseGameObject(std::shared_ptr<DxObject> _gameObject);
+		std::vector<std::shared_ptr<DxObject>> GetGameObjects() { return m_GameObjectList; }
 
-		const std::vector<std::shared_ptr<DxObject>>& GetGameObjectList() { return m_GameObjectList; }
+	private:
+		void findDeadGameObjects(OUT std::vector<std::shared_ptr<DxObject>>& _gameObjs);
+		void deleteGameObjects(std::vector<std::shared_ptr<DxObject>> _gameObjs);
+		void eraseDeadGameObject();
 
-	protected:
-		std::vector<std::shared_ptr<DxObject>> m_GameObjectList;
+	private:
+		std::vector<std::shared_ptr<DxObject>>  m_GameObjectList;
 	};
 }

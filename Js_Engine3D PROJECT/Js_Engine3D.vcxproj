@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>../../library/include;../../DxTk/include/;../../fmod/include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -143,6 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Fireball.h" />
+    <ClInclude Include="Js_FireballScript.h" />
     <ClInclude Include="Js_FollowTargetScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_BlendState.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_InputLayout.h" />
     <ClInclude Include="Js_MonoBehaviour.h" />
+    <ClInclude Include="Js_Object.h" />
     <ClInclude Include="Js_Pipeline.h" />
     <ClInclude Include="Js_RasterizerState.h" />
     <ClInclude Include="Js_Resource.h" />
@@ -171,10 +174,12 @@
     <ClInclude Include="Js_Shader.h" />
     <ClInclude Include="Js_Texture.h" />
     <ClInclude Include="Js_Time.h" />
+    <ClInclude Include="Js_TitleScene.h" />
     <ClInclude Include="Js_Transform.h" />
     <ClInclude Include="Js_VertexBuffer.h" />
     <ClInclude Include="Js_VertexData.h" />
     <ClInclude Include="Js_Window.h" />
+    <ClInclude Include="Js_LoadScenes.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Js_MeshRenderer.h" />
     <ClInclude Include="Resource.h" />
@@ -182,13 +187,14 @@
     <ClInclude Include="std.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestObject.h" />
     <ClInclude Include="Js_MoveScripts.h" />
     <ClInclude Include="testscene.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Fireball.cpp" />
+    <ClCompile Include="Js_FireballScript.cpp" />
     <ClCompile Include="Js_FollowTargetScript.cpp" />
     <ClCompile Include="Js_BlendState.cpp" />
     <ClCompile Include="Js_Camera.cpp" />
@@ -215,6 +221,7 @@
     <ClCompile Include="Js_Shader.cpp" />
     <ClCompile Include="Js_Texture.cpp" />
     <ClCompile Include="Js_Time.cpp" />
+    <ClCompile Include="Js_TitleScene.cpp" />
     <ClCompile Include="Js_Transform.cpp" />
     <ClCompile Include="Js_VertexBuffer.cpp" />
     <ClCompile Include="Js_VertexData.cpp" />
@@ -222,7 +229,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Js_MeshRenderer.cpp" />
     <ClCompile Include="Js_ResourceManager.cpp" />
-    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Js_MoveScripts.cpp" />
     <ClCompile Include="testscene.cpp" />
   </ItemGroup>

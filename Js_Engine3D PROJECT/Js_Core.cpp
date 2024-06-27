@@ -1,7 +1,9 @@
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
-#include "Js_SceneManager.h"
+//#include "Js_SceneManager.h"
+#include "Js_LoadScenes.h"
+
 
 namespace Js
 {
@@ -28,7 +30,8 @@ namespace Js
 		m_Pipeline = std::make_shared<Pipeline>(GetContext());
 		m_Resource = std::make_shared<ResourceManager>(GetDevice());
 		m_Resource->Init();
-		SceneManager::LoadScene();
+		LoadScenes();
+		//SceneManager::LoadScene();
 
 #ifdef _DEBUG
 		{
@@ -72,7 +75,6 @@ namespace Js
 
 	bool Core::EngineRelease()
 	{
-		SceneManager::Release();
 		Device::DeleteDeivce();
 		Release();
 		return true;

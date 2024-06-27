@@ -6,12 +6,24 @@
 #include "Js_MonoBehaviour.h"
 #include "Js_Camera.h"
 
+
+namespace Js::object
+{
+	void Destory(std::shared_ptr<DxObject> _gameObject)
+	{
+		if (_gameObject != nullptr)
+			_gameObject->death();
+	}
+}
+
 namespace Js
 {
 	DxObject::DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name) 
 		: Entity(_name),
 		  m_Device(_device),
-		  m_Context(_context)
+		  m_Context(_context),
+		  m_State(eState::Active),
+		  m_IsActive(true)
 	{
 	}
 	DxObject::~DxObject()
@@ -21,52 +33,64 @@ namespace Js
 	{
 		for (std::shared_ptr<Component>& component : m_Components)
 		{
-			if (component)
-				component->Init();
+			if (component == nullptr)
+				continue;
+
+			component->Init();
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			if (script)
-				script->Init();
+			if (script == nullptr)
+				continue;
+
+			script->Init();
 		}
+
+		m_IsActive = true; // 초기화가 끝나면 활성 상태로 설정
+		OutputDebugStringA("DxObject initialized.\n");
 	}
 	void DxObject::Update()
 	{
 		for (std::shared_ptr<Component>& component : m_Components)
 		{
-			if (component)
-				component->Update();
+			if (component == nullptr)
+				continue;
+
+			component->Update();
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			if (script)
-				script->Update();
+			if (script == nullptr)
+				continue;
+
+			script->Update();
 		}
 	}
 	void DxObject::LateUpdate()
 	{
 		for (std::shared_ptr<Component>& component : m_Components)
 		{
-			if (component)
-				component->LateUpdate();
+			if (component == nullptr)
+				continue;
+
+			component->LateUpdate();
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
-			if (script)
-				script->LateUpdate();
+			if (script == nullptr)
+				continue;
+
+			script->LateUpdate();
 		}
 	}
 	void DxObject::Render(std::shared_ptr<Pipeline> _pipeline)
 	{
 		for (std::shared_ptr<Component>& component : m_Components)
 		{
-			if (component)
-				component->Render(_pipeline);
-		}
-		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
-		{
-			if (script)
-				script->Render(_pipeline);
+			if (component == nullptr)
+				continue;
+
+			component->Render(_pipeline);
 		}
 	}
 	void DxObject::Release()
@@ -94,13 +118,14 @@ namespace Js
 		_component->SetOwner(shared_from_this());
 		
 		UINT index = static_cast<UINT>(_component->GetType());
-		if (index < FIXED_COMPONENT_COUNT)
-		{
-			m_Components[index] = _component;
-		}
-		else
+
+		if (index == static_cast<UINT>(ComponentType::Script))
 		{
 			m_Scripts.push_back(std::dynamic_pointer_cast<MonoBehaviour>(_component));
+		}
+		else if(index < FIXED_COMPONENT_COUNT)
+		{
+			m_Components[index] = _component;
 		}
 	}
 	std::shared_ptr<Transform> DxObject::GetTransform()
@@ -140,6 +165,6 @@ namespace Js
 			auto size = GetMeshRenderer()->GetSize();
 			return Vector3(size.x, size.y, 0);
 		}
-		return Vector3(0, 0, 0);
+		return Vector3::Zero;
 	}
 }

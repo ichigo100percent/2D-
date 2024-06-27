@@ -6,10 +6,14 @@ namespace Js
 	class testscene : public Scene
 	{
 	public:
+		void Init() override;
 		void Update() override;
 		void LateUpdate() override;
+		void Render(std::shared_ptr<Pipeline> _pipeline) override;
 
-		std::shared_ptr<Scene> LoadTestScene();
+		void OnEnter() override;
+
+		void ShootFireball();
 
 		std::shared_ptr<DxObject> camera;
 		std::shared_ptr<DxObject> bg;

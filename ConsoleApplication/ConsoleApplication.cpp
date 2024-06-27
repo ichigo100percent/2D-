@@ -8,27 +8,50 @@
 
 using namespace std;
 
-
-std::map<string, int> m;
-
-bool Add(const string& _key, int _obj)
+class Parent
 {
-	auto find = m.find(_key);
+public:
+	Parent(const std::string& _name) : m_Name(_name) {}
 
-	if (find != m.end())
+	virtual void Func1()
 	{
-		cout << "찾음" << endl;
-		return true;
+		cout << "Parent Function" << endl;
 	}
 
-	m[_key] = _obj;
-	return false;
-}
+protected:
+	string m_Name = {};
+};
 
+class Child : public Parent 
+{
+public:
+	Child(const string& _name) : Parent(_name) {}
+
+	void Func1() override
+	{
+		cout << "oveeride Child Function" << endl;
+	}
+};
+
+class Mgr
+{
+public:
+
+	template <typename T>
+	void Creat(const string& _name)
+	{
+
+	}
+
+
+	map<string, shared_ptr<Parent>> m_List = {};
+};
 
 int main()
 {
-	Add("ㅎㅇ", 1);
-	Add("ㅎㅇ", 2);
+	map<int, string> m;
+
+	array<map<int, string>, 6> arr;
+
 	return 0;
 }
