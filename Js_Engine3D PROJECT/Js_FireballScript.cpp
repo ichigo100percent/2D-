@@ -34,13 +34,17 @@ namespace Js
 
         // Fireball 객체 생성 및 초기화
         std::shared_ptr<Fireball> fireball = object::Instantiate<Fireball>(L"Fireball");
-        fireball->GetOrAddTransform();
-        fireball->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext(), L"1.bmp"));
-        fireball->GetTransform()->SetScale(player->GetSize());
+        {
+            auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+            fireball->AddComponent(meshRender);
+            auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+            meshRender->SetMesh(mesh);
+            auto material = I_Resource->Get<Material>(L"Default");
+            meshRender->SetMaterial(material);
+            fireball->GetOrAddTransform()->SetScale(fireball->GetSize());
 
-        // 플레이어 위치와 방향 설정
-        fireball->GetTransform()->SetPosition(offsetPosition);
-        fireball->GetTransform()->SetForward2D(playerDirection);
-
+            fireball->GetTransform()->SetPosition(offsetPosition);
+            fireball->GetTransform()->SetForward2D(playerDirection);
+        }
 	}
 }

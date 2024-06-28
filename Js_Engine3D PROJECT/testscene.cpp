@@ -79,7 +79,7 @@ namespace Js
 			bg->GetOrAddTransform()->SetScale(bg->GetSize());
 		}
 
-		player = object::Instantiate<DxObject>();
+		player = object::Instantiate<Player>();
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			player->AddComponent(meshRender);
@@ -89,16 +89,21 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetOrAddTransform()->SetScale(player->GetSize());
 			player->AddComponent(std::make_shared<MoveScript>());
+			player->AddComponent(std::make_shared<FireballScript>(player));
 		}
 
-		t = object::Instantiate<DxObject>();
+		monster = object::Instantiate<DxObject>();
 		{
-			//t->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), Core::GetContext(), L"1.bmp"));
-			//t->GetOrAddTransform()->SetScale(player->GetSize());
-			//t->GetTransform()->SetPosition(Vector3(100, 100, 0));
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			monster->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
+			monster->GetOrAddTransform()->SetScale(monster->GetSize());
 		}
 
-		//camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		Scene::Init();
 	}
 
@@ -109,12 +114,12 @@ namespace Js
 	void testscene::LateUpdate()
 	{
 		Vector3 pushVector;
-		//if (CheckCollision(player->GetTransform()->GetRect(), t->GetTransform()->GetRect(), pushVector)) {
-		//	OutputDebugStringA("Collision detected!\n");
+		if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector)) {
+			OutputDebugStringA("Collision detected!\n");
 
-		//	// 충돌 방향으로 밀어내기
-		//	player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
-		//}
+			// 충돌 방향으로 밀어내기
+			player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
+		}
 		Scene::LateUpdate();
 	}
 	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)

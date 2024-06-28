@@ -29,6 +29,7 @@ namespace Js
 
 		std::shared_ptr<Pipeline> GetPipeline() { return m_Pipeline; }
 		std::shared_ptr<ResourceManager> GetResource() { return m_Resource; }
+		std::shared_ptr<RenderManager> GetRender() { return m_Render; }
 
 	private:
 		bool EngineInit();
@@ -46,4 +47,5 @@ namespace Js
 
 #define I_Core	Core::Instance()
 #define I_Resource Core::Instance().GetResource()
+#define I_Render Core::Instance().GetRender()
 }

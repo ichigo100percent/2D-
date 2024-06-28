@@ -12,7 +12,6 @@ namespace Js
 	}
 	void Scene::Init()
 	{
-
 		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
 		{
 			if (_gameObject == nullptr)

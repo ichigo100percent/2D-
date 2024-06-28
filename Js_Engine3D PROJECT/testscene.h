@@ -16,6 +16,6 @@ namespace Js
 		std::shared_ptr<DxObject> camera;
 		std::shared_ptr<DxObject> bg;
 		std::shared_ptr<DxObject> player;
-		std::shared_ptr<DxObject> t;
+		std::shared_ptr<DxObject> monster;
 	};
 }
