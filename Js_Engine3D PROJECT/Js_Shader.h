@@ -1,62 +1,25 @@
 #pragma once
-#include "std.h"
-
-	enum ShaderScope
-	{
-		SS_None = 0,
-		SS_VertexShader = (1 << 0),
-		SS_PixelShader = (1 << 1),
-		SS_Both = SS_VertexShader | SS_PixelShader
-	};
-
+#include "Js_Resource.h"
+#include "Js_Pipeline.h"
 namespace Js
 {
-
-	class Shader
+	class Shader : public BaseResource
 	{
 	public:
-		Shader(ComPtr<ID3D11Device> _device);
+		Shader();
 		virtual ~Shader();
 
-		virtual void Create(const std::wstring& _path, const std::string& _name, const std::string& _version) = 0;
+		void SetVertexShadaer(std::shared_ptr<VertexShader> _vertexShader) { m_VertexShader = _vertexShader; }
+		void SetPixelShader(std::shared_ptr<PixelShader> _pixelShader) { m_PixelShader = _pixelShader; }
+		void SetInputLayout(std::shared_ptr<InputLayout> _inputLayout) { m_InputLayout = _inputLayout; }
 
-		ComPtr<ID3DBlob> GetBlob() { return m_Blob; }
-
-	protected:
-		void LoadShaderFromFile(const std::wstring& _path, const std::string& _name, const std::string& _version);
-
-	protected:
-		ComPtr<ID3D11Device> m_Device = nullptr;
-		ComPtr<ID3DBlob> m_Blob;
-
-		std::wstring m_Path;
-		std::string  m_Name;
-	};
-
-	class VertexShader : public Shader
-	{
-	public:
-		VertexShader(ComPtr<ID3D11Device> _device);
-		~VertexShader();
-
-		void Create(const std::wstring& _path, const std::string& _name, const std::string& _version) override;
-
-		ComPtr<ID3D11VertexShader> GetComPtr() { return m_VertexShader; }
+		std::shared_ptr<VertexShader> GetVertexShader() { return m_VertexShader; }
+		std::shared_ptr<PixelShader> GetPixelShader() { return m_PixelShader; }
+		std::shared_ptr<InputLayout> GetInputLayout() { return m_InputLayout; }
 
 	private:
-		ComPtr<ID3D11VertexShader> m_VertexShader = nullptr;
-	};
-
-	class PixelShader : public Shader
-	{
-	public:
-		PixelShader(ComPtr<ID3D11Device> _device);
-		~PixelShader();
-
-		void Create(const std::wstring& _path, const std::string& _name, const std::string& _version) override;
-
-		ComPtr<ID3D11PixelShader> GetComPtr() { return m_PixelShader; }
-	private:
-		ComPtr<ID3D11PixelShader> m_PixelShader = nullptr;
+		std::shared_ptr<VertexShader> m_VertexShader = nullptr;
+		std::shared_ptr<PixelShader>  m_PixelShader = nullptr;
+		std::shared_ptr<InputLayout>  m_InputLayout = nullptr;
 	};
 }

@@ -143,6 +143,11 @@ namespace Js
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Camera);
 		return std::dynamic_pointer_cast<Camera>(component);
 	}
+	std::shared_ptr<Animator> DxObject::GetAnimator()
+	{
+		std::shared_ptr<Component> component = GetComponent(ComponentType::Animator);
+		return std::dynamic_pointer_cast<Animator>(component);
+	}
 	std::shared_ptr<MonoBehaviour> DxObject::GetScript()
 	{
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Script);
@@ -162,7 +167,7 @@ namespace Js
 		UINT index = static_cast<UINT>(ComponentType::MeshRenderer);
 		if (m_Components[index])
 		{
-			auto size = GetMeshRenderer()->GetSize();
+			auto size = GetMeshRenderer()->GetTexture()->GetSize();
 			return Vector3(size.x, size.y, 0);
 		}
 		return Vector3::Zero;

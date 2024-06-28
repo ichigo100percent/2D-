@@ -18,6 +18,6 @@ namespace Js
 	private:
 		ComPtr<ID3D11Device>			 m_Device = nullptr;
 		ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView = nullptr;
-		Vector2 m_Size = {};
+		Vector2 m_Size = { 0.f, 0.f };
 	};
 }

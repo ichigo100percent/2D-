@@ -22,7 +22,7 @@ namespace Js
 
 		void AddGameObject(std::shared_ptr<DxObject> _gameObject);
 		void EraseGameObject(std::shared_ptr<DxObject> _gameObject);
-		std::vector<std::shared_ptr<DxObject>> GetGameObjects() { return m_GameObjectList; }
+		std::vector<std::shared_ptr<DxObject>>& GetGameObjects() { return m_GameObjectList; }
 
 	private:
 		void findDeadGameObjects(OUT std::vector<std::shared_ptr<DxObject>>& _gameObjs);

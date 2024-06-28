@@ -16,43 +16,33 @@ namespace Js
 	}
 	void MoveScript::Update()
 	{
-		float speed = 100 * Time::DeltaTime();
-		auto position = GetOwner()->GetTransform()->GetPosition();
+        float speed = 100 * Time::DeltaTime();
+        auto position = GetOwner()->GetTransform()->GetPosition();
+        Vector3 direction(0, 0, 0);
 
-		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-		{
-			position.y += speed;
-		}
-		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-		{
-			position.y -= speed;
-		}
-		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-		{
-			position.x -= speed;
-		}
-		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-		{
-			position.x += speed;
-		}
-		if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_PUSH)
-		{
-			shoot();
-		}
-		GetOwner()->GetTransform()->SetPosition(position);
-		std::string pos; 
-		pos += "This Position X : " + std::to_string(position.x) + " Y : " + std::to_string(position.y) + '\n';
-		OutputDebugStringA(pos.c_str());
-	}
-	void MoveScript::shoot()
-	{
-		std::shared_ptr<DxObject> fireball = object::Instantiate<DxObject>();
-		{
-			fireball->GetOrAddTransform();
-			fireball->AddComponent(std::make_shared<FireballScript>());
-			fireball->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext(), L"1.bmp"));
-			fireball->GetOrAddTransform()->SetScale(fireball->GetSize());
-			fireball->Init();
-		}
+        if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+        {
+            direction.y += 1;
+        }
+        if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
+        {
+            direction.y -= 1;
+        }
+        if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
+        {
+            direction.x -= 1;
+        }
+        if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
+        {
+            direction.x += 1;
+        }
+
+        if (direction.Length() > 0)
+        {
+            direction.Normalize();
+        }
+
+        position += direction * speed;
+        GetOwner()->GetTransform()->SetPosition(position);
 	}
 }

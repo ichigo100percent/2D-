@@ -13,8 +13,6 @@ namespace Js
 
 		void OnEnter() override;
 
-		void ShootFireball();
-
 		std::shared_ptr<DxObject> camera;
 		std::shared_ptr<DxObject> bg;
 		std::shared_ptr<DxObject> player;

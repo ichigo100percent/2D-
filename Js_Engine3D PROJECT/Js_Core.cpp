@@ -30,8 +30,9 @@ namespace Js
 		m_Pipeline = std::make_shared<Pipeline>(GetContext());
 		m_Resource = std::make_shared<ResourceManager>(GetDevice());
 		m_Resource->Init();
-		LoadScenes();
-		//SceneManager::LoadScene();
+		m_Render = std::make_shared<RenderManager>(GetDevice(), GetContext());
+		m_Render->Init();
+		SceneManager::InitailizeScene();
 
 #ifdef _DEBUG
 		{
@@ -65,6 +66,9 @@ namespace Js
 	bool Core::EngineRender()
 	{
 		Device::PreRender();
+		m_Render->PushCameraData();
+		m_Render->GatherRenderableObjects();
+		m_Render->RenderObjects();
 		SceneManager::Render(GetPipeline());
 		Render();
 

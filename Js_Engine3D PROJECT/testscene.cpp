@@ -8,14 +8,14 @@
 #include "Js_Transform.h"
 #include "Js_Camera.h"
 #include "Js_MeshRenderer.h"
-#include "Fireball.h"
+#include "Js_Fireball.h"
 #include "Js_Object.h"
-
+#include "Js_Player.h"
 // Scripts
+#include "Js_FireballScript.h"
 #include "Js_MoveScripts.h"
 #include "Js_RotateScript.h"
 #include "Js_FollowTargetScript.h"
-#include "Js_FireballScript.h"
 
 namespace Js
 {
@@ -70,48 +70,51 @@ namespace Js
 
 		bg = object::Instantiate<DxObject>();
 		{
-			bg->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext(), L"bg_blue.jpg"));
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			bg->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"bg");
+			meshRender->SetMaterial(material);
 			bg->GetOrAddTransform()->SetScale(bg->GetSize());
-			bg->Init();
 		}
 
 		player = object::Instantiate<DxObject>();
 		{
-			player->AddComponent(std::make_shared<MoveScript>());
-			player->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext(), L"1.bmp"));
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			player->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
 			player->GetOrAddTransform()->SetScale(player->GetSize());
-			//player->AddComponent(std::make_shared<FireballScript>(player));
-			player->Init();
+			player->AddComponent(std::make_shared<MoveScript>());
 		}
 
 		t = object::Instantiate<DxObject>();
 		{
-			t->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), Core::GetContext(), L"1.bmp"));
-			t->GetOrAddTransform()->SetScale(player->GetSize());
-			t->GetTransform()->SetPosition(Vector3(100, 100, 0));
+			//t->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), Core::GetContext(), L"1.bmp"));
+			//t->GetOrAddTransform()->SetScale(player->GetSize());
+			//t->GetTransform()->SetPosition(Vector3(100, 100, 0));
 		}
 
-		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+		//camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		Scene::Init();
 	}
 
 	void testscene::Update()
 	{
-		if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_PUSH)
-		{
-			//ShootFireball();
-		}
 		Scene::Update();
 	}
 	void testscene::LateUpdate()
 	{
 		Vector3 pushVector;
-		if (CheckCollision(player->GetTransform()->GetRect(), t->GetTransform()->GetRect(), pushVector)) {
-			OutputDebugStringA("Collision detected!\n");
+		//if (CheckCollision(player->GetTransform()->GetRect(), t->GetTransform()->GetRect(), pushVector)) {
+		//	OutputDebugStringA("Collision detected!\n");
 
-			// 충돌 방향으로 밀어내기
-			player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
-		}
+		//	// 충돌 방향으로 밀어내기
+		//	player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
+		//}
 		Scene::LateUpdate();
 	}
 	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)
@@ -120,16 +123,5 @@ namespace Js
 	}
 	void testscene::OnEnter()
 	{
-	}
-	void testscene::ShootFireball()
-	{
-		std::shared_ptr<DxObject> fireball = object::Instantiate<DxObject>();
-		fireball->AddComponent(std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext(), L"1.bmp"));
-		fireball->GetOrAddTransform()->SetScale(player->GetSize());
-		auto position = fireball->GetTransform()->GetPosition();
-		float speed = 100 * Time::DeltaTime();
-
-		position.x += speed;
-		fireball->GetTransform()->SetPosition(position);
 	}
 }

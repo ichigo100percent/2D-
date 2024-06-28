@@ -5,6 +5,7 @@
 #include "Js_MonoBehaviour.h"
 #include "Js_MeshRenderer.h"
 #include "Js_Camera.h"
+#include "Js_Animator.h"
 
 
 
@@ -43,6 +44,7 @@ namespace Js
 		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<MeshRenderer> GetMeshRenderer();
 		std::shared_ptr<Camera> GetCamera();
+		std::shared_ptr<Animator> GetAnimator();
 		std::shared_ptr<MonoBehaviour> GetScript();
 		Vector3 GetSize();
 
@@ -50,12 +52,17 @@ namespace Js
 		void death() { m_State = eState::Dead; }
 		bool IsDead() { return m_State == eState::Dead; }
 		eState GetState() { return m_State; }
+		Vector3 GetDirection() const { return m_Direction; }
+	
 
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;
 		ComPtr<ID3D11DeviceContext> m_Context = nullptr;
 		bool m_IsActive;
 		eState m_State;
+		Vector3 m_PreviousPosition = { 0, 0, 0 };
+		Vector3 m_Direction = { 1, 0, 0 }; // 초기 이동 방향은 오른쪽
+
 
 	protected:
 		std::array<std::shared_ptr<Component>, FIXED_COMPONENT_COUNT> m_Components;

@@ -28,6 +28,18 @@ namespace Js
 		Vector3 GetLook() { return m_WorldMatrix.Backward(); }
 		MyRect GetRect() { return m_Rect; }
 
+		void SetForward2D(const Vector3& direction)
+		{
+			float radians = atan2(direction.y, direction.x);
+			m_LocalRotation.z = XMConvertToDegrees(radians);
+			UpdateTransform();
+		}
+		Vector3 GetForward2D() const
+		{
+			float radians = XMConvertToRadians(m_LocalRotation.z);
+			return Vector3(cos(radians), sin(radians), 0);
+		}
+
 	protected:
 		// Local
 		Vector3 GetLocalScale() { return m_LocalScale; }

@@ -7,7 +7,9 @@ namespace Js
 	class SceneManager
 	{
 	public:
-	
+		SceneManager();
+		virtual ~SceneManager();
+
 		static void Init();
 		static void Update();
 		static void LateUpdate();
@@ -46,6 +48,9 @@ namespace Js
 		}
 		static std::shared_ptr<Scene> GetActiveScene() { return m_CurrentScene; }
 		static std::shared_ptr<Scene> GetDontDestroyOnLoad() { return m_DontDestroyOnLoad; }
+
+		static void InitailizeScene();
+
 	private:
 		static std::map<std::wstring, std::shared_ptr<Scene>> m_Scenes;
 		static std::shared_ptr<Scene> m_CurrentScene;

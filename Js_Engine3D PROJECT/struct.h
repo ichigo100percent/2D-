@@ -29,6 +29,15 @@ struct CameraData
 	Matrix matProjection = Matrix::Identity;
 };
 
+struct AnimationData
+{
+	Vector2 spriteOffset;
+	Vector2 spriteSize;
+	Vector2 textureSize;
+	float   useAnimation;
+	float   padding;
+};
+
 struct MyRect
 {
 	float   left;

@@ -1,44 +1,36 @@
 #pragma once
 #include "Js_Component.h"
 #include "Js_Pipeline.h"
+#include "Js_Material.h"
+#include "Js_Mesh.h"
+
 
 namespace Js
 {
+
 	class MeshRenderer : public Component
 	{
+		friend class RenderManager;
 	public:
-		MeshRenderer(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name);
+		MeshRenderer(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring _name = {});
 		virtual ~MeshRenderer();
 
-		virtual void Init() override;
-		virtual void Update() override;
-		virtual void LateUpdate() override;
-		virtual void Render(std::shared_ptr<Pipeline> _pipeline) override;
-		virtual void Release() override;
+		void SetMaterial(std::shared_ptr<Material> _material) { m_Material = _material; }
+		void SetShader(std::shared_ptr<Shader> _shader) { m_Material->SetShader(_shader); }
+		void SetMesh(std::shared_ptr<Mesh> _mesh) { m_Mesh = _mesh; }
+		void SetTexture(std::shared_ptr<Texture> _texture) { m_Material->SetTexture(_texture); };
 
-		Vector2 GetSize() { return m_ShaderResourceView->GetSize(); }
+		std::shared_ptr<Mesh> GetMesh() { return m_Mesh; }
+		std::shared_ptr<Material> GetMaterial() { return m_Material; }
+
+		auto GetVertexShader() { return GetMaterial()->GetShader()->GetVertexShader(); }
+		auto GetPixelShaer() { return GetMaterial()->GetShader()->GetPixelShader(); }
+		auto GetInputLayout() { return GetMaterial()->GetShader()->GetInputLayout(); }
+		auto GetTexture() { return GetMaterial()->GetTexture(); }
 
 	private:
 		ComPtr<ID3D11Device> m_Device = nullptr;
-
-		std::shared_ptr<Geometry<VertexTextureData>> m_Geometry = nullptr;
-		std::shared_ptr<VertexBuffer> m_VertexBuffer = nullptr;
-		std::shared_ptr<IndexBuffer>  m_IndexBuffer = nullptr;
-
-		std::shared_ptr<InputLayout>  m_InputLayout = nullptr;
-		std::shared_ptr<VertexShader> m_VertexShader = nullptr;
-		std::shared_ptr<PixelShader>  m_PixelShader = nullptr;
-
-		std::shared_ptr<RasterizerState> m_RasterizerState = nullptr;
-		std::shared_ptr<Texture> m_ShaderResourceView = nullptr;
-		std::shared_ptr<SamplerState> m_SamplerState = nullptr;
-		std::shared_ptr<BlendState> m_BlendState = nullptr;
-
-		// SRT
-		TransformData m_TransformData;
-		std::shared_ptr<ConstantBuffer<TransformData>> m_TransformBuffer = nullptr;
-
-		CameraData m_CameraData;
-		std::shared_ptr<ConstantBuffer<CameraData>> m_CameraBuffer = nullptr;
+		std::shared_ptr<Mesh> m_Mesh = nullptr;
+		std::shared_ptr<Material> m_Material = nullptr;
 	};
 }

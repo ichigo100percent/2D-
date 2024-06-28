@@ -1,5 +1,6 @@
 #include "Js_SceneManager.h"
 #include "testscene.h"
+#include "Js_TitleScene.h"
 
 namespace Js
 {
@@ -7,6 +8,14 @@ namespace Js
 	std::shared_ptr<Scene> SceneManager::						  m_CurrentScene = nullptr;
 	std::shared_ptr<Scene> SceneManager::					      m_DontDestroyOnLoad = nullptr;
 
+
+	SceneManager::SceneManager()
+	{
+	}
+
+	SceneManager::~SceneManager()
+	{
+	}
 
 	void SceneManager::Init()
 	{		
@@ -38,5 +47,13 @@ namespace Js
 			return;
 
 		m_CurrentScene->Render(_pipeline);
+	}
+	void SceneManager::InitailizeScene()
+	{
+		CreateScene<testscene>(L"test");
+		CreateScene<TitleScene>(L"Title");
+
+		//LoadScene<TitleScene>(L"Title");
+		LoadScene<testscene>(L"test");
 	}
 }

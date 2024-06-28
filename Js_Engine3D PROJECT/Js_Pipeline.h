@@ -6,7 +6,7 @@
 #include "Js_VertexBuffer.h"
 #include "Js_IndexBuffer.h"
 #include "Js_InputLayout.h"
-#include "Js_Shader.h"
+#include "Js_ShaderBase.h"
 #include "Js_ConstantBuffer.h"
 #include "Js_Texture.h"
 #include "Js_RasterizerState.h"

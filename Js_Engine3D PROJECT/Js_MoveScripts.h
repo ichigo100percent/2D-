@@ -10,7 +10,6 @@ namespace Js
 		virtual void Init() override;
 		virtual void Update() override;
 
-		void shoot();
 
 	private:
 	};
