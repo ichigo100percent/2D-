@@ -38,6 +38,8 @@ namespace Js
 		bool EngineRender();
 		bool EngineRelease();
 
+		void Destroy();
+
 	protected:
 		std::shared_ptr<DxWrite>  m_DxWrite = nullptr;
 		std::shared_ptr<Pipeline> m_Pipeline = nullptr;

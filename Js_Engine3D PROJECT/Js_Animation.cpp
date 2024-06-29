@@ -9,12 +9,6 @@ namespace Js
 	Animation::~Animation()
 	{
 	}
-	void Animation::Load(const std::wstring& _path)
-	{
-	}
-	void Animation::Save(const std::wstring& _path)
-	{
-	}
 	Vector2 Animation::GetTextureSize()
 	{
 		return m_Texture->GetSize();

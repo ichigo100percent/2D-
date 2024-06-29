@@ -92,6 +92,13 @@ namespace Js
 
 			component->Render(_pipeline);
 		}
+		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			script->Render(_pipeline);
+		}
 	}
 	void DxObject::Release()
 	{
@@ -153,7 +160,7 @@ namespace Js
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Script);
 		return std::dynamic_pointer_cast<MonoBehaviour>(component);
 	}
-	std::shared_ptr<Transform> DxObject::GetOrAddTransform()
+	std::shared_ptr<Transform> DxObject::AddTransform()
 	{
 		if (GetTransform() == nullptr)
 		{

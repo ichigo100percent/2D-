@@ -13,10 +13,17 @@ namespace Js
 {
 	void FireballScript::Update()
 	{
+        m_DeathTime += Time::DeltaTime();
+
 		if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_PUSH)
 		{
 			ShootFireball();
 		}
+        if (m_DeathTime > 3.f)
+        {
+            if(fireball)
+                object::Destory(fireball);
+        }
 	}
 	void FireballScript::ShootFireball()
 	{
@@ -33,7 +40,7 @@ namespace Js
         Vector3 offsetPosition = playerPosition + (playerDirection * playerSize.Length());
 
         // Fireball 객체 생성 및 초기화
-        std::shared_ptr<Fireball> fireball = object::Instantiate<Fireball>(L"Fireball");
+        fireball = object::Instantiate<Fireball>(L"Fireball");
         {
             auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
             fireball->AddComponent(meshRender);
@@ -41,10 +48,11 @@ namespace Js
             meshRender->SetMesh(mesh);
             auto material = I_Resource->Get<Material>(L"Default");
             meshRender->SetMaterial(material);
-            fireball->GetOrAddTransform()->SetScale(fireball->GetSize());
+            fireball->GetTransform()->SetScale(fireball->GetSize());
 
             fireball->GetTransform()->SetPosition(offsetPosition);
             fireball->GetTransform()->SetForward2D(playerDirection);
         }
+
 	}
 }

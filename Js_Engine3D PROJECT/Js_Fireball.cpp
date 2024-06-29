@@ -21,7 +21,7 @@ namespace Js
 	{
 		// 화염구를 지속적으로 앞으로 이동
 		Vector3 position = GetTransform()->GetPosition();
-		float speed = 300.0f * Time::DeltaTime();
+		float speed = 100.0f * Time::DeltaTime();
 		Vector3 forward = GetTransform()->GetForward2D(); // 2D 방향 사용
 		position.x += forward.x * speed;
 		position.y += forward.y * speed;

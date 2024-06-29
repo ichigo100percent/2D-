@@ -7,15 +7,18 @@
 #include "Js_Component.h"
 #include "Js_Transform.h"
 #include "Js_Camera.h"
+#include "Js_Animator.h"
 #include "Js_MeshRenderer.h"
 #include "Js_Fireball.h"
 #include "Js_Object.h"
 #include "Js_Player.h"
+
 // Scripts
 #include "Js_FireballScript.h"
 #include "Js_MoveScripts.h"
 #include "Js_RotateScript.h"
 #include "Js_FollowTargetScript.h"
+
 
 namespace Js
 {
@@ -63,12 +66,11 @@ namespace Js
 	{
 		camera = object::Instantiate<DxObject>();
 		{
-			camera->GetOrAddTransform();
 			camera->AddComponent(std::make_shared<Camera>());
 			camera->Init();
 		}
 
-		bg = object::Instantiate<DxObject>();
+		bg = object::Instantiate<DxObject>(L"BackGround");
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			bg->AddComponent(meshRender);
@@ -76,10 +78,10 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"bg");
 			meshRender->SetMaterial(material);
-			bg->GetOrAddTransform()->SetScale(bg->GetSize());
+			bg->GetTransform()->SetScale(bg->GetSize());
 		}
 
-		player = object::Instantiate<Player>();
+		player = object::Instantiate<Player>(L"Player");
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			player->AddComponent(meshRender);
@@ -87,12 +89,18 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
-			player->GetOrAddTransform()->SetScale(player->GetSize());
+			player->GetTransform()->SetScale(player->GetSize());
 			player->AddComponent(std::make_shared<MoveScript>());
 			player->AddComponent(std::make_shared<FireballScript>(player));
+			
+			auto animator = std::make_shared<Animator>();
+			player->AddComponent(animator);
+			auto anim = I_Resource->Get<Animation>(L"SnakeAni");
+			animator->SetAnimation(anim);
 		}
+	
 
-		monster = object::Instantiate<DxObject>();
+		monster = object::Instantiate<DxObject>(L"Monster");
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			monster->AddComponent(meshRender);
@@ -100,7 +108,8 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
-			monster->GetOrAddTransform()->SetScale(monster->GetSize());
+			monster->GetTransform()->SetScale(monster->GetSize());
+			monster->GetTransform()->SetPosition(Vector3(300, 300, 0));
 		}
 
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
@@ -113,12 +122,17 @@ namespace Js
 	}
 	void testscene::LateUpdate()
 	{
-		Vector3 pushVector;
-		if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector)) {
-			OutputDebugStringA("Collision detected!\n");
+		//Vector3 pushVector;
+		//if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector))
+		//{
+		//	OutputDebugStringA("Collision detected!\n");
+		//	// 충돌 방향으로 밀어내기
+		//	player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
+		//}
 
-			// 충돌 방향으로 밀어내기
-			player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
+		if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect()))
+		{
+			object::Destory(monster);
 		}
 		Scene::LateUpdate();
 	}

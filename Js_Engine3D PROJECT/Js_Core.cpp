@@ -84,6 +84,11 @@ namespace Js
 		return true;
 	}
 
+	void Core::Destroy()
+	{
+		SceneManager::Destroy();
+	}
+
 	void Core::GameRun()
 	{
 		EngineInit();
@@ -96,6 +101,7 @@ namespace Js
 			EngineUpdate();
 			EngineLateUpdate();
 			EngineRender();
+			Destroy();
 		}
 		EngineRelease();
 	}

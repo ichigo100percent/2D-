@@ -50,6 +50,7 @@ namespace Js
 		static std::shared_ptr<Scene> GetDontDestroyOnLoad() { return m_DontDestroyOnLoad; }
 
 		static void InitailizeScene();
+		static void Destroy();
 
 	private:
 		static std::map<std::wstring, std::shared_ptr<Scene>> m_Scenes;

@@ -6,6 +6,11 @@ namespace Js
 {
 	struct Keyframe
 	{
+		Keyframe() = default;
+		Keyframe(const Vector2& _offset, const Vector2& _size, float _time)
+			: offset(_offset), size(_size), time(_time)
+		{
+		}
 		Vector2 offset = Vector2::Zero;
 		Vector2 size = Vector2::Zero;
 		float   time = 0.f;
@@ -17,9 +22,6 @@ namespace Js
 	public:
 		Animation();
 		virtual ~Animation();
-
-		virtual void Load(const std::wstring& _path) override;
-		virtual void Save(const std::wstring& _path) override;
 
 		Vector2 GetTextureSize();
 

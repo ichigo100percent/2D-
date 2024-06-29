@@ -56,4 +56,9 @@ namespace Js
 		//LoadScene<TitleScene>(L"Title");
 		LoadScene<testscene>(L"test");
 	}
+	void SceneManager::Destroy()
+	{
+		m_CurrentScene->Destroy();
+		//m_DontDestroyOnLoad->Destroy();
+	}
 }

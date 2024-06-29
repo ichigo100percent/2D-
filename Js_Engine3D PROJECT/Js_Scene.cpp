@@ -34,7 +34,7 @@ namespace Js
 			m_GameObjectList[i]->Update();
 		}
 
-		//for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
+		//for (auto& _gameObject : m_GameObjectList)
 		//{
 		//	if (_gameObject == nullptr)
 		//		continue;
@@ -109,6 +109,7 @@ namespace Js
 		for (std::shared_ptr<DxObject> obj : _gameObjs)
 		{
 			obj.reset();
+			obj = nullptr;
 		}
 	}
 	void Scene::eraseDeadGameObject()

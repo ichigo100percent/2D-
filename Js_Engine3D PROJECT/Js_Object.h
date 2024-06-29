@@ -8,9 +8,10 @@
 namespace Js::object
 {
 	template <typename T>
-	static std::shared_ptr<T> Instantiate(const std::wstring& _name = {})
+	static std::shared_ptr<T> Instantiate(const std::wstring& _name = L"")
 	{
 		auto gameObject = std::make_shared<T>(I_Core.GetDevice(), I_Core.GetContext(), _name);
+		gameObject->AddTransform();
 		auto scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(gameObject);
 

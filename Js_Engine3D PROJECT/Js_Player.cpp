@@ -14,7 +14,7 @@ namespace Js
 	}
 	void Player::Update()
 	{
-		Vector3 currentPosition = GetOrAddTransform()->GetPosition();
+		Vector3 currentPosition = GetTransform()->GetPosition();
 
 		// 이동 방향 계산
 		if (currentPosition != m_PreviousPosition)

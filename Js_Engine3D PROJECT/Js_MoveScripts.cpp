@@ -12,7 +12,7 @@ namespace Js
 {
 	void MoveScript::Init()
 	{
-		GetOwner()->GetOrAddTransform();
+		//GetOwner()->GetOrAddTransform();
 	}
 	void MoveScript::Update()
 	{

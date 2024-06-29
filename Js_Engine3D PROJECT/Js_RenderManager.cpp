@@ -23,10 +23,10 @@ namespace Js
 
 		m_TransformBuffer = std::make_shared<ConstantBuffer<TransformData>>(m_Device, m_Context);
 		m_TransformBuffer->Create();
-		m_AnimationBuffer = std::make_shared<ConstantBuffer<AnimationData>>(m_Device, m_Context);
-		m_AnimationBuffer->Create();
 		m_CameraBuffer = std::make_shared<ConstantBuffer<CameraData>>(m_Device, m_Context);
 		m_CameraBuffer->Create();
+		m_AnimationBuffer = std::make_shared<ConstantBuffer<AnimationData>>(m_Device, m_Context);
+		m_AnimationBuffer->Create();
 
 		m_RasterizerState = std::make_shared<RasterizerState>(m_Device);
 		m_RasterizerState->Create();
@@ -50,6 +50,7 @@ namespace Js
 	}
 	void RenderManager::PushAnimationData()
 	{
+		m_AnimationBuffer->CopyData(m_AnimationData);
 	}
 	void RenderManager::GatherRenderableObjects()
 	{
@@ -80,11 +81,28 @@ namespace Js
 			auto animator = gameObject->GetAnimator();
 			if (animator)
 			{
+				const Keyframe& keyframe = animator->GetCurrentKeyFrame();
+				m_AnimationData.spriteOffset = keyframe.offset;
+				m_AnimationData.spriteSize = keyframe.size;
+				m_AnimationData.textureSize = animator->GetCurrentAnimation()->GetTextureSize();
+				m_AnimationData.useAnimation = 1.f;
 
+				PushAnimationData();
+
+				m_Pipeline->SetConstantBuffer(2, SS_VertexShader, m_AnimationBuffer);
+				m_Pipeline->SetTexture(0, SS_PixelShader, animator->GetCurrentAnimation()->GetTexture());
 			}
 			else
 			{
+				m_AnimationData.spriteOffset = Vector2::Zero;
+				m_AnimationData.spriteSize = Vector2::Zero;
+				m_AnimationData.textureSize = Vector2::Zero;
+				m_AnimationData.useAnimation = 0.f;
 
+				PushAnimationData();
+
+				m_Pipeline->SetConstantBuffer(2, SS_VertexShader, m_AnimationBuffer);
+				m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
 			}
 			PipelineInfo info;
 			info.inputLayout = meshRenderer->GetInputLayout();
@@ -96,13 +114,13 @@ namespace Js
 
 			m_Pipeline->SetVertexBuffer(meshRenderer->GetMesh()->GetVertexBuffer());
 			m_Pipeline->SetIndexBuffer(meshRenderer->GetMesh()->GetIndexBuffer());
+
 			m_Pipeline->SetConstantBuffer(1, SS_VertexShader, m_TransformBuffer);
 			m_Pipeline->SetConstantBuffer(0, SS_VertexShader, m_CameraBuffer);
 
-			m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
-
 			m_Pipeline->SetSamplerState(0, SS_PixelShader, m_SamplerState);
 			m_Pipeline->DrawIndexed(meshRenderer->GetMesh()->GetIndexBuffer()->GetCount(), 0, 0);
+			//m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
 		}
 	}
 }

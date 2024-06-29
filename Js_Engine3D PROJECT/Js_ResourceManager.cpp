@@ -68,6 +68,20 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"Snake");
+			texture->Create(L"Snake.bmp");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"Chicken");
+			texture->Create(L"ChickenAlpha.bmp");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createDefaultMaterial()
 	{
@@ -90,6 +104,32 @@ namespace Js
 	}
 	void ResourceManager::createDefaultAnimation()
 	{
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SnakeAni");
+			animation->SetTexture(Get<Texture>(L"Snake"));
+			animation->SetLoop(true);
+
+			animation->AddKeyframe(Keyframe{ Vector2{0.f, 0.f},  Vector2{100.f, 100.f}, 0.1f });
+			animation->AddKeyframe(Keyframe{ Vector2{100.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
+			animation->AddKeyframe(Keyframe{ Vector2{200.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
+			animation->AddKeyframe(Keyframe{ Vector2{300.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"ChickenAni");
+			animation->SetTexture(Get<Texture>(L"Chicken"));
+			animation->SetLoop(true);
+
+			for (int i = 0; i < 4; i++)
+			{
+				int width = 32 * i;
+				animation->AddKeyframe(Keyframe{ Vector2{0.f * width, 0.f},  Vector2{32.f, 32.f} *i, 0.1f });
+			}
+			Add(animation->GetName(), animation);
+		}
 	}
 	void ResourceManager::createDefaultSound()
 	{

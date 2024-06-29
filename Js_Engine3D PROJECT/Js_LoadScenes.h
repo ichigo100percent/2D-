@@ -11,7 +11,7 @@ namespace Js
 		SceneManager::CreateScene<testscene>(L"test");
 		SceneManager::CreateScene<TitleScene>(L"Title");
 
-		SceneManager::LoadScene<TitleScene>(L"Title");
+		//SceneManager::LoadScene<TitleScene>(L"Title");
 		//SceneManager::LoadScene<testscene>(L"test");
 	}
 }

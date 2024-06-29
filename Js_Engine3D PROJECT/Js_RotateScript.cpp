@@ -8,7 +8,7 @@ namespace Js
 {
 	void RotateScript::Init()
 	{
-		GetOwner()->GetOrAddTransform();
+		GetOwner()->AddTransform();
 	}
 	void RotateScript::Update()
 	{

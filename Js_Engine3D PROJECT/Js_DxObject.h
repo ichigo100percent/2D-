@@ -40,7 +40,7 @@ namespace Js
 
 		std::shared_ptr<Component> GetComponent(ComponentType _type);
 		void AddComponent(std::shared_ptr<Component> _component);
-		std::shared_ptr<Transform> GetOrAddTransform();
+		std::shared_ptr<Transform> AddTransform();
 		std::shared_ptr<Transform> GetTransform();
 		std::shared_ptr<MeshRenderer> GetMeshRenderer();
 		std::shared_ptr<Camera> GetCamera();
@@ -48,7 +48,8 @@ namespace Js
 		std::shared_ptr<MonoBehaviour> GetScript();
 		Vector3 GetSize();
 
-		bool IsActive() { return m_IsActive; }
+		bool IsActive() { return m_State == eState::Active; }
+		//bool IsActive() { return m_IsActive; }
 		void death() { m_State = eState::Dead; }
 		bool IsDead() { return m_State == eState::Dead; }
 		eState GetState() { return m_State; }

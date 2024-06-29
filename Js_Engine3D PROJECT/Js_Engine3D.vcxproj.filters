@@ -83,13 +83,7 @@
     <ClCompile Include="Js_Resource.cpp">
       <Filter>소스 파일\03. Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Js_ResourceManager.cpp">
-      <Filter>소스 파일\03. Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Js_Scene.cpp">
-      <Filter>소스 파일\05. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Js_SceneManager.cpp">
       <Filter>소스 파일\05. Scene</Filter>
     </ClCompile>
     <ClCompile Include="testscene.cpp" />
@@ -129,8 +123,14 @@
     <ClCompile Include="Js_Animation.cpp">
       <Filter>소스 파일\03. Resource\05. Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Js_SceneManager.cpp">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_ResourceManager.cpp">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClCompile>
     <ClCompile Include="Js_RenderManager.cpp">
-      <Filter>소스 파일\03. Resource</Filter>
+      <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,13 +245,7 @@
     <ClInclude Include="Js_Resource.h">
       <Filter>소스 파일\03. Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Js_ResourceManager.h">
-      <Filter>소스 파일\03. Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Js_Scene.h">
-      <Filter>소스 파일\05. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_SceneManager.h">
       <Filter>소스 파일\05. Scene</Filter>
     </ClInclude>
     <ClInclude Include="testscene.h" />
@@ -297,8 +291,14 @@
     <ClInclude Include="Js_Animation.h">
       <Filter>소스 파일\03. Resource\05. Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Js_SceneManager.h">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_ResourceManager.h">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClInclude>
     <ClInclude Include="Js_RenderManager.h">
-      <Filter>소스 파일\03. Resource</Filter>
+      <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +422,9 @@
     </Filter>
     <Filter Include="소스 파일\03. Resource\05. Animation">
       <UniqueIdentifier>{691103d3-d37a-49a2-a799-493234a4a4c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\06. Manager">
+      <UniqueIdentifier>{ba058e92-0593-4d13-be9e-8599373edaaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
