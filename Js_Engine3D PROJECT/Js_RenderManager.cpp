@@ -81,7 +81,7 @@ namespace Js
 			auto animator = gameObject->GetAnimator();
 			if (animator)
 			{
-				const Keyframe& keyframe = animator->GetCurrentKeyFrame();
+				auto keyframe = animator->GetCurrentKeyFrame();
 				m_AnimationData.spriteOffset = keyframe.offset;
 				m_AnimationData.spriteSize = keyframe.size;
 				m_AnimationData.textureSize = animator->GetCurrentAnimation()->GetTextureSize();

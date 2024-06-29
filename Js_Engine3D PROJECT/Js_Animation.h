@@ -23,6 +23,8 @@ namespace Js
 		Animation();
 		virtual ~Animation();
 
+		void SetKeyFrame(const Vector2& _offset, const Vector2 _size, UINT _length, float _time);
+
 		Vector2 GetTextureSize();
 
 		const Keyframe& GetKeyframe(UINT _index);

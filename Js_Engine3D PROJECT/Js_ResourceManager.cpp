@@ -28,8 +28,6 @@ namespace Js
 
 			Add(mesh->GetName(), mesh);
 		}
-
-		auto a = m_Resources;
 	}
 	void ResourceManager::createDefaultShader()
 	{
@@ -82,6 +80,13 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"Mario");
+			texture->Create(L"Mario_nomal.gif");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createDefaultMaterial()
 	{
@@ -123,11 +128,18 @@ namespace Js
 			animation->SetTexture(Get<Texture>(L"Chicken"));
 			animation->SetLoop(true);
 
-			for (int i = 0; i < 4; i++)
-			{
-				int width = 32 * i;
-				animation->AddKeyframe(Keyframe{ Vector2{0.f * width, 0.f},  Vector2{32.f, 32.f} *i, 0.1f });
-			}
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), 4, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"MarioAni");
+			animation->SetTexture(Get<Texture>(L"Mario"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(50.0f, 0.0f), Vector2(50.0f, 80.0f), 5, 0.1f);
+
 			Add(animation->GetName(), animation);
 		}
 	}

@@ -16,7 +16,7 @@ namespace Js
 
 		void SetAnimation(std::shared_ptr<Animation> _animation) { m_CurrentAnimation = _animation; }
 		std::shared_ptr<Animation> GetCurrentAnimation() { return m_CurrentAnimation; }
-		const Keyframe& GetCurrentKeyFrame() { return m_CurrentAnimation->GetKeyframe(m_CurrentKeyframeIndex); }
+		Keyframe GetCurrentKeyFrame() { return m_CurrentAnimation->GetKeyframe(m_CurrentKeyframeIndex); }
 
 	private:
 		std::shared_ptr<Animation> m_CurrentAnimation = nullptr;

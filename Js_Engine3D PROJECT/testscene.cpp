@@ -95,7 +95,7 @@ namespace Js
 			
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
-			auto anim = I_Resource->Get<Animation>(L"SnakeAni");
+			auto anim = I_Resource->Get<Animation>(L"MarioAni");
 			animator->SetAnimation(anim);
 		}
 	

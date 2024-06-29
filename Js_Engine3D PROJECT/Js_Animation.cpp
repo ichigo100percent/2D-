@@ -9,6 +9,18 @@ namespace Js
 	Animation::~Animation()
 	{
 	}
+	void Animation::SetKeyFrame(const Vector2& _offset, const Vector2 _size, UINT _length, float _time)
+	{
+		for (UINT i = 0; i < _length; i++)
+		{
+			Keyframe keyframe;
+			keyframe.offset = Vector2(_offset.x + (_size.x * i), _offset.y);
+			keyframe.size = _size;
+			keyframe.time = _time;
+
+			AddKeyframe(keyframe);
+		}
+	}
 	Vector2 Animation::GetTextureSize()
 	{
 		return m_Texture->GetSize();
