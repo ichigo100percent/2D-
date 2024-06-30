@@ -21,8 +21,8 @@ namespace Js
 		}
         if (m_DeathTime > 3.f)
         {
-            if(fireball)
-                object::Destory(fireball);
+           /* if(fireball)
+                object::Destory(fireball);*/
         }
 	}
 	void FireballScript::ShootFireball()

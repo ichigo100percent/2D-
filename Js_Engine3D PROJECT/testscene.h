@@ -17,5 +17,9 @@ namespace Js
 		std::shared_ptr<DxObject> bg;
 		std::shared_ptr<DxObject> player;
 		std::shared_ptr<DxObject> monster;
+		std::vector<std::shared_ptr<DxObject>> walls1;
+		std::vector<std::shared_ptr<DxObject>> walls2;
+		std::vector<std::shared_ptr<DxObject>> walls3;
+		std::vector<std::shared_ptr<DxObject>> walls4;
 	};
 }

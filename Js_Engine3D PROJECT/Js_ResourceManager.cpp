@@ -55,35 +55,21 @@ namespace Js
 		{
 			auto texture = std::make_shared<Texture>(m_Device);
 			texture->SetName(L"Default");
-			texture->Create(L"1.bmp");
+			texture->Create(L"mario.png");
 
 			Add(texture->GetName(), texture);
 		}
 		{
 			auto texture = std::make_shared<Texture>(m_Device);
-			texture->SetName(L"bg");
-			texture->Create(L"bg_blue.jpg");
+			texture->SetName(L"Map");
+			texture->Create(L"map.png");
 
 			Add(texture->GetName(), texture);
 		}
 		{
 			auto texture = std::make_shared<Texture>(m_Device);
-			texture->SetName(L"Snake");
-			texture->Create(L"Snake.bmp");
-
-			Add(texture->GetName(), texture);
-		}
-		{
-			auto texture = std::make_shared<Texture>(m_Device);
-			texture->SetName(L"Chicken");
-			texture->Create(L"ChickenAlpha.bmp");
-
-			Add(texture->GetName(), texture);
-		}
-		{
-			auto texture = std::make_shared<Texture>(m_Device);
-			texture->SetName(L"Mario");
-			texture->Create(L"Mario_nomal.gif");
+			texture->SetName(L"Mario1");
+			texture->Create(L"mario1.png");
 
 			Add(texture->GetName(), texture);
 		}
@@ -100,9 +86,9 @@ namespace Js
 		}
 		{
 			auto material = std::make_shared<Material>();
-			material->SetName(L"bg");
+			material->SetName(L"Map");
 			material->SetShader(Get<Shader>(L"Default"));
-			material->SetTexture(Get<Texture>(L"bg"));
+			material->SetTexture(Get<Texture>(L"Map"));
 
 			Add(material->GetName(), material);
 		}
@@ -111,34 +97,11 @@ namespace Js
 	{
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"SnakeAni");
-			animation->SetTexture(Get<Texture>(L"Snake"));
+			animation->SetName(L"Mario1_Move");
+			animation->SetTexture(Get<Texture>(L"Mario1"));
 			animation->SetLoop(true);
 
-			animation->AddKeyframe(Keyframe{ Vector2{0.f, 0.f},  Vector2{100.f, 100.f}, 0.1f });
-			animation->AddKeyframe(Keyframe{ Vector2{100.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
-			animation->AddKeyframe(Keyframe{ Vector2{200.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
-			animation->AddKeyframe(Keyframe{ Vector2{300.f, 0.f}, Vector2{100.f, 100.f}, 0.1f });
-
-			Add(animation->GetName(), animation);
-		}
-		{
-			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"ChickenAni");
-			animation->SetTexture(Get<Texture>(L"Chicken"));
-			animation->SetLoop(true);
-
-			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), 4, 0.1f);
-
-			Add(animation->GetName(), animation);
-		}
-		{
-			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"MarioAni");
-			animation->SetTexture(Get<Texture>(L"Mario"));
-			animation->SetLoop(true);
-
-			animation->SetKeyFrame(Vector2(50.0f, 0.0f), Vector2(50.0f, 80.0f), 5, 0.05f);
+			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 15.0f), 3, 0.05f);
 
 			Add(animation->GetName(), animation);
 		}

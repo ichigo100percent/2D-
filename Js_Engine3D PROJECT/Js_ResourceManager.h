@@ -66,7 +66,7 @@ namespace Js
 				return false;
 
 			list[_key] = _object;
-			auto a = m_Resources[static_cast<UINT>(type)];
+			//auto a = m_Resources[static_cast<UINT>(type)];
 			return true;
 		}
 

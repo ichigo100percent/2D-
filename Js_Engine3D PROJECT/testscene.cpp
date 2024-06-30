@@ -38,11 +38,11 @@ namespace Js
 			bg->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"bg");
+			auto material = I_Resource->Get<Material>(L"Map");
 			meshRender->SetMaterial(material);
 			bg->GetTransform()->SetPosition(Vector3(0, 0, 0));
 			bg->GetTransform()->SetScale(bg->GetSize());
-			auto a = bg->GetTransform()->GetRect();
+			bg->GetSize();
 		}
 
 		player = object::Instantiate<Player>(L"Player");
@@ -53,7 +53,7 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
-			player->GetTransform()->SetPosition(Vector3(0, 200, 0));
+			player->GetTransform()->SetPosition(Vector3(-2700, -240, 0));
 			player->GetTransform()->SetScale(player->GetSize());
 			player->AddComponent(std::make_shared<MoveScript>());
 			//player->AddComponent(std::make_shared<PlayerScript>());
@@ -62,10 +62,79 @@ namespace Js
 			
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
-			auto anim = I_Resource->Get<Animation>(L"MarioAni");
+			auto anim = I_Resource->Get<Animation>(L"Mario1_Move");
 			animator->SetAnimation(anim);
 		}
-	
+
+		walls1.resize(62);
+		for (int i = 0; i < walls1.size(); i++)
+		{
+			float width = 32 * i;
+			walls1[i] = object::Instantiate<DxObject>(L"wall");
+			{
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls1[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Default");
+				meshRender->SetMaterial(material);
+				walls1[i]->GetTransform()->SetScale(walls1[i]->GetSize());
+				walls1[i]->GetTransform()->SetPosition(Vector3(-2864 + width, -272, 0));
+			}
+		}
+
+
+
+		walls2.resize(15);
+		for (int i = 0; i < walls2.size(); i++)
+		{
+			float width = 32 * i;
+			walls2[i] = object::Instantiate<DxObject>(L"wall");
+			{
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls2[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Default");
+				meshRender->SetMaterial(material);
+				walls2[i]->GetTransform()->SetScale(walls2[i]->GetSize());
+				walls2[i]->GetTransform()->SetPosition(Vector3(-816 + width, -272, 0));
+			}
+		}
+
+		walls3.resize(43);
+		for (int i = 0; i < walls3.size(); i++)
+		{
+			float width = 32 * i;
+			walls3[i] = object::Instantiate<DxObject>(L"wall");
+			{
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls3[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Default");
+				meshRender->SetMaterial(material);
+				walls3[i]->GetTransform()->SetScale(walls3[i]->GetSize());
+				walls3[i]->GetTransform()->SetPosition(Vector3(-272 + width, -272, 0));
+			}
+		}
+
+		walls4.resize(54);
+		for (int i = 0; i < walls4.size(); i++)
+		{
+			float width = 32 * i;
+			walls4[i] = object::Instantiate<DxObject>(L"wall");
+			{
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls4[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Default");
+				meshRender->SetMaterial(material);
+				walls4[i]->GetTransform()->SetScale(walls4[i]->GetSize());
+				walls4[i]->GetTransform()->SetPosition(Vector3(1170 + width, -240, 0));
+			}
+		}
 
 		monster = object::Instantiate<DxObject>(L"Monster");
 		{
@@ -76,7 +145,7 @@ namespace Js
 			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
 			monster->GetTransform()->SetScale(monster->GetSize());
-			monster->GetTransform()->SetPosition(Vector3(300, 300, 0));
+			monster->GetTransform()->SetPosition(Vector3(-2864, -272, 0));
 		}
 
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));

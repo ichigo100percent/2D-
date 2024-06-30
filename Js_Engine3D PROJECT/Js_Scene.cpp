@@ -24,24 +24,24 @@ namespace Js
 	}
 	void Scene::Update()
 	{
-		//for (int i = 0; i < m_GameObjectList.size(); i++)
-		//{
-		//	if (m_GameObjectList[i] == nullptr)
-		//		continue;
-		//	if (m_GameObjectList[i]->IsActive() == false)
-		//		continue;
-
-		//	m_GameObjectList[i]->Update();
-		//}
-
-		for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
+		for (int i = 0; i < m_GameObjectList.size(); i++)
 		{
-			if (_gameObject == nullptr)
+			if (m_GameObjectList[i] == nullptr)
 				continue;
-			//if (_gameObject->IsActive() == false)
-			//	continue;
-			_gameObject->Update();
+			if (m_GameObjectList[i]->IsActive() == false)
+				continue;
+
+			m_GameObjectList[i]->Update();
 		}
+
+		//for (std::shared_ptr<DxObject>& _gameObject : m_GameObjectList)
+		//{
+		//	if (_gameObject == nullptr)
+		//		continue;
+		//	//if (_gameObject->IsActive() == false)
+		//	//	continue;
+		//	_gameObject->Update();
+		//}
 	}
 	void Scene::LateUpdate()
 	{
