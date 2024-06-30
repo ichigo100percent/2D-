@@ -8,60 +8,22 @@
 #include "Js_Transform.h"
 #include "Js_Camera.h"
 #include "Js_Animator.h"
+#include "Js_Collision.h"
 #include "Js_MeshRenderer.h"
 #include "Js_Fireball.h"
 #include "Js_Object.h"
 #include "Js_Player.h"
+#include "Js_Rigidbody.h"
 
 // Scripts
 #include "Js_FireballScript.h"
 #include "Js_MoveScripts.h"
 #include "Js_RotateScript.h"
 #include "Js_FollowTargetScript.h"
-
+#include "Js_PlayerScript.h"
 
 namespace Js
 {
-	bool CheckCollision(const MyRect& rect1, const MyRect& rect2)
-	{
-		// 두 사각형이 충돌하는지 확인
-		if (rect1.left < rect2.right &&
-			rect1.right > rect2.left &&
-			rect1.top > rect2.bottom &&
-			rect1.bottom < rect2.top)
-		{
-			return true; 
-		}
-		return false; 
-	}
-	bool CheckCollision(const MyRect& rect1, const MyRect& rect2, Vector3& pushVector)
-	{
-		// 충돌 감지
-		if (rect1.left < rect2.right &&
-			rect1.right > rect2.left &&
-			rect1.top > rect2.bottom &&
-			rect1.bottom < rect2.top)
-		{
-
-			// 충돌 방향 계산
-			float overlapLeft = rect2.right - rect1.left;
-			float overlapRight = rect1.right - rect2.left;
-			float overlapTop = rect2.bottom - rect1.top;
-			float overlapBottom = rect1.bottom - rect2.top;
-
-			float overlapX = (std::abs(overlapLeft) < std::abs(overlapRight)) ? overlapLeft : -overlapRight;
-			float overlapY = (std::abs(overlapTop) < std::abs(overlapBottom)) ? overlapTop : -overlapBottom;
-
-			if (std::abs(overlapX) < std::abs(overlapY))
-				pushVector = Vector3(overlapX, 0, 0);
-			else 
-				pushVector = Vector3(0, overlapY, 0);
-			
-			return true;				
-		}
-		return false;
-	}
-	
 	void testscene::Init()
 	{
 		camera = object::Instantiate<DxObject>();
@@ -78,7 +40,9 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"bg");
 			meshRender->SetMaterial(material);
+			bg->GetTransform()->SetPosition(Vector3(0, 0, 0));
 			bg->GetTransform()->SetScale(bg->GetSize());
+			auto a = bg->GetTransform()->GetRect();
 		}
 
 		player = object::Instantiate<Player>(L"Player");
@@ -89,8 +53,11 @@ namespace Js
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
+			player->GetTransform()->SetPosition(Vector3(0, 200, 0));
 			player->GetTransform()->SetScale(player->GetSize());
 			player->AddComponent(std::make_shared<MoveScript>());
+			//player->AddComponent(std::make_shared<PlayerScript>());
+			//player->AddComponent(std::make_shared<Rigidbody>());
 			player->AddComponent(std::make_shared<FireballScript>(player));
 			
 			auto animator = std::make_shared<Animator>();
@@ -122,18 +89,18 @@ namespace Js
 	}
 	void testscene::LateUpdate()
 	{
-		//Vector3 pushVector;
-		//if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector))
-		//{
-		//	OutputDebugStringA("Collision detected!\n");
-		//	// 충돌 방향으로 밀어내기
-		//	player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
-		//}
-
-		if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect()))
+		Vector3 pushVector;
+		if (Collision::CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector))
 		{
-			object::Destory(monster);
+			OutputDebugStringA("Collision detected!\n");
+			// 충돌 방향으로 밀어내기
+			player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
 		}
+
+		//if (CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect()))
+		//{
+		//	object::Destory(monster);
+		//}
 		Scene::LateUpdate();
 	}
 	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)

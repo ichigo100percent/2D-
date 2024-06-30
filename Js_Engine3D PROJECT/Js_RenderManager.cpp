@@ -118,7 +118,7 @@ namespace Js
 			m_Pipeline->SetConstantBuffer(1, SS_VertexShader, m_TransformBuffer);
 			m_Pipeline->SetConstantBuffer(0, SS_VertexShader, m_CameraBuffer);
 
-			m_Pipeline->SetSamplerState(0, SS_PixelShader, m_SamplerState);
+			//m_Pipeline->SetSamplerState(0, SS_PixelShader, m_SamplerState);
 			m_Pipeline->DrawIndexed(meshRenderer->GetMesh()->GetIndexBuffer()->GetCount(), 0, 0);
 			//m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
 		}

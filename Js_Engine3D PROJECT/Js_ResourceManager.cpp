@@ -138,7 +138,7 @@ namespace Js
 			animation->SetTexture(Get<Texture>(L"Mario"));
 			animation->SetLoop(true);
 
-			animation->SetKeyFrame(Vector2(50.0f, 0.0f), Vector2(50.0f, 80.0f), 5, 0.1f);
+			animation->SetKeyFrame(Vector2(50.0f, 0.0f), Vector2(50.0f, 80.0f), 5, 0.05f);
 
 			Add(animation->GetName(), animation);
 		}

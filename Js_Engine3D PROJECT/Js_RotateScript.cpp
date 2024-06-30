@@ -12,7 +12,7 @@ namespace Js
 	}
 	void RotateScript::Update()
 	{
-		float speed = 50 * Time::DeltaTime();
+		//float speed = 50 * Time::DeltaTime();
 
 		//Quaternion rotationDelta = Quaternion::CreateFromYawPitchRoll(speed, speed, speed);  // 쿼터니언으로 회전 변환 생성
 	 //   auto currentRotation =  GetOwner()->GetTransform()->GetRotation();  // 현재 회전 값 가져오기

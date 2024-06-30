@@ -38,7 +38,20 @@ namespace Js
 		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
 		virtual void Release();
 
-		std::shared_ptr<Component> GetComponent(ComponentType _type);
+		template <typename T>
+		std::shared_ptr<T> GetComponent()
+		{
+			std::shared_ptr<T> component = nullptr;
+			for (auto& comp : m_Components)
+			{
+				component = std::dynamic_pointer_cast<T>(comp);
+
+				if (component)
+					break;
+			}
+			return component;
+		}
+
 		void AddComponent(std::shared_ptr<Component> _component);
 		std::shared_ptr<Transform> AddTransform();
 		std::shared_ptr<Transform> GetTransform();
@@ -55,6 +68,8 @@ namespace Js
 		eState GetState() { return m_State; }
 		Vector3 GetDirection() const { return m_Direction; }
 	
+	private:
+		std::shared_ptr<Component> GetComponent(ComponentType _type);
 
 	protected:
 		ComPtr<ID3D11Device> m_Device = nullptr;

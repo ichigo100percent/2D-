@@ -130,7 +130,7 @@ namespace Js
 		{
 			m_Scripts.push_back(std::dynamic_pointer_cast<MonoBehaviour>(_component));
 		}
-		else if(index < FIXED_COMPONENT_COUNT)
+		else if(index <= FIXED_COMPONENT_COUNT)
 		{
 			m_Components[index] = _component;
 		}

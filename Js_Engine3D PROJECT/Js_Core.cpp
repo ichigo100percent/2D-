@@ -1,8 +1,8 @@
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
-//#include "Js_SceneManager.h"
-#include "Js_LoadScenes.h"
+#include "Js_SceneManager.h"
+
 
 
 namespace Js
@@ -72,7 +72,7 @@ namespace Js
 		SceneManager::Render(GetPipeline());
 		Render();
 
-		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
+		//m_DxWrite->DrawText(I_Time->m_csBuffer, { g_Width / 4, 0 });
 		Device::PostRender();
 		return true;
 	}

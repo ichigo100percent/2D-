@@ -132,6 +132,12 @@
     <ClCompile Include="Js_RenderManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Js_PlayerScript.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_Rigidbody.cpp">
+      <Filter>소스 파일\02. Component\06. Rigidbody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -255,9 +261,6 @@
     <ClInclude Include="Js_FollowTargetScript.h">
       <Filter>소스 파일\04. Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Js_LoadScenes.h">
-      <Filter>소스 파일\05. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Js_TitleScene.h">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClInclude>
@@ -300,6 +303,12 @@
     <ClInclude Include="Js_RenderManager.h">
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Js_PlayerScript.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_Rigidbody.h">
+      <Filter>소스 파일\02. Component\06. Rigidbody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">
@@ -329,27 +338,6 @@
     </Filter>
     <Filter Include="소스 파일\98. Shader">
       <UniqueIdentifier>{03d1997b-c7c6-49ad-b7dd-d16d7a7846cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header">
-      <UniqueIdentifier>{93acba8f-e4b0-4611-adb4-e57ef490e31e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\00. Time">
-      <UniqueIdentifier>{7e7d4670-5cd0-4483-a5db-2895638e2c20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\01. Input">
-      <UniqueIdentifier>{52e8d060-1077-4666-90a9-a077636431d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\99. Utils">
-      <UniqueIdentifier>{51c6ca69-82b8-4b31-950f-152c327f345e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\03. Write">
-      <UniqueIdentifier>{42464717-5cdf-4753-9d0e-e8133182a774}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\98. Etc">
-      <UniqueIdentifier>{72859e4c-cf67-4b36-a7df-58a35280df0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99. Header\02. Font">
-      <UniqueIdentifier>{58907359-fbd0-45e7-8684-a14bbe0e633a}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\02. Component">
       <UniqueIdentifier>{d21a25fa-88e2-4333-bf8c-faf172a7f5fb}</UniqueIdentifier>
@@ -425,6 +413,30 @@
     </Filter>
     <Filter Include="소스 파일\06. Manager">
       <UniqueIdentifier>{ba058e92-0593-4d13-be9e-8599373edaaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header">
+      <UniqueIdentifier>{93acba8f-e4b0-4611-adb4-e57ef490e31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\00. Time">
+      <UniqueIdentifier>{7e7d4670-5cd0-4483-a5db-2895638e2c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\01. Input">
+      <UniqueIdentifier>{52e8d060-1077-4666-90a9-a077636431d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\99. Utils">
+      <UniqueIdentifier>{51c6ca69-82b8-4b31-950f-152c327f345e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\03. Write">
+      <UniqueIdentifier>{42464717-5cdf-4753-9d0e-e8133182a774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\98. Etc">
+      <UniqueIdentifier>{72859e4c-cf67-4b36-a7df-58a35280df0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Header\02. Font">
+      <UniqueIdentifier>{58907359-fbd0-45e7-8684-a14bbe0e633a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Component\06. Rigidbody">
+      <UniqueIdentifier>{cfc370c2-614a-44ac-9c91-935f5968d05c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

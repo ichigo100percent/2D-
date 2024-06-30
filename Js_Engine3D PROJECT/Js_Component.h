@@ -16,13 +16,14 @@ namespace Js
 		// ...
 		Script,
 		Collider,
+		Rigidbody,
 
 		End,
 	};
 
 	enum
 	{
-		FIXED_COMPONENT_COUNT = static_cast<UINT>(ComponentType::End) - 1
+		FIXED_COMPONENT_COUNT = static_cast<UINT>(ComponentType::End) 
 	};
 
 	class Component : public Entity

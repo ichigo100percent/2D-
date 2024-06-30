@@ -45,7 +45,7 @@ VS_OUTPUT VS(VS_INPUT input)
     if (useAnimation == 1.0f)
     {
         output.uv *= spriteSize / textureSize;
-        output.uv += spriteOffset / textureSize;
+        output.uv += spriteOffset  / textureSize;
     }
 
     return output;
