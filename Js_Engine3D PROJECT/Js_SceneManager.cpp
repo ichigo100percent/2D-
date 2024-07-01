@@ -48,13 +48,37 @@ namespace Js
 
 		m_CurrentScene->Render(_pipeline);
 	}
+	std::vector<std::shared_ptr<DxObject>> SceneManager::GetLayerGameObjects(enums::LayerType _type)
+	{
+		std::vector<std::shared_ptr<DxObject>> gameObjects = {};
+		auto& ativeGameObjects = GetActiveScene()->GetGameObjects();
+
+		for (auto& gameObject : ativeGameObjects)
+		{
+			if (gameObject->GetLayerType() == _type)
+			{
+				gameObjects.push_back(gameObject);
+			}
+		}
+		auto& dontDetroyGameObjects = GetActiveScene()->GetGameObjects();
+		
+		for (auto& gameObject : dontDetroyGameObjects)
+		{
+			if (gameObject->GetLayerType() == _type)
+			{
+				gameObjects.push_back(gameObject);
+			}
+		}
+
+		return gameObjects;
+	}
 	void SceneManager::InitailizeScene()
 	{
 		CreateScene<testscene>(L"test");
 		CreateScene<TitleScene>(L"Title");
 
-		//LoadScene<TitleScene>(L"Title");
-		LoadScene<testscene>(L"test");
+		LoadScene<TitleScene>(L"Title");
+		//LoadScene<testscene>(L"test");
 	}
 	void SceneManager::Destroy()
 	{

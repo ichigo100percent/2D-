@@ -5,8 +5,8 @@
 #include "Js_Transform.h"
 #include "Js_MeshRenderer.h"
 #include "Js_Object.h"
+#include "Js_Collider.h"
 
-#include "Js_FireballScript.h"
 
 namespace Js
 {
@@ -49,4 +49,35 @@ namespace Js
         pos += "This Position X : " + std::to_string(position.x) + " Y : " + std::to_string(position.y) + '\n';
         OutputDebugStringA(pos.c_str());
 	}
+    void MoveScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
+    {
+        auto type = _other->GetOwner()->GetLayerType();
+
+        if (type == enums::LayerType::Monster)
+        {
+            Vector3 pushVector;
+			if (Collider::CheckCollision(GetOwner()->GetTransform()->GetRect(), _other->GetOwner()->GetTransform()->GetRect(), pushVector))
+			{
+				// 충돌 방향으로 밀어내기
+                GetOwner()->GetTransform()->SetPosition(GetOwner()->GetTransform()->GetPosition() + pushVector);
+			}
+        }
+    }
+    void MoveScript::OnCollisionStay(std::shared_ptr<Collider> _other)
+    {
+        auto type = _other->GetOwner()->GetLayerType();
+
+        if (type == enums::LayerType::Monster)
+        {
+            Vector3 pushVector;
+            if (Collider::CheckCollision(GetOwner()->GetTransform()->GetRect(), _other->GetOwner()->GetTransform()->GetRect(), pushVector))
+            {
+                // 충돌 방향으로 밀어내기
+                GetOwner()->GetTransform()->SetPosition(GetOwner()->GetTransform()->GetPosition() + pushVector);
+            }
+        }
+    }
+    void MoveScript::OnCollisionExit(std::shared_ptr<Collider> _other)
+    {
+    }
 }

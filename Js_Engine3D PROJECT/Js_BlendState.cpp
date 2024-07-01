@@ -15,6 +15,7 @@ namespace Js
 
 		D3D11_BLEND_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
+		desc.RenderTarget[0].BlendEnable = true;
 		desc.AlphaToCoverageEnable = false;
 		desc.IndependentBlendEnable = false;
 		desc.RenderTarget[0] = _blendDesc;

@@ -18,7 +18,7 @@ namespace Js
 		std::shared_ptr<Animation> animation = GetCurrentAnimation();
 		if (animation == nullptr)
 			return;
-
+		 
 		const Keyframe& keyframe = animation->GetKeyframe(m_CurrentKeyframeIndex);
 		float deltaTime = Time::DeltaTime();
 		m_SumTime += deltaTime;
@@ -35,6 +35,15 @@ namespace Js
 				else
 					m_CurrentKeyframeIndex = totalCount - 1;
 			}
+			m_SumTime = 0.0f;
+		}
+	}
+	void Animator::SetAnimation(std::shared_ptr<Animation> _animation)
+	{
+		if (m_CurrentAnimation != _animation)
+		{
+			m_CurrentAnimation = _animation;
+			m_CurrentKeyframeIndex = 0;
 			m_SumTime = 0.0f;
 		}
 	}

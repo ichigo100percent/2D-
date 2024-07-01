@@ -5,9 +5,11 @@
 
 namespace Js
 {
-	class Collision
+	class Collider : public Component
 	{
 	public:
+		Collider();
+		virtual ~Collider();
 		static bool CheckCollision(const MyRect& rect1, const MyRect& rect2)
 		{
 			// 두 사각형이 충돌하는지 확인
@@ -48,5 +50,24 @@ namespace Js
 			return false;
 		}
 
+		virtual void Init();
+		virtual void Update();
+		virtual void LateUpdate();
+
+		virtual void OnCollisionEnter(std::shared_ptr<Collider> _other);
+		virtual void OnCollisionStay (std::shared_ptr<Collider> _other);
+		virtual void OnCollisionExit (std::shared_ptr<Collider> _other);
+		 
+		UINT32 GetID() { return m_ID; }
+		void SetRect(const MyRect& _rt) { m_Rect = _rt; }
+		MyRect& GetRect() { return m_Rect; }
+		ColliderType GetColliderType() { return m_Type; }
+
+	private:
+		static UINT CollisionID;
+
+		UINT32 m_ID;
+		MyRect m_Rect;
+		ColliderType m_Type = ColliderType::Rect2D;
 	};
 }

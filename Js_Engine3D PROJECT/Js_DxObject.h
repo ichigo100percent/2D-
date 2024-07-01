@@ -6,7 +6,7 @@
 #include "Js_MeshRenderer.h"
 #include "Js_Camera.h"
 #include "Js_Animator.h"
-
+#include "Js_Collider.h"
 
 
 namespace Js::object
@@ -58,7 +58,8 @@ namespace Js
 		std::shared_ptr<MeshRenderer> GetMeshRenderer();
 		std::shared_ptr<Camera> GetCamera();
 		std::shared_ptr<Animator> GetAnimator();
-		std::shared_ptr<MonoBehaviour> GetScript();
+		std::shared_ptr<Collider> GetCollider();
+		std::vector<std::shared_ptr<MonoBehaviour>>&	GetScripts();
 		Vector3 GetSize();
 
 		bool IsActive() { return m_State == eState::Active; }
@@ -66,6 +67,8 @@ namespace Js
 		void death() { m_State = eState::Dead; }
 		bool IsDead() { return m_State == eState::Dead; }
 		eState GetState() { return m_State; }
+		enums::LayerType GetLayerType() { return m_LayerType; }
+		void SetLayerType(enums::LayerType _type) { m_LayerType = _type; }
 		Vector3 GetDirection() const { return m_Direction; }
 	
 	private:
@@ -78,7 +81,7 @@ namespace Js
 		eState m_State;
 		Vector3 m_PreviousPosition = { 0, 0, 0 };
 		Vector3 m_Direction = { 1, 0, 0 }; // 초기 이동 방향은 오른쪽
-
+		enums::LayerType m_LayerType = enums::LayerType::None;
 
 	protected:
 		std::array<std::shared_ptr<Component>, FIXED_COMPONENT_COUNT> m_Components;

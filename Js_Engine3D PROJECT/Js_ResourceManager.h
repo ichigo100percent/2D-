@@ -66,7 +66,6 @@ namespace Js
 				return false;
 
 			list[_key] = _object;
-			//auto a = m_Resources[static_cast<UINT>(type)];
 			return true;
 		}
 
@@ -90,6 +89,16 @@ namespace Js
 		void createDefaultMaterial();
 		void createDefaultAnimation();
 		void createDefaultSound();
+
+	private:
+		void createBlockTexture();
+		void createMonsterTextrue();
+		void createMarioTexture();
+
+		void createMarioMaterial();
+
+		void createMonsterAnimation();
+		void createMarioAnimation();
 
 	private:
 		ComPtr<ID3D11Device> m_Device;

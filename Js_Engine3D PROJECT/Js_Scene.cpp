@@ -95,6 +95,7 @@ namespace Js
 				return gameObject == _gameObject;
 			});
 	}
+
 	void Scene::findDeadGameObjects(OUT std::vector<std::shared_ptr<DxObject>>& _gameObjs)
 	{
 		for (std::shared_ptr<DxObject> gameObj : m_GameObjectList)

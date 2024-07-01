@@ -57,6 +57,7 @@ namespace Js
 				continue;
 
 			component->Update();
+
 		}
 		for (std::shared_ptr<MonoBehaviour>& script : m_Scripts)
 		{
@@ -155,10 +156,14 @@ namespace Js
 		std::shared_ptr<Component> component = GetComponent(ComponentType::Animator);
 		return std::dynamic_pointer_cast<Animator>(component);
 	}
-	std::shared_ptr<MonoBehaviour> DxObject::GetScript()
+	std::shared_ptr<Collider> DxObject::GetCollider()
 	{
-		std::shared_ptr<Component> component = GetComponent(ComponentType::Script);
-		return std::dynamic_pointer_cast<MonoBehaviour>(component);
+		std::shared_ptr<Component> component = GetComponent(ComponentType::Collider);
+		return std::dynamic_pointer_cast<Collider>(component);
+	}
+	std::vector<std::shared_ptr<MonoBehaviour>>& DxObject::GetScripts()
+	{
+		return m_Scripts;
 	}
 	std::shared_ptr<Transform> DxObject::AddTransform()
 	{

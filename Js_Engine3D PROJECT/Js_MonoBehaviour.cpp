@@ -1,5 +1,6 @@
 #include "Js_MonoBehaviour.h"
-#include "Js_Collision.h"
+
+
 
 namespace Js
 {
@@ -17,6 +18,15 @@ namespace Js
 	{
 	}
 	void MonoBehaviour::LateUpdate()
+	{
+	}
+	void MonoBehaviour::OnCollisionEnter(std::shared_ptr<Collider> _other)
+	{
+	}
+	void MonoBehaviour::OnCollisionStay(std::shared_ptr<Collider> _other)
+	{
+	}
+	void MonoBehaviour::OnCollisionExit(std::shared_ptr<Collider> _other)
 	{
 	}
 }

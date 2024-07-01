@@ -66,5 +66,23 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
     float4 color = texture0.Sample(sampler0, input.uv);
 	
+    color.r = dot(color.rgb, float3(1.1f, 0.0f, 0.0f));
+    color.g = dot(color.rgb, float3(0.0f, 1.1f, 0.0f));
+    color.b = dot(color.rgb, float3(0.0f, 0.0f, 1.1f));
+
+    float gamma = 2.2;
+    color.rgb = pow(color.rgb, 1.0 / gamma);
+
+    
+    //// 제거하려는 색상 (147, 187, 236)
+    //float3 removeColor = float3(147.0 / 255.0, 187.0 / 255.0, 236.0 / 255.0);
+
+    //// 색상이 제거하려는 색상과 일치하는지 확인
+    //if (all(abs(color.rgb - removeColor) < 0.01))
+    //{
+    //    // 색상이 일치하면 알파 값을 0으로 설정하여 투명하게 만듦
+    //    color.a = 0.0;
+    //}
+   
     return color;
 }

@@ -2,6 +2,7 @@
 #include "Js_Time.h"
 #include "Js_Input.h"
 #include "Js_SceneManager.h"
+#include "Js_CollisionManager.h"
 
 
 
@@ -32,6 +33,7 @@ namespace Js
 		m_Resource->Init();
 		m_Render = std::make_shared<RenderManager>(GetDevice(), GetContext());
 		m_Render->Init();
+		CollisionManager::Init();
 		SceneManager::InitailizeScene();
 
 #ifdef _DEBUG
@@ -54,12 +56,14 @@ namespace Js
 		Input::Update(m_Hwnd);
 		m_DxWrite->Update();
 		SceneManager::Update();
+		CollisionManager::Update();
 		Update();
 		return true;
 	}
 	bool Core::EngineLateUpdate()
 	{
 		SceneManager::LateUpdate();
+		CollisionManager::LateUpdate();
 		LateUpdate();
 		return true;
 	}
@@ -72,7 +76,7 @@ namespace Js
 		SceneManager::Render(GetPipeline());
 		Render();
 
-		//m_DxWrite->DrawText(I_Time->m_csBuffer, { g_Width / 4, 0 });
+		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
 		Device::PostRender();
 		return true;
 	}

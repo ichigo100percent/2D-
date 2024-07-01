@@ -35,7 +35,7 @@ namespace Js
 		if (m_Type == ProjectionType::Orthographic)
 		{
 			s_ProjectionMatrix = XMMatrixOrthographicLH(800, 480, 0.f, 1.f);
-			//s_ProjectionMatrix = XMMatrixOrthographicLH(800 * 5, 480 * 5, 0.f, 1.f);
+			//s_ProjectionMatrix = XMMatrixOrthographicLH(1600 * 2, 800, 0.f, 1.f);
 		}
 		else
 			s_ProjectionMatrix = XMMatrixPerspectiveFovLH(XM_PI / 4.f, 800.f / 600.f, 1.f, 100.f);

@@ -48,6 +48,8 @@ namespace Js
 		}
 		static std::shared_ptr<Scene> GetActiveScene() { return m_CurrentScene; }
 		static std::shared_ptr<Scene> GetDontDestroyOnLoad() { return m_DontDestroyOnLoad; }
+		static auto& GetGameObjects() { return GetActiveScene()->GetGameObjects(); }
+		static std::vector<std::shared_ptr<DxObject>> GetLayerGameObjects(enums::LayerType _type);
 
 		static void InitailizeScene();
 		static void Destroy();

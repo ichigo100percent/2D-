@@ -14,7 +14,7 @@ namespace Js
 		virtual void Init() override;
 		virtual void Update() override;
 
-		void SetAnimation(std::shared_ptr<Animation> _animation) { m_CurrentAnimation = _animation; }
+		void SetAnimation(std::shared_ptr<Animation> _animation);
 		std::shared_ptr<Animation> GetCurrentAnimation() { return m_CurrentAnimation; }
 		Keyframe GetCurrentKeyFrame() { return m_CurrentAnimation->GetKeyframe(m_CurrentKeyframeIndex); }
 

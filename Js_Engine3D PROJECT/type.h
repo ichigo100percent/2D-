@@ -11,9 +11,22 @@ using Quaternion = DirectX::SimpleMath::Quaternion;
 
 namespace Js::enums
 {
-	enum class eLayerType
+	enum class LayerType
 	{
 		None,
+		Player,
+		Floor,
+		Tower,
+		Monster,
+		End,
 		Max,
 	};
 }
+
+
+enum class ColliderType
+{
+	Circle2D,
+	Rect2D,
+	End,
+};
