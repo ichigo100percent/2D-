@@ -11,14 +11,14 @@
 
 namespace Js::object
 {
-	void Destory(std::shared_ptr<DxObject> _gameObject);
+	void Destroy(std::shared_ptr<DxObject> _gameObject);
 }
 
 namespace Js
 {
 	class DxObject : public std::enable_shared_from_this<DxObject>, public Entity
 	{
-		friend void object::Destory(std::shared_ptr<DxObject> _gameObject);
+		friend void object::Destroy(std::shared_ptr<DxObject> _gameObject);
 
 	public:
 		DxObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});

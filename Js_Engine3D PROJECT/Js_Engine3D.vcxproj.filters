@@ -147,6 +147,9 @@
     <ClCompile Include="Js_FireballScript.cpp">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClCompile>
+    <ClCompile Include="Js_MarioScript.cpp">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -322,6 +325,9 @@
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_PlayerScript.h">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MarioScript.h">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_FireballScript.h">

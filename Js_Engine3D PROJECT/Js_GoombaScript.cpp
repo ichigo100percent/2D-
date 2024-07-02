@@ -41,7 +41,7 @@ namespace Js
 
 		if (type == enums::LayerType::Player)
 		{
-			object::Destory(_other->GetOwner());
+			object::Destroy(_other->GetOwner());
 		}
 		if (type == enums::LayerType::Tower)
 		{

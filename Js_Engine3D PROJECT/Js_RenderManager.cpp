@@ -102,7 +102,8 @@ namespace Js
 				PushAnimationData();
 
 				m_Pipeline->SetConstantBuffer(2, SS_VertexShader, m_AnimationBuffer);
-				m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
+				if(meshRenderer)
+					m_Pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
 			}
 			PipelineInfo info;
 			info.inputLayout = meshRenderer->GetInputLayout();

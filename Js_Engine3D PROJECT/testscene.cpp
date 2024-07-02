@@ -27,6 +27,7 @@
 #include "Js_PlayerScript.h"
 #include "Js_MarioCameraScript.h"
 #include "Js_GoombaScript.h"
+#include "Js_MarioScript.h"
 
 namespace Js
 {
@@ -61,9 +62,10 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
 			player->GetTransform()->SetScale(player->GetSize());
-			player->AddComponent(std::make_shared<MoveScript>());
+		//	player->AddComponent(std::make_shared<MoveScript>());
 		    //player->AddComponent(std::make_shared<PlayerScript>());
 		    //player->AddComponent(std::make_shared<Rigidbody>());
+			player->AddComponent(std::make_shared<MarioScript>());
 			player->AddComponent(std::make_shared<FireballScript>(player));
 			
 			auto animator = std::make_shared<Animator>();
@@ -138,18 +140,18 @@ namespace Js
 			tower3->AddComponent(col);
 		}
 
-		std::shared_ptr<DxObject> wall1 = object::Instantiate<DxObject>(L"wall", LayerType::Floor);
+		std::shared_ptr<DxObject> Floor1 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			wall1->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Default");
-			meshRender->SetMaterial(material);
-			wall1->GetTransform()->SetScale(Vector3(992, 16, 0));
-			wall1->GetTransform()->SetPosition(Vector3(-1888, -452, 0));
+			//auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			//wall1->AddComponent(meshRender);
+			//auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			//meshRender->SetMesh(mesh);
+			//auto material = I_Resource->Get<Material>(L"Default");
+			//meshRender->SetMaterial(material);
+			Floor1->GetTransform()->SetScale(Vector3(992, 16, 0));
+			Floor1->GetTransform()->SetPosition(Vector3(-1888, -452, 0));
 			auto col = std::make_shared<Collider>();
-			wall1->AddComponent(col);
+			Floor1->AddComponent(col);
 		}
 
 		walls2.resize(15);
@@ -244,27 +246,9 @@ namespace Js
 	}
 	void testscene::LateUpdate()
 	{
-		float time;
-		//Vector3 pushVector;
-		//if (Collision::CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector))
-		//{
-		//	OutputDebugStringA("Collision detected!\n");
-		//	// 충돌 방향으로 밀어내기
-		//	player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
-		//}
-		//for (auto& wall : walls1)
-		//{
-		//	if (Collider::CheckCollision(player->GetTransform()->GetRect(), wall->GetTransform()->GetRect(), pushVector))
-		//	{
-		//		OutputDebugStringA("Collision detected!\n");
-		//		player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
-		//	}
-		//}
 		if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
 		{
-
 			SceneManager::LoadScene<TitleScene>(L"Title");
-
 		}
 		Scene::LateUpdate();
 	}

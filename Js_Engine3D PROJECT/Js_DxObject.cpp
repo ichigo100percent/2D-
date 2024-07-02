@@ -9,7 +9,7 @@
 
 namespace Js::object
 {
-	void Destory(std::shared_ptr<DxObject> _gameObject)
+	void Destroy(std::shared_ptr<DxObject> _gameObject)
 	{
 		if (_gameObject != nullptr)
 			_gameObject->death();

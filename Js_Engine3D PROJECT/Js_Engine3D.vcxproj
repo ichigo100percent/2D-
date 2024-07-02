@@ -167,6 +167,7 @@
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_InputLayout.h" />
     <ClInclude Include="Js_MarioCameraScript.h" />
+    <ClInclude Include="Js_MarioScript.h" />
     <ClInclude Include="Js_Material.h" />
     <ClInclude Include="Js_Mesh.h" />
     <ClInclude Include="Js_MonoBehaviour.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_InputLayout.cpp" />
     <ClCompile Include="Js_MarioCameraScript.cpp" />
+    <ClCompile Include="Js_MarioScript.cpp" />
     <ClCompile Include="Js_Material.cpp" />
     <ClCompile Include="Js_Mesh.cpp" />
     <ClCompile Include="Js_MonoBehaviour.cpp" />
