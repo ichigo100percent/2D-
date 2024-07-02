@@ -30,7 +30,6 @@ namespace Js
 				rect1.top > rect2.bottom &&
 				rect1.bottom < rect2.top)
 			{
-
 				// 충돌 방향 계산
 				float overlapLeft = rect2.right - rect1.left;
 				float overlapRight = rect1.right - rect2.left;

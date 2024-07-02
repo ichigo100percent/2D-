@@ -100,6 +100,20 @@ namespace Js
 			tower2->AddComponent(col);
 		}
 
+		std::shared_ptr<DxObject> tower3 = object::Instantiate<DxObject>(L"wall", LayerType::Tower);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			tower3->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block1");
+			meshRender->SetMaterial(material);
+			tower3->GetTransform()->SetScale(tower3->GetSize() * 2);
+			tower3->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
+			auto col = std::make_shared<Collider>();
+			tower3->AddComponent(col);
+		}
+
 		std::shared_ptr<DxObject> wall1 = object::Instantiate<DxObject>(L"wall", LayerType::Floor);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());

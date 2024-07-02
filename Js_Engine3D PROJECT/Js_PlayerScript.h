@@ -24,11 +24,8 @@ namespace Js
 		virtual void OnCollisionStay(std::shared_ptr<Collider> _other) override;
 		virtual void OnCollisionExit(std::shared_ptr<Collider> _other) override;
 
+		void HandleCollision(std::shared_ptr<Collider> _other);
 	private:
-		void idle();
-		void move();
-		void jump();
-		void die();
 
 	private:
 		std::shared_ptr<Animator> m_Animator = nullptr;
@@ -36,11 +33,10 @@ namespace Js
 		State m_State = State::Idle;
 		bool m_CanJump = true;
 		bool m_IsJump = false;
-
-		float m_JumpStartTime;
-		const float m_MinJumpForce = 400.0f;
-		const float m_MaxJumpForce = 600.0f;
-		const float m_MaxJumpDuration = 0.5f;
-		UINT m_JumpCount = 0;
+		float m_MinJumpForce = 400;
+		float m_MaxJumpForce = 600;
+		float m_MaxJumpDuration = 0.2f;
+		float m_JumpStartTime = 0.0f;
+		float m_CurrentJumpForce = 0.0f;
 	};
 }

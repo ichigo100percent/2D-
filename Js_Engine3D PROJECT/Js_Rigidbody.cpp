@@ -28,26 +28,16 @@ namespace Js
 	}
 	void Rigidbody::Update()
 	{
-				
-		//f(힘) = m(질량) * a(가속도)
-		//a = f / m
+		// F = m * a
+// a = F / m
 		m_Acceleration = m_Force / m_Mass;
 
-		//속도에 가속를 더한다
+		// 속도에 가속도를 더한다
 		m_Velocity += m_Acceleration * Time::DeltaTime();
 
-		if (m_IsGrounded)
+		// 중력 적용
+		if (!m_IsGrounded)
 		{
-			//땅 위에 있을때
-			Vector3 gravity = m_Gravity;
-			gravity.Normalize();
-
-			float dot = Dot(m_Velocity, gravity);
-			m_Velocity -= gravity * dot;
-		}
-		else
-		{
-			//공중에 있을때
 			m_Velocity += m_Gravity * Time::DeltaTime();
 		}
 
@@ -61,7 +51,7 @@ namespace Js
 		if (m_MaxHorizontalSpeed.y < gravity.Length())
 		{
 			gravity.Normalize();
-			gravity *= Time::DeltaTime();
+			gravity *= m_MaxHorizontalSpeed.y;
 		}
 		if (m_MaxHorizontalSpeed.x < sideVelocity.Length())
 		{
@@ -70,32 +60,99 @@ namespace Js
 		}
 		m_Velocity = gravity + sideVelocity;
 
-
-		if (!(m_Velocity == Vector3::Zero))
+		// 마찰력 적용
+		if (m_Velocity != Vector3::Zero)
 		{
-			//속도에 반대방향으로 마찰력 작용
 			Vector3 friction = -m_Velocity;
 			friction.Normalize();
-			friction = friction * m_Friction* m_Mass * Time::DeltaTime();
+			friction *= m_Friction * m_Mass * Time::DeltaTime();
 
-			//마찰력으로 인한 속도 감소량이 현재 속도보다 큰 경우
 			if (m_Velocity.Length() <= friction.Length())
 			{
-				//멈춤
-				m_Velocity = Vector3::Zero;
+				m_Velocity = Vector3::Zero; // 속도가 마찰력보다 작으면 멈춤
 			}
 			else
 			{
 				m_Velocity += friction;
 			}
 		}
-		// Update position
+
+		// 위치 업데이트
 		Vector3 pos = m_Transform->GetPosition();
 		pos += m_Velocity * Time::DeltaTime();
 		m_Transform->SetPosition(pos);
 
-		// Reset force
+		// 초기화
 		m_Force = Vector3::Zero;
+		////f(힘) = m(질량) * a(가속도)
+		////a = f / m
+		//m_Acceleration = m_Force / m_Mass;
+
+		////속도에 가속를 더한다
+		//m_Velocity += m_Acceleration * Time::DeltaTime();
+
+		//if (m_IsGrounded)
+		//{
+		//	//땅 위에 있을때
+		//	Vector3 gravity = m_Gravity;
+		//	gravity.Normalize();
+
+		//	float dot = Dot(m_Velocity, gravity);
+		//	m_Velocity -= gravity * dot;
+		//}
+		//else
+		//{
+		//	//공중에 있을때
+		//	m_Velocity += m_Gravity * Time::DeltaTime();
+		//}
+
+		//// 최대 속도 제한
+		//Vector3 gravity = m_Gravity;
+		//gravity.Normalize();
+		//float dot = Dot(m_Velocity, gravity);
+		//gravity = gravity * dot;
+
+		//Vector3 sideVelocity = m_Velocity - gravity;
+		//if (m_MaxHorizontalSpeed.y < gravity.Length())
+		//{
+		//	gravity.Normalize();
+		//	gravity *= Time::DeltaTime();
+		//}
+		//if (m_MaxHorizontalSpeed.x < sideVelocity.Length())
+		//{
+		//	sideVelocity.Normalize();
+		//	sideVelocity *= m_MaxHorizontalSpeed.x;
+		//}
+		//m_Velocity = gravity + sideVelocity;
+
+
+		//if (!(m_Velocity == Vector3::Zero))
+		//{
+		//	//속도에 반대방향으로 마찰력 작용
+		//	Vector3 friction = -m_Velocity;
+		//	friction.Normalize();
+		//	friction = friction * m_Friction* m_Mass * Time::DeltaTime();
+
+		//	//마찰력으로 인한 속도 감소량이 현재 속도보다 큰 경우
+		//	if (m_Velocity.Length() <= friction.Length())
+		//	{
+		//		//멈춤
+		//		m_Velocity = Vector3::Zero;
+		//	}
+		//	else
+		//	{
+		//		m_Velocity += friction;
+		//	}
+		//}
+		//// Update position
+		//Vector3 pos = m_Transform->GetPosition();
+		//pos += m_Velocity * Time::DeltaTime();
+		//m_Transform->SetPosition(pos);
+
+		//// Reset force
+		//m_Force = Vector3::Zero;
+		
+
 	}
 	void Rigidbody::AddForce(const Vector3& force)
 	{
