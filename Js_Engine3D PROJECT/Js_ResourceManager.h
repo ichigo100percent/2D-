@@ -94,11 +94,14 @@ namespace Js
 		void createBlockTexture();
 		void createMonsterTextrue();
 		void createMarioTexture();
+		void createSuperMarioTexture();
 
 		void createMarioMaterial();
 
 		void createMonsterAnimation();
 		void createMarioAnimation();
+		void createSuperMarioAnimation();
+		void createFireMarioAnimation();
 
 	private:
 		ComPtr<ID3D11Device> m_Device;

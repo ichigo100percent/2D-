@@ -253,6 +253,10 @@ namespace Js
 			Add(texture->GetName(), texture);
 		}
 	}
+	void ResourceManager::createSuperMarioTexture()
+	{
+
+	}
 	void ResourceManager::createMarioMaterial()
 	{
 		{
@@ -282,7 +286,16 @@ namespace Js
 	}
 	void ResourceManager::createMonsterAnimation()
 	{
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"±À¹Ù");
+			animation->SetTexture(Get<Texture>(L"±À¹Ù"));
+			animation->SetLoop(true);
 
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 16.0f), 2, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
 	}
 	void ResourceManager::createMarioAnimation()
 	{
@@ -356,5 +369,11 @@ namespace Js
 
 			Add(animation->GetName(), animation);
 		}
+	}
+	void ResourceManager::createSuperMarioAnimation()
+	{
+	}
+	void ResourceManager::createFireMarioAnimation()
+	{
 	}
 }

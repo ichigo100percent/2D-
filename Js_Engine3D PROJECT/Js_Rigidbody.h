@@ -28,6 +28,16 @@ namespace Js
 		bool IsGrounded() const { return m_IsGrounded; }
 		void SetGrounded(bool grounded) { m_IsGrounded = grounded; }
 
+		// 점프 함수 추가
+		void Jump(float force)
+		{
+			if (m_IsGrounded)
+			{
+				m_Velocity.y = force;
+				m_IsGrounded = false;
+			}
+		}
+
 	private:  
 		Vector3 m_Force = Vector3::Zero;
 		Vector3 m_Acceleration = Vector3::Zero;

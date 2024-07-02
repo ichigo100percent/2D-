@@ -31,12 +31,9 @@ namespace Js
 		std::shared_ptr<Animator> m_Animator = nullptr;
 		std::shared_ptr<Rigidbody> m_Rigidbody = nullptr;
 		State m_State = State::Idle;
-		bool m_CanJump = true;
-		bool m_IsJump = false;
-		float m_MinJumpForce = 400;
-		float m_MaxJumpForce = 600;
-		float m_MaxJumpDuration = 0.2f;
-		float m_JumpStartTime = 0.0f;
-		float m_CurrentJumpForce = 0.0f;
+
+		bool isJump = false;
+		bool isFacingRight = true;
+
 	};
 }

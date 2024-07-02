@@ -8,6 +8,7 @@
 #include "Js_Rigidbody.h"
 #include "Js_Animation.h"
 
+
 namespace Js
 {
 
@@ -24,74 +25,59 @@ namespace Js
 
         auto rb = GetOwner()->GetComponent<Rigidbody>();
         bool isGrounded = rb->IsGrounded();
-
         if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
         {
-            auto anim = I_Resource->Get<Animation>(L"Mario_leftMove");
-            m_Animator->SetAnimation(anim);
+            if (!isJump)
+            {
+                auto anim = I_Resource->Get<Animation>(L"Mario_leftMove");
+                m_Animator->SetAnimation(anim);
+            }
             rb->AddForce(Vector3(-800, 0, 0));
+            isFacingRight = false; // 왼쪽을 향하고 있음
+        }
+        if (Input::KeyCheck('A') == KeyState::KEY_UP)
+        {
+            if (!isJump)
+            {
+                auto anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
+                m_Animator->SetAnimation(anim);
+            }
         }
         if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
         {
-            auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
-            m_Animator->SetAnimation(anim);
-            rb->AddForce(Vector3(800, 0, 0));
-        }
-
-        // 점프 시작
-        if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_PUSH)
-        {
-            m_JumpStartTime = Time::DeltaTime();
-            m_CanJump = false;
-            m_IsJump = true;
-            auto velocity = rb->GetVelocity();
-            velocity.y = m_MinJumpForce;
-            rb->SetVelocity(velocity);
-            rb->SetGrounded(false);
-        }
-
-        // 점프 시작
-        if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_PUSH && m_CanJump)
-        {
-            m_JumpStartTime = Time::DeltaTime();
-            m_CanJump = false;
-            m_IsJump = true;
-            auto velocity = rb->GetVelocity();
-            velocity.y = m_MinJumpForce;
-            rb->SetVelocity(velocity);
-            rb->SetGrounded(false);
-        }
-
-        // 점프 유지
-        if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_HOLD && m_IsJump)
-        {
-            float jumpDuration = Time::DeltaTime() - m_JumpStartTime;
-            if (jumpDuration <= m_MaxJumpDuration)
+            if (!isJump)
             {
-                float jumpForce = m_MinJumpForce + (m_MaxJumpForce - m_MinJumpForce) * (jumpDuration / m_MaxJumpDuration);
-                jumpForce = min(jumpForce, m_MaxJumpForce);
-                auto velocity = rb->GetVelocity();
-                velocity.y = jumpForce;
-                rb->SetVelocity(velocity);
+                auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
+                m_Animator->SetAnimation(anim);
+            }
+            rb->AddForce(Vector3(800, 0, 0));
+            isFacingRight = true; // 오른쪽을 향하고 있음
+        }
+        if (Input::KeyCheck('D') == KeyState::KEY_UP)
+        {
+            if (!isJump)
+            {
+                auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
+                m_Animator->SetAnimation(anim);
+            }
+        }
+        if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+        {
+            if (isFacingRight)
+            {
+                auto anim = I_Resource->Get<Animation>(L"Mario_rightJump");
+                m_Animator->SetAnimation(anim);
             }
             else
             {
-                m_IsJump = false;
+                auto anim = I_Resource->Get<Animation>(L"Mario_leftJump");
+                m_Animator->SetAnimation(anim);
             }
-        }
-        else if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_UP)
-        {
-            m_IsJump = false;
+            rb->Jump(600.0f); // 점프 힘 설정
+            isJump = true;
         }
 
-        // 땅에 닿았을 때
-        if (rb->IsGrounded())
-        {
-            m_CanJump = true;
-            m_IsJump = false;
-        }
-
-        rb->SetGrounded(false);        
+        rb->SetGrounded(false);
     }
 
     void PlayerScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
@@ -110,7 +96,7 @@ namespace Js
         auto rb = GetOwner()->GetComponent<Rigidbody>();
         if (type == enums::LayerType::Floor || type == enums::LayerType::Tower)
         {
-            //rb->SetGrounded(false);
+            isJump = false;
         }
     }
     void PlayerScript::HandleCollision(std::shared_ptr<Collider> _other)

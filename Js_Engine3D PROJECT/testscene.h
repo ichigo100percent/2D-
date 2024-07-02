@@ -12,11 +12,14 @@ namespace Js
 		void Render(std::shared_ptr<Pipeline> _pipeline) override;
 
 		void OnEnter() override;
+		void OnExit() override;
 
 		std::shared_ptr<DxObject> camera;
 		std::shared_ptr<DxObject> bg;
 		std::shared_ptr<DxObject> player;
 		std::shared_ptr<DxObject> monster;
+		std::vector<std::shared_ptr<DxObject>> m_Goombas;
+
 		std::vector<std::shared_ptr<DxObject>> walls1;
 		std::vector<std::shared_ptr<DxObject>> walls2;
 		std::vector<std::shared_ptr<DxObject>> walls3;

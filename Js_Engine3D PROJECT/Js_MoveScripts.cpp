@@ -8,6 +8,9 @@
 #include "Js_Collider.h"
 
 
+#include "Js_SceneManager.h"
+#include "Js_TitleScene.h"
+
 namespace Js
 {
 	void MoveScript::Init()

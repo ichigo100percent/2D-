@@ -15,6 +15,9 @@
 #include "Js_Player.h"
 #include "Js_Rigidbody.h"
 #include "Js_CollisionManager.h"
+#include "Js_SceneManager.h"
+#include "Js_TitleScene.h"
+
 
 // Scripts
 #include "Js_FireballScript.h"
@@ -22,14 +25,14 @@
 #include "Js_RotateScript.h"
 #include "Js_FollowTargetScript.h"
 #include "Js_PlayerScript.h"
+#include "Js_MarioCameraScript.h"
+#include "Js_GoombaScript.h"
 
 namespace Js
 {
 	void testscene::Init()
 	{
-		//CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, true);
-		//CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Floor, true);
-		//CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
+		m_Goombas.resize(10);
 
 		camera = object::Instantiate<DxObject>();
 		{
@@ -58,10 +61,10 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
 			player->GetTransform()->SetScale(player->GetSize());
-			//player->AddComponent(std::make_shared<MoveScript>());
-		    player->AddComponent(std::make_shared<PlayerScript>());
-		    player->AddComponent(std::make_shared<Rigidbody>());
-			//player->AddComponent(std::make_shared<FireballScript>(player));
+			player->AddComponent(std::make_shared<MoveScript>());
+		    //player->AddComponent(std::make_shared<PlayerScript>());
+		    //player->AddComponent(std::make_shared<Rigidbody>());
+			player->AddComponent(std::make_shared<FireballScript>(player));
 			
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
@@ -69,6 +72,27 @@ namespace Js
 			animator->SetAnimation(anim);
 			auto col = std::make_shared<Collider>();
 			player->AddComponent(col);
+		}
+
+		m_Goombas[0] = object::Instantiate<DxObject>(L"Goomba", LayerType::Monster);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			m_Goombas[0]->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block1");
+			meshRender->SetMaterial(material);
+			m_Goombas[0]->GetTransform()->SetScale(m_Goombas[0]->GetSize());
+			m_Goombas[0]->GetTransform()->SetPosition(Vector3(-2240, -380, 0));
+
+			auto col = std::make_shared<Collider>();
+			m_Goombas[0]->AddComponent(col);
+
+			auto animator = std::make_shared<Animator>();
+			m_Goombas[0]->AddComponent(animator);
+			auto anim = I_Resource->Get<Animation>(L"±À¹Ù");
+			animator->SetAnimation(anim);
+			m_Goombas[0]->AddComponent(std::make_shared<GoombaScript>());
 		}
 
 		std::shared_ptr<DxObject> tower = object::Instantiate<DxObject>(L"wall", LayerType::Tower);
@@ -92,10 +116,10 @@ namespace Js
 			tower2->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block1");
+			auto material = I_Resource->Get<Material>(L"Block3");
 			meshRender->SetMaterial(material);
 			tower2->GetTransform()->SetScale(tower->GetSize() * 2);
-			tower2->GetTransform()->SetPosition(Vector3(-2340, -400, 0));
+			tower2->GetTransform()->SetPosition(Vector3(-2400, -400, 0));
 			auto col = std::make_shared<Collider>();
 			tower2->AddComponent(col);
 		}
@@ -106,9 +130,9 @@ namespace Js
 			tower3->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block1");
+			auto material = I_Resource->Get<Material>(L"Block3");
 			meshRender->SetMaterial(material);
-			tower3->GetTransform()->SetScale(tower3->GetSize() * 2);
+			tower3->GetTransform()->SetScale(tower3->GetSize());
 			tower3->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
 			auto col = std::make_shared<Collider>();
 			tower3->AddComponent(col);
@@ -193,7 +217,23 @@ namespace Js
 			monster->AddComponent(col);
 		}
 
+
+		std::shared_ptr<DxObject> deadLine = object::Instantiate<DxObject>(L"DeadLine", LayerType::End);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			deadLine->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
+			deadLine->GetTransform()->SetScale(Vector3(10000, 16, 0));
+			deadLine->GetTransform()->SetPosition(Vector3(-1888, -520, 0));
+			auto col = std::make_shared<Collider>();
+			deadLine->AddComponent(col);
+		}
+
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+		//camera->AddComponent(std::make_shared<MarioCameraScript>(player));
 		Scene::Init();
 	}
 
@@ -204,6 +244,7 @@ namespace Js
 	}
 	void testscene::LateUpdate()
 	{
+		float time;
 		//Vector3 pushVector;
 		//if (Collision::CheckCollision(player->GetTransform()->GetRect(), monster->GetTransform()->GetRect(), pushVector))
 		//{
@@ -219,7 +260,12 @@ namespace Js
 		//		player->GetTransform()->SetPosition(player->GetTransform()->GetPosition() + pushVector);
 		//	}
 		//}
- 
+		if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
+		{
+
+			SceneManager::LoadScene<TitleScene>(L"Title");
+
+		}
 		Scene::LateUpdate();
 	}
 	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)
@@ -233,5 +279,13 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Tower, true);
+
+		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Tower, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
+	}
+	void testscene::OnExit()
+	{
+		Scene::OnExit();
+
 	}
 }

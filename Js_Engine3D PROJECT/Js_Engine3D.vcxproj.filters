@@ -96,9 +96,6 @@
     <ClCompile Include="Js_TitleScene.cpp">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClCompile>
-    <ClCompile Include="Js_FireballScript.cpp">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Js_Player.cpp">
       <Filter>소스 파일\10. GameObject</Filter>
     </ClCompile>
@@ -132,14 +129,23 @@
     <ClCompile Include="Js_RenderManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Js_PlayerScript.cpp">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Js_Rigidbody.cpp">
       <Filter>소스 파일\02. Component\06. Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="Js_CollisionManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MarioCameraScript.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_GoombaScript.cpp">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_PlayerScript.cpp">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_FireballScript.cpp">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,9 +273,6 @@
     <ClInclude Include="Js_TitleScene.h">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClInclude>
-    <ClInclude Include="Js_FireballScript.h">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Js_Object.h">
       <Filter>소스 파일\10. GameObject</Filter>
     </ClInclude>
@@ -306,14 +309,23 @@
     <ClInclude Include="Js_RenderManager.h">
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Js_PlayerScript.h">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Js_Rigidbody.h">
       <Filter>소스 파일\02. Component\06. Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="Js_CollisionManager.h">
       <Filter>소스 파일\06. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MarioCameraScript.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_GoombaScript.h">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_PlayerScript.h">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FireballScript.h">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -443,6 +455,12 @@
     </Filter>
     <Filter Include="소스 파일\02. Component\06. Rigidbody">
       <UniqueIdentifier>{cfc370c2-614a-44ac-9c91-935f5968d05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Monster">
+      <UniqueIdentifier>{baec13ff-747f-4786-808e-cbf057d76e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Mario">
+      <UniqueIdentifier>{ed521778-021e-44e5-a20d-124d947e4bb4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

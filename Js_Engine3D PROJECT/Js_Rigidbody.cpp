@@ -29,7 +29,7 @@ namespace Js
 	void Rigidbody::Update()
 	{
 		// F = m * a
-// a = F / m
+		// a = F / m
 		m_Acceleration = m_Force / m_Mass;
 
 		// 속도에 가속도를 더한다

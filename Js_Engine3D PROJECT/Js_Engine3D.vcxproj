@@ -162,9 +162,11 @@
     <ClInclude Include="Js_Engine.h" />
     <ClInclude Include="Js_Geometry.h" />
     <ClInclude Include="Js_GeometryHelper.h" />
+    <ClInclude Include="Js_GoombaScript.h" />
     <ClInclude Include="Js_IndexBuffer.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_InputLayout.h" />
+    <ClInclude Include="Js_MarioCameraScript.h" />
     <ClInclude Include="Js_Material.h" />
     <ClInclude Include="Js_Mesh.h" />
     <ClInclude Include="Js_MonoBehaviour.h" />
@@ -219,9 +221,11 @@
     <ClCompile Include="Js_DxWrite.cpp" />
     <ClCompile Include="Js_Geometry.cpp" />
     <ClCompile Include="Js_GeometryHelper.cpp" />
+    <ClCompile Include="Js_GoombaScript.cpp" />
     <ClCompile Include="Js_IndexBuffer.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_InputLayout.cpp" />
+    <ClCompile Include="Js_MarioCameraScript.cpp" />
     <ClCompile Include="Js_Material.cpp" />
     <ClCompile Include="Js_Mesh.cpp" />
     <ClCompile Include="Js_MonoBehaviour.cpp" />
