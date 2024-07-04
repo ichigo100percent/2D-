@@ -17,6 +17,7 @@
 #include <unordered_set>
 #include <utility>
 #include <bitset>
+#include <atlconv.h>
 
 // DX
 #include <d3d11.h>
@@ -31,6 +32,7 @@
 #include "WICTextureLoader.h"
 #include "DDSTextureLoader.h"
 
+
 #pragma comment( lib, "DirectXTex.lib")
 #pragma comment( lib, "d2d1.lib")
 #pragma comment( lib, "dwrite.lib")
@@ -42,6 +44,11 @@
 #else
 #pragma comment( lib, "DirectXTK_R.lib")
 #endif
+
+#include "fmod.hpp"
+#include "fmod_errors.h"
+#pragma comment(lib, "fmod_vc.lib")
+
 
 using namespace DirectX;
 using namespace Microsoft::WRL;

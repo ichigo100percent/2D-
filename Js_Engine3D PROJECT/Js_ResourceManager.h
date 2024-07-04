@@ -103,6 +103,7 @@ namespace Js
 		void createSuperMarioAnimation();
 		void createFireMarioAnimation();
 
+
 	private:
 		ComPtr<ID3D11Device> m_Device;
 		using resourceList = std::map<std::wstring, std::shared_ptr<BaseResource>>;

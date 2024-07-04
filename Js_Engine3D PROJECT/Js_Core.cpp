@@ -2,9 +2,8 @@
 #include "Js_Time.h"
 #include "Js_Input.h"
 #include "Js_SceneManager.h"
+#include "Js_SoundManager.h"
 #include "Js_CollisionManager.h"
-
-
 
 namespace Js
 {
@@ -34,6 +33,7 @@ namespace Js
 		m_Render = std::make_shared<RenderManager>(GetDevice(), GetContext());
 		m_Render->Init();
 		CollisionManager::Init();
+		SoundManager::Init();
 		SceneManager::InitailizeScene();
 
 #ifdef _DEBUG

@@ -45,6 +45,7 @@ namespace Js
 		std::shared_ptr<Pipeline> m_Pipeline = nullptr;
 		std::shared_ptr<ResourceManager> m_Resource = nullptr;
 		std::shared_ptr<RenderManager> m_Render = nullptr;
+
 	};
 
 #define I_Core	Core::Instance()

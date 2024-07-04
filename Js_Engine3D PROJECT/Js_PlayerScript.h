@@ -30,6 +30,7 @@ namespace Js
 		void growUp(std::shared_ptr<Collider> _other);
 
 		void CollisionInteraction(std::shared_ptr<Collider> _other);
+		void animSetting(MarioType _type);
 
 	private:
 		std::shared_ptr<DxObject> m_Player = nullptr;

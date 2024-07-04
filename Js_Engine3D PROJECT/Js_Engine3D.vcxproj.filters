@@ -89,9 +89,6 @@
     <ClCompile Include="Js_Texture.cpp">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Js_FollowTargetScript.cpp">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Js_TitleScene.cpp">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClCompile>
@@ -134,9 +131,6 @@
     <ClCompile Include="Js_CollisionManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Js_MarioCameraScript.cpp">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Js_GoombaScript.cpp">
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClCompile>
@@ -160,6 +154,18 @@
     </ClCompile>
     <ClCompile Include="Js_PlayScene.cpp">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_FollowTargetScript.cpp">
+      <Filter>소스 파일\04. Scripts\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MarioCameraScript.cpp">
+      <Filter>소스 파일\04. Scripts\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_SoundManager.cpp">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_FlagScript.cpp">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,9 +286,6 @@
     <ClInclude Include="Js_Texture.h">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Js_FollowTargetScript.h">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Js_TitleScene.h">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClInclude>
@@ -328,9 +331,6 @@
     <ClInclude Include="Js_CollisionManager.h">
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Js_MarioCameraScript.h">
-      <Filter>소스 파일\04. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Js_GoombaScript.h">
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClInclude>
@@ -354,6 +354,18 @@
     </ClInclude>
     <ClInclude Include="Js_PlayScene.h">
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FollowTargetScript.h">
+      <Filter>소스 파일\04. Scripts\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MarioCameraScript.h">
+      <Filter>소스 파일\04. Scripts\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_SoundManager.h">
+      <Filter>소스 파일\06. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FlagScript.h">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -492,6 +504,12 @@
     </Filter>
     <Filter Include="소스 파일\03. Resource\06. Sound">
       <UniqueIdentifier>{7e4bc6f7-f065-4c5a-98ff-4a7653b4743f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Camera">
+      <UniqueIdentifier>{6c340f23-9687-4176-830f-0b73037990ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Object">
+      <UniqueIdentifier>{bc44f135-1459-491b-a6a5-3f74d84632a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

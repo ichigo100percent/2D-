@@ -16,6 +16,7 @@
 #include "Js_Rigidbody.h"
 #include "Js_CollisionManager.h"
 #include "Js_SceneManager.h"
+#include "Js_SoundManager.h"
 #include "Js_TitleScene.h"
 
 
@@ -255,15 +256,10 @@ namespace Js
 
 	void PlayScene::Update()
 	{
-		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
 		Scene::Update();
 	}
 	void PlayScene::LateUpdate()
 	{
-		//if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
-		//{
-		//	SceneManager::LoadScene<TitleScene>(L"Title");
-		//}
 		Scene::LateUpdate();
 	}
 	void PlayScene::Render(std::shared_ptr<Pipeline> _pipeline)
@@ -281,6 +277,10 @@ namespace Js
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
+		SoundManager::Add(L"overworld.wav", L"overworld.wav");
+		m_Sound = SoundManager::Get(L"overworld.wav");
+		if (m_Sound) 
+			m_Sound->Play(true);
 	}
 	void PlayScene::OnExit()
 	{

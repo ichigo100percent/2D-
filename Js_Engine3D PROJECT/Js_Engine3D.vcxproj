@@ -149,6 +149,7 @@
     <ClInclude Include="Js_CollisionManager.h" />
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
+    <ClInclude Include="Js_FlagScript.h" />
     <ClInclude Include="Js_FollowTargetScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_BlendState.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Js_Shader.h" />
     <ClInclude Include="Js_ShaderBase.h" />
     <ClInclude Include="Js_Sound.h" />
+    <ClInclude Include="Js_SoundManager.h" />
     <ClInclude Include="Js_Texture.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_TitleScene.h" />
@@ -214,6 +216,7 @@
     <ClCompile Include="Js_CollisionManager.cpp" />
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
+    <ClCompile Include="Js_FlagScript.cpp" />
     <ClCompile Include="Js_FollowTargetScript.cpp" />
     <ClCompile Include="Js_BlendState.cpp" />
     <ClCompile Include="Js_Camera.cpp" />
@@ -249,6 +252,7 @@
     <ClCompile Include="Js_Shader.cpp" />
     <ClCompile Include="Js_ShaderBase.cpp" />
     <ClCompile Include="Js_Sound.cpp" />
+    <ClCompile Include="Js_SoundManager.cpp" />
     <ClCompile Include="Js_Texture.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_TitleScene.cpp" />

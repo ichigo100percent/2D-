@@ -1,5 +1,6 @@
 #pragma once
 #include "Js_Scene.h"
+#include "Js_Sound.h"
 
 namespace Js
 {
@@ -26,5 +27,7 @@ namespace Js
 		std::vector<std::shared_ptr<DxObject>> walls2;
 		std::vector<std::shared_ptr<DxObject>> walls3;
 		std::vector<std::shared_ptr<DxObject>> walls4;
+
+		std::shared_ptr<Fmod> m_Sound = nullptr;
 	};
 }

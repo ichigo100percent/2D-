@@ -47,13 +47,6 @@ namespace Js
 		HandleCollision(_other);
 		growUp(_other);
 		CollisionInteraction(_other);
-		auto type = _other->GetOwner()->GetLayerType();
-
-		if (type == enums::LayerType::Wall)
-		{
-
-		}
-
 	}
 
 	void PlayerScript::OnCollisionStay(std::shared_ptr<Collider> _other)
@@ -65,13 +58,9 @@ namespace Js
 	{
 		auto type = _other->GetOwner()->GetLayerType();
 		auto rb = GetOwner()->GetComponent<Rigidbody>();
-		if (type == enums::LayerType::Floor)
+		if (type == enums::LayerType::Floor || type == enums::LayerType::Wall)
 		{
 			isJump = false;
-		}
-		if (type == enums::LayerType::Wall)
-		{
-
 		}
 	}
 	void PlayerScript::HandleCollision(std::shared_ptr<Collider> _other)
@@ -126,20 +115,15 @@ namespace Js
 
     void PlayerScript::idle()
     {
-		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+		if (m_State == State::Idle && !isJump && isFacingRight)
 		{
-			if (isFacingRight)
-			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_rightJump");
-				m_Animator->SetAnimation(anim);
-			}
-			else
-			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_leftJump");
-				m_Animator->SetAnimation(anim);
-			}
-			m_Rigidbody->Jump(600.0f); // Á¡ÇÁ Èû ¼³Á¤
-			isJump = true;
+			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
+			m_Animator->SetAnimation(anim);
+		}
+		else if (m_State == State::Idle && !isJump && !isFacingRight)
+		{
+			auto anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
+			m_Animator->SetAnimation(anim);
 		}
     }
     void PlayerScript::move()
@@ -187,15 +171,20 @@ namespace Js
     }
     void PlayerScript::jump()
     {
-		if (m_State == State::Idle && !isJump && isFacingRight)
+		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
 		{
-			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
-			m_Animator->SetAnimation(anim);
-		}
-		else if (m_State == State::Idle && !isJump && !isFacingRight)
-		{
-			auto anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
-			m_Animator->SetAnimation(anim);
+			if (isFacingRight)
+			{
+				auto anim = I_Resource->Get<Animation>(L"Mario_rightJump");
+				m_Animator->SetAnimation(anim);
+			}
+			else
+			{
+				auto anim = I_Resource->Get<Animation>(L"Mario_leftJump");
+				m_Animator->SetAnimation(anim);
+			}
+			m_Rigidbody->Jump(600.0f); // Á¡ÇÁ Èû ¼³Á¤
+			isJump = true;
 		}
     }
 
@@ -228,8 +217,13 @@ namespace Js
                 if (goomba)
                     break;
             }
-            if (isJump && goomba)
-                goomba->SetState(State::Die);                 
+			if (isJump && goomba)
+			{
+				auto velocity = m_Rigidbody->GetVelocity();
+				velocity.y = 200;
+				m_Rigidbody->SetVelocity(velocity);
+				goomba->SetState(State::Die);
+			}
             else if(goomba->GetState() == State::Move)
                 object::Destroy(GetOwner());
         }
@@ -238,4 +232,34 @@ namespace Js
             object::Destroy(_other->GetOwner());
          
     }
+	void PlayerScript::animSetting(MarioType _type)
+	{
+		m_Type = _type;
+
+		switch (m_Type)
+		{
+		case MarioType::Nomal:
+			if (m_State == State::Idle && isFacingRight && !isJump)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_rightIdle");
+			if(m_State == State::Idle && !isFacingRight && !isJump)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
+			if (m_State == State::Move && isFacingRight && !isJump)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
+			if (m_State == State::Move && !isFacingRight && !isJump)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
+			if (isJump && isFacingRight)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_rightJump");
+			if (isJump && !isFacingRight)
+				m_Animation = I_Resource->Get<Animation>(L"Mario_leftJump");
+			break;
+		case MarioType::Super:
+			break;
+		case MarioType::Fire:
+			break;
+		default:
+			break;
+		}
+
+		m_Animator->SetAnimation(m_Animation);
+	}
 }

@@ -8,6 +8,18 @@ using Matrix  = DirectX::SimpleMath::Matrix;
 using DXRect =  DirectX::SimpleMath::Rectangle;
 using Quaternion = DirectX::SimpleMath::Quaternion;
 
+static std::wstring to_mw(const std::string& _src)
+{
+	USES_CONVERSION;
+	return std::wstring(A2W(_src.c_str()));
+};
+
+static std::string to_wm(const std::wstring& _src)
+{
+	USES_CONVERSION;
+	return std::string(W2A(_src.c_str()));
+};
+
 
 namespace Js::enums
 {
