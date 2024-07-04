@@ -1,4 +1,6 @@
 #include "Js_GoombaScript.h"
+#include "Js_PlayerScript.h"
+
 #include "Js_Input.h"
 #include "Js_Time.h"
 #include "Js_DxObject.h"
@@ -17,38 +19,33 @@ namespace Js
 {
 	void GoombaScript::Init()
 	{
+		m_Owner = GetOwner();
 		m_Transform = GetOwner()->GetTransform();
 	}
 	void GoombaScript::Update()
 	{
-		float deltaTime = Time::DeltaTime();
-		Vector3 position = m_Transform->GetPosition();
 
-		if (!m_IsGround)
+		switch (m_State)
 		{
-			position.y += m_Gravity * deltaTime;
+		case State::Move:
+			move();
+			break;
+		case State::Die:
+			die();
+			break;
+		default:
+			break;
 		}
-
-		// 일정한 속도로 이동
-		position += m_Direction * m_Speed * deltaTime;
-
-		// 위치 업데이트
-		m_Transform->SetPosition(position);
 	}
 	void GoombaScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
 	{
 		auto type = _other->GetOwner()->GetLayerType();
 
-		if (type == enums::LayerType::Player)
+		if (type == enums::LayerType::Tower && m_State == State::Move)
 		{
-			object::Destroy(_other->GetOwner());
-		}
-		if (type == enums::LayerType::Tower)
-		{
-			// 굼바의 이동 방향을 반대로 전환
 			m_Direction = -m_Direction;
 		}
-		if (type == enums::LayerType::Floor)
+		if (type == enums::LayerType::Floor && m_State == State::Move)
 		{
 			m_IsGround = true;
 		}
@@ -63,8 +60,37 @@ namespace Js
 
 		if (type == enums::LayerType::Floor)
 		{
-			// 바닥에서 벗어났으므로 y 값이 내려가도록 함
 			m_IsGround = false;
+		}
+	}
+	void GoombaScript::move()
+	{
+		m_DeltaTime = Time::DeltaTime();
+		Vector3 position = m_Transform->GetPosition();
+
+		if (!m_IsGround)
+		{
+			position.y += m_Gravity * m_DeltaTime;
+		}
+
+		// 일정한 속도로 이동
+		position += m_Direction * m_Speed * m_DeltaTime;
+
+		// 위치 업데이트
+		m_Transform->SetPosition(position);
+	}
+	void GoombaScript::die()
+	{
+		auto animator = m_Owner->GetAnimator();
+		auto anim = I_Resource->Get<Animation>(L"굼바죽음");
+		animator->SetAnimation(anim);
+
+		m_DeltaTime = Time::DeltaTime();
+		m_DieTime += m_DeltaTime; // 누적 시간 업데이트
+
+		if (m_DieTime > 0.1f)
+		{
+			object::Destroy(m_Owner);
 		}
 	}
 }

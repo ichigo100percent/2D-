@@ -184,6 +184,7 @@
     <ClInclude Include="Js_SceneManager.h" />
     <ClInclude Include="Js_Shader.h" />
     <ClInclude Include="Js_ShaderBase.h" />
+    <ClInclude Include="Js_Sound.h" />
     <ClInclude Include="Js_Texture.h" />
     <ClInclude Include="Js_Time.h" />
     <ClInclude Include="Js_TitleScene.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="Js_SceneManager.cpp" />
     <ClCompile Include="Js_Shader.cpp" />
     <ClCompile Include="Js_ShaderBase.cpp" />
+    <ClCompile Include="Js_Sound.cpp" />
     <ClCompile Include="Js_Texture.cpp" />
     <ClCompile Include="Js_Time.cpp" />
     <ClCompile Include="Js_TitleScene.cpp" />

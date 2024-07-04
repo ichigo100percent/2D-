@@ -85,7 +85,7 @@ namespace Js
 			auto material = I_Resource->Get<Material>(L"Block1");
 			meshRender->SetMaterial(material);
 			m_Goombas[0]->GetTransform()->SetScale(m_Goombas[0]->GetSize());
-			m_Goombas[0]->GetTransform()->SetPosition(Vector3(-2240, -380, 0));
+			m_Goombas[0]->GetTransform()->SetPosition(Vector3(-2240, -400, 0));
 
 			auto col = std::make_shared<Collider>();
 			m_Goombas[0]->AddComponent(col);
@@ -260,10 +260,10 @@ namespace Js
 	}
 	void testscene::LateUpdate()
 	{
-		if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
-		{
-			SceneManager::LoadScene<TitleScene>(L"Title");
-		}
+		//if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
+		//{
+		//	SceneManager::LoadScene<TitleScene>(L"Title");
+		//}
 		Scene::LateUpdate();
 	}
 	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)

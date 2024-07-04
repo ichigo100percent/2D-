@@ -150,6 +150,9 @@
     <ClCompile Include="Js_MarioScript.cpp">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClCompile>
+    <ClCompile Include="Js_Sound.cpp">
+      <Filter>소스 파일\03. Resource\06. Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -333,6 +336,9 @@
     <ClInclude Include="Js_FireballScript.h">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClInclude>
+    <ClInclude Include="Js_Sound.h">
+      <Filter>소스 파일\03. Resource\06. Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">
@@ -467,6 +473,9 @@
     </Filter>
     <Filter Include="소스 파일\04. Scripts\Mario">
       <UniqueIdentifier>{ed521778-021e-44e5-a20d-124d947e4bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Resource\06. Sound">
+      <UniqueIdentifier>{7e4bc6f7-f065-4c5a-98ff-4a7653b4743f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

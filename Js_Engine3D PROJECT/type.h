@@ -33,3 +33,19 @@ enum class ColliderType
 	Rect2D,
 	End,
 };
+
+enum class State
+{
+	Idle,
+	Jump,
+	Move,
+	Die,
+	End,
+};
+
+enum class MarioType
+{
+	Nomal,
+	Super,
+	Fire,
+};

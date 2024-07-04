@@ -4,15 +4,6 @@
 #include "Js_Rigidbody.h"
 namespace Js
 {
-	enum class State
-	{
-		Idle,
-		Jump,
-		Move,
-		Die,
-		End,
-	};
-
 	class PlayerScript : public MonoBehaviour
 	{
 	public:
@@ -27,23 +18,33 @@ namespace Js
 		virtual void OnCollisionExit(std::shared_ptr<Collider> _other) override;
 
 		void HandleCollision(std::shared_ptr<Collider> _other);
+		void SetType(MarioType _type) { m_Type = _type; }
+		void SetState(State _state) { m_State = _state; }
+		State GetMarioState() { return m_State; }
+		MarioType GetMarioType() { return m_Type; }
+
 	private:
+		void idle();
+		void move();
+		void jump();
+		void die();
 		void growUp(std::shared_ptr<Collider> _other);
-		void initialize();
 
-	private:
-		std::shared_ptr<Animator> m_Animator = nullptr;
-		std::shared_ptr<Rigidbody> m_Rigidbody = nullptr;
-		State m_State = State::Idle;
-
-		bool isJump = false;
-		bool isFacingRight = true;
+		void CollisionInteraction(std::shared_ptr<Collider> _other);
+		void animationSwitch(MarioType _type);
 
 	private:
 		std::shared_ptr<DxObject> m_Player = nullptr;
+		std::shared_ptr<Animator> m_Animator = nullptr;
+		std::shared_ptr<Rigidbody> m_Rigidbody = nullptr;
+		std::shared_ptr<Animation> m_Animation = nullptr;
 
-		std::shared_ptr<DxObject> nomalMario = nullptr;
-		std::shared_ptr<DxObject> superMario = nullptr;
-		std::shared_ptr<DxObject> fireMario = nullptr;
+		bool isJump = false;
+		bool isFacingRight = true;
+		float time = 0.0f;
+
+	private:
+		State m_State = State::Idle;
+		MarioType m_Type = MarioType::Nomal;
 	};
 }
