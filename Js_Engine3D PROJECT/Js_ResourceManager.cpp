@@ -25,6 +25,7 @@ namespace Js
 		createMarioMaterial();
 		createMonsterAnimation();
 		createMarioAnimation();
+		createSuperMarioAnimation();
 	}
 	void ResourceManager::createDefaultMesh()
 	{
@@ -252,6 +253,13 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"½´ÆÛ¸¶¸®¿À");
+			texture->Create(L"../../Res/Sprite/½´ÆÛ¸¶¸®¿À.png");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createSuperMarioTexture()
 	{
@@ -372,6 +380,16 @@ namespace Js
 	}
 	void ResourceManager::createSuperMarioAnimation()
 	{
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"½´ÆÛ¸¶¸®¿À");
+			animation->SetTexture(Get<Texture>(L"½´ÆÛ¸¶¸®¿À"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.07f);
+
+			Add(animation->GetName(), animation);
+		}
 	}
 	void ResourceManager::createFireMarioAnimation()
 	{

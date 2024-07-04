@@ -16,6 +16,8 @@ namespace Js
 	class PlayerScript : public MonoBehaviour
 	{
 	public:
+		PlayerScript(std::shared_ptr<DxObject> _player);
+		virtual ~PlayerScript();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -26,6 +28,8 @@ namespace Js
 
 		void HandleCollision(std::shared_ptr<Collider> _other);
 	private:
+		void growUp(std::shared_ptr<Collider> _other);
+		void initialize();
 
 	private:
 		std::shared_ptr<Animator> m_Animator = nullptr;
@@ -35,5 +39,11 @@ namespace Js
 		bool isJump = false;
 		bool isFacingRight = true;
 
+	private:
+		std::shared_ptr<DxObject> m_Player = nullptr;
+
+		std::shared_ptr<DxObject> nomalMario = nullptr;
+		std::shared_ptr<DxObject> superMario = nullptr;
+		std::shared_ptr<DxObject> fireMario = nullptr;
 	};
 }

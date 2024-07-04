@@ -62,11 +62,11 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
 			player->GetTransform()->SetScale(player->GetSize());
-		//	player->AddComponent(std::make_shared<MoveScript>());
-		    //player->AddComponent(std::make_shared<PlayerScript>());
-		    //player->AddComponent(std::make_shared<Rigidbody>());
-			player->AddComponent(std::make_shared<MarioScript>());
-			player->AddComponent(std::make_shared<FireballScript>(player));
+		    //layer->AddComponent(std::make_shared<MoveScript>());
+		    player->AddComponent(std::make_shared<PlayerScript>(mario));
+		    player->AddComponent(std::make_shared<Rigidbody>());
+			//player->AddComponent(std::make_shared<MarioScript>());
+			//player->AddComponent(std::make_shared<FireballScript>(player));
 			
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
@@ -97,7 +97,7 @@ namespace Js
 			m_Goombas[0]->AddComponent(std::make_shared<GoombaScript>());
 		}
 
-		std::shared_ptr<DxObject> tower = object::Instantiate<DxObject>(L"wall", LayerType::Tower);
+		std::shared_ptr<DxObject> tower = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			tower->AddComponent(meshRender);
@@ -112,7 +112,7 @@ namespace Js
 		}
 
 
-		std::shared_ptr<DxObject> tower2 = object::Instantiate<DxObject>(L"wall", LayerType::Tower);
+		std::shared_ptr<DxObject> tower2 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			tower2->AddComponent(meshRender);
@@ -126,7 +126,7 @@ namespace Js
 			tower2->AddComponent(col);
 		}
 
-		std::shared_ptr<DxObject> tower3 = object::Instantiate<DxObject>(L"wall", LayerType::Tower);
+		std::shared_ptr<DxObject> tower3 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
 			tower3->AddComponent(meshRender);
@@ -219,6 +219,19 @@ namespace Js
 			monster->AddComponent(col);
 		}
 
+		std::shared_ptr<DxObject> mushroom = object::Instantiate<DxObject>(L"Monster", LayerType::MunshRoom);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			mushroom->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"¸¶¸®¿À2");
+			meshRender->SetMaterial(material);
+			mushroom->GetTransform()->SetScale(mushroom->GetSize());
+			mushroom->GetTransform()->SetPosition(Vector3(-2600, -300, 0));
+			auto col = std::make_shared<Collider>();
+			mushroom->AddComponent(col);
+		}
 
 		std::shared_ptr<DxObject> deadLine = object::Instantiate<DxObject>(L"DeadLine", LayerType::End);
 		{
@@ -234,8 +247,9 @@ namespace Js
 			deadLine->AddComponent(col);
 		}
 
-		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
-		//camera->AddComponent(std::make_shared<MarioCameraScript>(player));
+		//camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
+		mario = player;
 		Scene::Init();
 	}
 
@@ -262,9 +276,10 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
-		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Tower, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, true);
 
-		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Tower, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
 	}
 	void testscene::OnExit()

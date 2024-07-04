@@ -7,16 +7,22 @@
 #include "Js_Object.h"
 #include "Js_Rigidbody.h"
 #include "Js_Animation.h"
-
+#include "Js_Player.h"
 
 namespace Js
 {
-
-	void PlayerScript::Init()
+    PlayerScript::PlayerScript(std::shared_ptr<DxObject> _player)
+        : m_Player(_player)
+    {
+    }
+    PlayerScript::~PlayerScript()
+    {
+    }
+    void PlayerScript::Init()
 	{
 		m_Animator = GetOwner()->GetAnimator();
 		m_Rigidbody = GetOwner()->GetComponent<Rigidbody>();
-		m_State = Js::State::Idle;
+		m_State = Js::State::Idle;       
 	}
     void PlayerScript::Update()
     {
@@ -32,7 +38,7 @@ namespace Js
                 auto anim = I_Resource->Get<Animation>(L"Mario_leftMove");
                 m_Animator->SetAnimation(anim);
             }
-            rb->AddForce(Vector3(-800, 0, 0));
+            rb->AddForce(Vector3(-1000, 0, 0));
             isFacingRight = false; // 왼쪽을 향하고 있음
         }
         if (Input::KeyCheck('A') == KeyState::KEY_UP)
@@ -50,7 +56,7 @@ namespace Js
                 auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
                 m_Animator->SetAnimation(anim);
             }
-            rb->AddForce(Vector3(800, 0, 0));
+            rb->AddForce(Vector3(1000, 0, 0));
             isFacingRight = true; // 오른쪽을 향하고 있음
         }
         if (Input::KeyCheck('D') == KeyState::KEY_UP)
@@ -82,7 +88,8 @@ namespace Js
 
     void PlayerScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
     {
-        HandleCollision(_other);
+        HandleCollision(_other); 
+        growUp(_other);
     }
 
     void PlayerScript::OnCollisionStay(std::shared_ptr<Collider> _other)
@@ -94,7 +101,7 @@ namespace Js
     {
         auto type = _other->GetOwner()->GetLayerType();
         auto rb = GetOwner()->GetComponent<Rigidbody>();
-        if (type == enums::LayerType::Floor || type == enums::LayerType::Tower)
+        if (type == enums::LayerType::Floor || type == enums::LayerType::Wall)
         {
             isJump = false;
         }
@@ -120,7 +127,7 @@ namespace Js
                     rb->SetVelocity(velocity);
                 }
             }
-            else if (type == enums::LayerType::Tower)
+            else if (type == enums::LayerType::Wall)
             {
                 if (pushVector.y > 0) // 플레이어가 타워 위에 있을 때
                 {
@@ -141,5 +148,22 @@ namespace Js
                 }
             }
         }
+    }
+    void PlayerScript::growUp(std::shared_ptr<Collider> _other)
+    {
+        auto type = _other->GetOwner()->GetLayerType();
+
+        if (type == enums::LayerType::MunshRoom)
+        {
+            auto material = I_Resource->Get<Material>(L"마리오2");
+            GetOwner()->GetMeshRenderer()->SetMaterial(material);
+            GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+            auto anim = I_Resource->Get<Animation>(L"슈퍼마리오");
+            GetOwner()->GetAnimator()->SetAnimation(anim);
+        }
+    }
+    void PlayerScript::initialize()
+    {
+
     }
 }

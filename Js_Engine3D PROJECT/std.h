@@ -1,6 +1,7 @@
 #pragma once
-
+#define NOMINMAX
 // STL
+#include <Windows.h>
 #include <iostream>
 #include <string>
 #include <array>
@@ -18,7 +19,6 @@
 #include <bitset>
 
 // DX
-#include <Windows.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl.h>

@@ -92,7 +92,7 @@ namespace Js
 		m_MatWorld._42 = m_LocalPosition.y;
 		m_MatWorld._43 = m_LocalPosition.z;
 	}
-	void Actor::SetPos(float& _dx, float& _dy)
+	void Actor::SetPos(const float& _dx, const float& _dy)
 	{
 		m_LocalPosition.x = _dx;
 		m_LocalPosition.y = _dy;

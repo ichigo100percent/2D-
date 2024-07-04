@@ -22,7 +22,7 @@ namespace Js
 
 		void SetSprite(std::shared_ptr<Sprite> _sprite) { m_Sprite = _sprite; }
 		virtual void SetPos(Vector3& _pos);
-		virtual void SetPos(float& _dx, float& _dy);
+		virtual void SetPos(const float& _dx, const float& _dy);
 		void SetTransform(const Matrix& _mat);
 
 		virtual void SetWorld(const Matrix& _mat);

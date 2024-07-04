@@ -42,7 +42,7 @@ namespace Js
 		Vector3 m_Force = Vector3::Zero;
 		Vector3 m_Acceleration = Vector3::Zero;
 		Vector3 m_Velocity = Vector3::Zero;
-		Vector3 m_MaxHorizontalSpeed = Vector3(200.0f, 600.0f, 0.f);
+		Vector3 m_MaxHorizontalSpeed = Vector3(300.0f, 600.0f, 0.f);
 		Vector3 m_Gravity = Vector3(0.f, -980.f, 0.f);
 			  
 		float m_Mass = 10.f;
