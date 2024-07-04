@@ -14,7 +14,7 @@
 #include "Js_PlayerScript.h"
 #include "Js_TitleScene.h"
 
-#include "testscene.h"
+#include "Js_PlayScene.h"
 namespace Js
 {
 	void GoombaScript::Init()

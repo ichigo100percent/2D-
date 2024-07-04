@@ -1,5 +1,12 @@
 #pragma once
-class Js_Sound
-{
-};
+#include "Js_Resource.h"
 
+namespace Js
+{
+	class Sound : public BaseResource
+	{
+	public:
+
+	private:
+	};
+}

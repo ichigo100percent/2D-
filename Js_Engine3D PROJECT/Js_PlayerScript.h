@@ -27,11 +27,9 @@ namespace Js
 		void idle();
 		void move();
 		void jump();
-		void die();
 		void growUp(std::shared_ptr<Collider> _other);
 
 		void CollisionInteraction(std::shared_ptr<Collider> _other);
-		void animationSwitch(MarioType _type);
 
 	private:
 		std::shared_ptr<DxObject> m_Player = nullptr;

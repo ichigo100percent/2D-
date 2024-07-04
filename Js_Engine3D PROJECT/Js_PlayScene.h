@@ -3,7 +3,7 @@
 
 namespace Js
 {
-	class testscene : public Scene
+	class PlayScene: public Scene
 	{
 	public:
 		void Init() override;

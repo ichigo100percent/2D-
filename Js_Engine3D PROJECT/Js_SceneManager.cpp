@@ -1,5 +1,5 @@
 #include "Js_SceneManager.h"
-#include "testscene.h"
+#include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
 
 namespace Js
@@ -74,11 +74,11 @@ namespace Js
 	}
 	void SceneManager::InitailizeScene()
 	{
-		CreateScene<testscene>(L"test");
+		CreateScene<PlayScene>(L"Play");
 		CreateScene<TitleScene>(L"Title");
 
 		LoadScene<TitleScene>(L"Title");
-		//LoadScene<testscene>(L"test");
+		//LoadScene<PlayScene>(L"test");
 	}
 	void SceneManager::Destroy()
 	{

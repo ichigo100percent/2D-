@@ -24,7 +24,7 @@
 #include "Js_FollowTargetScript.h"
 #include "Js_PlayerScript.h"
 
-#include "testscene.h"
+#include "Js_PlayScene.h"
 
 namespace Js
 {
@@ -64,7 +64,7 @@ namespace Js
 	{
 		if (Input::KeyCheck('N') == KeyState::KEY_PUSH)
 		{
-			auto a = std::dynamic_pointer_cast<testscene>(SceneManager::LoadScene<testscene>(L"test"));
+			std::dynamic_pointer_cast<PlayScene>(SceneManager::LoadScene<PlayScene>(L"Play"));
 		}
 		Scene::LateUpdate();
 	}

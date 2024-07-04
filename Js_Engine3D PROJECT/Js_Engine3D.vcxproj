@@ -145,6 +145,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Js_Animation.h" />
     <ClInclude Include="Js_Animator.h" />
+    <ClInclude Include="Js_ClearScene.h" />
     <ClInclude Include="Js_CollisionManager.h" />
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Js_RenderManager.h" />
     <ClInclude Include="Js_Resource.h" />
     <ClInclude Include="Js_Rigidbody.h" />
+    <ClInclude Include="Js_RobbyScene.h" />
     <ClInclude Include="Js_RotateScript.h" />
     <ClInclude Include="Js_SamplerState.h" />
     <ClInclude Include="Js_Scene.h" />
@@ -201,13 +203,14 @@
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Js_MoveScripts.h" />
-    <ClInclude Include="testscene.h" />
+    <ClInclude Include="Js_PlayScene.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Js_Animation.cpp" />
     <ClCompile Include="Js_Animator.cpp" />
+    <ClCompile Include="Js_ClearScene.cpp" />
     <ClCompile Include="Js_CollisionManager.cpp" />
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
@@ -238,6 +241,7 @@
     <ClCompile Include="Js_RenderManager.cpp" />
     <ClCompile Include="Js_Resource.cpp" />
     <ClCompile Include="Js_Rigidbody.cpp" />
+    <ClCompile Include="Js_RobbyScene.cpp" />
     <ClCompile Include="Js_RotateScript.cpp" />
     <ClCompile Include="Js_SamplerState.cpp" />
     <ClCompile Include="Js_Scene.cpp" />
@@ -257,7 +261,7 @@
     <ClCompile Include="Js_ResourceManager.cpp" />
     <ClCompile Include="Js_MoveScripts.cpp" />
     <ClCompile Include="Js_PlayerScript.cpp" />
-    <ClCompile Include="testscene.cpp" />
+    <ClCompile Include="Js_PlayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Js_Engine.rc" />

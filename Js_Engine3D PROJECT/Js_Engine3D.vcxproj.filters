@@ -86,7 +86,6 @@
     <ClCompile Include="Js_Scene.cpp">
       <Filter>소스 파일\05. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="testscene.cpp" />
     <ClCompile Include="Js_Texture.cpp">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClCompile>
@@ -152,6 +151,15 @@
     </ClCompile>
     <ClCompile Include="Js_Sound.cpp">
       <Filter>소스 파일\03. Resource\06. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_ClearScene.cpp">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_RobbyScene.cpp">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_PlayScene.cpp">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +277,6 @@
     <ClInclude Include="Js_Scene.h">
       <Filter>소스 파일\05. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="testscene.h" />
     <ClInclude Include="Js_Texture.h">
       <Filter>소스 파일\03. Resource\02. Texture</Filter>
     </ClInclude>
@@ -338,6 +345,15 @@
     </ClInclude>
     <ClInclude Include="Js_Sound.h">
       <Filter>소스 파일\03. Resource\06. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_ClearScene.h">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_RobbyScene.h">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_PlayScene.h">
+      <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

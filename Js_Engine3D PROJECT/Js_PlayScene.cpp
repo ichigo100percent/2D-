@@ -1,5 +1,5 @@
-#include "testscene.h"
 #include "std.h"
+#include "Js_PlayScene.h"
 #include "Js_Core.h"
 #include "Js_Time.h"
 #include "Js_Input.h"
@@ -31,7 +31,7 @@
 
 namespace Js
 {
-	void testscene::Init()
+	void PlayScene::Init()
 	{
 		m_Goombas.resize(10);
 
@@ -253,12 +253,12 @@ namespace Js
 		Scene::Init();
 	}
 
-	void testscene::Update()
+	void PlayScene::Update()
 	{
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
 		Scene::Update();
 	}
-	void testscene::LateUpdate()
+	void PlayScene::LateUpdate()
 	{
 		//if (Input::KeyCheck('T') == KeyState::KEY_PUSH)
 		//{
@@ -266,11 +266,11 @@ namespace Js
 		//}
 		Scene::LateUpdate();
 	}
-	void testscene::Render(std::shared_ptr<Pipeline> _pipeline)
+	void PlayScene::Render(std::shared_ptr<Pipeline> _pipeline)
 	{
 		Scene::Render(_pipeline);
 	}
-	void testscene::OnEnter()
+	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, true);
@@ -282,7 +282,7 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
 	}
-	void testscene::OnExit()
+	void PlayScene::OnExit()
 	{
 		Scene::OnExit();
 
