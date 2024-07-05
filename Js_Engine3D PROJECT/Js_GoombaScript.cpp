@@ -15,69 +15,28 @@
 #include "Js_TitleScene.h"
 
 #include "Js_PlayScene.h"
+
 namespace Js
 {
 	void GoombaScript::Init()
 	{
-		m_Owner = GetOwner();
-		m_Transform = GetOwner()->GetTransform();
+		DefaultMoveScript::Init();
 	}
 	void GoombaScript::Update()
 	{
-
-		switch (m_State)
-		{
-		case State::Move:
-			move();
-			break;
-		case State::Die:
-			die();
-			break;
-		default:
-			break;
-		}
+		DefaultMoveScript::Update();
 	}
 	void GoombaScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
 	{
-		auto type = _other->GetOwner()->GetLayerType();
-
-		if (type == enums::LayerType::Tower && m_State == State::Move)
-		{
-			m_Direction = -m_Direction;
-		}
-		if (type == enums::LayerType::Floor && m_State == State::Move)
-		{
-			m_IsGround = true;
-		}
+		DefaultMoveScript::OnCollisionEnter(_other);
 	}
 	void GoombaScript::OnCollisionStay(std::shared_ptr<Collider> _other)
 	{
-
+		DefaultMoveScript::OnCollisionStay(_other);
 	}
 	void GoombaScript::OnCollisionExit(std::shared_ptr<Collider> _other)
 	{
-		auto type = _other->GetOwner()->GetLayerType();
-
-		if (type == enums::LayerType::Floor)
-		{
-			m_IsGround = false;
-		}
-	}
-	void GoombaScript::move()
-	{
-		m_DeltaTime = Time::DeltaTime();
-		Vector3 position = m_Transform->GetPosition();
-
-		if (!m_IsGround)
-		{
-			position.y += m_Gravity * m_DeltaTime;
-		}
-
-		// 일정한 속도로 이동
-		position += m_Direction * m_Speed * m_DeltaTime;
-
-		// 위치 업데이트
-		m_Transform->SetPosition(position);
+		DefaultMoveScript::OnCollisionExit(_other);
 	}
 	void GoombaScript::die()
 	{

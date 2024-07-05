@@ -131,13 +131,10 @@
     <ClCompile Include="Js_CollisionManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Js_GoombaScript.cpp">
+    <ClCompile Include="Js_DefaultMoveScript.cpp">
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Js_PlayerScript.cpp">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="Js_FireballScript.cpp">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Js_MarioScript.cpp">
@@ -165,6 +162,21 @@
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
     <ClCompile Include="Js_FlagScript.cpp">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_FireballScript.cpp">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_EndLineScript.cpp">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_WallScript.cpp">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_GoombaScript.cpp">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Js_MushroomScript.cpp">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -331,16 +343,13 @@
     <ClInclude Include="Js_CollisionManager.h">
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Js_GoombaScript.h">
+    <ClInclude Include="Js_DefaultMoveScript.h">
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_PlayerScript.h">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_MarioScript.h">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="Js_FireballScript.h">
       <Filter>소스 파일\04. Scripts\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_Sound.h">
@@ -365,6 +374,21 @@
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
     <ClInclude Include="Js_FlagScript.h">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_FireballScript.h">
+      <Filter>소스 파일\04. Scripts\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_EndLineScript.h">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_WallScript.h">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_GoombaScript.h">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_MushroomScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
   </ItemGroup>

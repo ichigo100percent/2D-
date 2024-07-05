@@ -7,7 +7,7 @@ namespace Js
 	class PlayerScript : public MonoBehaviour
 	{
 	public:
-		PlayerScript(std::shared_ptr<DxObject> _player);
+		PlayerScript();
 		virtual ~PlayerScript();
 
 		virtual void Init() override;
@@ -22,6 +22,7 @@ namespace Js
 		void SetState(State _state) { m_State = _state; }
 		State GetMarioState() { return m_State; }
 		MarioType GetMarioType() { return m_Type; }
+		bool GetJump() { return isJump; }
 
 	private:
 		void idle();
@@ -30,10 +31,9 @@ namespace Js
 		void growUp(std::shared_ptr<Collider> _other);
 
 		void CollisionInteraction(std::shared_ptr<Collider> _other);
-		void animSetting(MarioType _type);
+
 
 	private:
-		std::shared_ptr<DxObject> m_Player = nullptr;
 		std::shared_ptr<Animator> m_Animator = nullptr;
 		std::shared_ptr<Rigidbody> m_Rigidbody = nullptr;
 		std::shared_ptr<Animation> m_Animation = nullptr;

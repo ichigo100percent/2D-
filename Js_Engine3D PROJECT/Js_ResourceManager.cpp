@@ -133,56 +133,7 @@ namespace Js
 	}
 	void ResourceManager::createDefaultAnimation()
 	{
-		//{
-		//	auto animation = std::make_shared<Animation>();
-		//	animation->SetName(L"Mario1_Idle");
-		//	animation->SetTexture(Get<Texture>(L"Mario1"));
-		//	animation->SetLoop(true);
 
-		//	animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 16.0f), 1, 0.1f);
-
-		//	Add(animation->GetName(), animation);
-		//}
-		//{
-		//	auto animation = std::make_shared<Animation>();
-		//	animation->SetName(L"Mario1_Right_Move");
-		//	animation->SetTexture(Get<Texture>(L"Mario1"));
-		//	animation->SetLoop(true);
-
-		//	animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 16.0f), 3, 0.07f);
-
-		//	Add(animation->GetName(), animation);
-		//}
-		//{
-		//	auto animation = std::make_shared<Animation>();
-		//	animation->SetName(L"Mario1_Left_Move");
-		//	animation->SetTexture(Get<Texture>(L"Mario1"));
-		//	animation->SetLoop(true);
-
-		//	animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 16.0f), 3, 0.07f);
-
-		//	Add(animation->GetName(), animation);
-		//}
-		//{
-		//	auto animation = std::make_shared<Animation>();
-		//	animation->SetName(L"Mario1_Jump");
-		//	animation->SetTexture(Get<Texture>(L"Mario1"));
-		//	animation->SetLoop(false);
-
-		//	animation->SetKeyFrame(Vector2(96.0f, 0.0f), Vector2(16.0f, 16.0f), 1, 0.1f);
-
-		//	Add(animation->GetName(), animation);
-		//}
-		{
-			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"김서영");
-			animation->SetTexture(Get<Texture>(L"김서영"));
-			animation->SetLoop(true);
-
-			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 16.0f), 7, 1.f);
-
-			Add(animation->GetName(), animation);
-		}
 	}
 	void ResourceManager::createDefaultSound()
 	{
@@ -207,6 +158,14 @@ namespace Js
 			auto texture = std::make_shared<Texture>(m_Device);
 			texture->SetName(L"Block3");
 			texture->Create(L"../../Res/Sprite/block3.png");
+
+			Add(texture->GetName(), texture);
+		}
+
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"버섯");
+			texture->Create(L"../../Res/Sprite/버섯.png");
 
 			Add(texture->GetName(), texture);
 		}
@@ -267,6 +226,20 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"마리오진화_R");
+			texture->Create(L"../../Res/Sprite/마리오진화_오.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"마리오진화_L");
+			texture->Create(L"../../Res/Sprite/마리오진화_왼.png");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createSuperMarioTexture()
 	{
@@ -295,6 +268,14 @@ namespace Js
 			material->SetName(L"Block3");
 			material->SetShader(Get<Shader>(L"Default"));
 			material->SetTexture(Get<Texture>(L"Block3"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"버섯");
+			material->SetShader(Get<Shader>(L"Default"));
+			material->SetTexture(Get<Texture>(L"버섯"));
 
 			Add(material->GetName(), material);
 		}
@@ -399,7 +380,30 @@ namespace Js
 	{
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"슈퍼마리오_RIdle");
+			animation->SetName(L"SuperMario_R");
+			animation->SetTexture(Get<Texture>(L"마리오진화_R"));
+			animation->SetLoop(true);
+
+			animation->AddKeyframe(Keyframe{ Vector2{0.f, 0.f}, Vector2{16.f, 16.f}, 0.1f });
+			animation->AddKeyframe(Keyframe{ Vector2{0.f, 16.f}, Vector2{16.f, 32.f}, 0.1f });
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SuperMario_L");
+			animation->SetTexture(Get<Texture>(L"마리오진화_L"));
+			animation->SetLoop(true);
+
+			animation->AddKeyframe(Keyframe{ Vector2{0.f, 0.f}, Vector2{16.f, 16.f}, 0.1f });
+			animation->AddKeyframe(Keyframe{ Vector2{0.f, 16.f}, Vector2{16.f, 32.f}, 0.1f });
+
+			Add(animation->GetName(), animation);
+		}
+
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SuperMario_rightIdle");
 			animation->SetTexture(Get<Texture>(L"슈퍼마리오_R"));
 			animation->SetLoop(true);
 
@@ -409,7 +413,7 @@ namespace Js
 		}
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"슈퍼마리오_LIdle");
+			animation->SetName(L"SuperMario_leftIdle");
 			animation->SetTexture(Get<Texture>(L"슈퍼마리오_L"));
 			animation->SetLoop(true);
 
@@ -419,7 +423,7 @@ namespace Js
 		}
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"슈퍼마리오_RMove");
+			animation->SetName(L"SuperMario_righMove");
 			animation->SetTexture(Get<Texture>(L"슈퍼마리오_R"));
 			animation->SetLoop(true);
 
@@ -429,11 +433,31 @@ namespace Js
 		}
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"슈퍼마리오_LMove");
+			animation->SetName(L"SuperMario_leftMove");
 			animation->SetTexture(Get<Texture>(L"슈퍼마리오_L"));
 			animation->SetLoop(true);
 
-			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 32.0f), 3, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SuperMario_rightJump");
+			animation->SetTexture(Get<Texture>(L"슈퍼마리오_R"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(96.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SuperMario_leftJump");
+			animation->SetTexture(Get<Texture>(L"슈퍼마리오_L"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
 
 			Add(animation->GetName(), animation);
 		}

@@ -1,12 +1,17 @@
 #pragma once
-#include "Js_DefaultMoveScript.h"
-
+#include "Js_MonoBehaviour.h"
 
 namespace Js
 {
-	class GoombaScript : public DefaultMoveScript
+	enum class WallType
+	{
+
+	};
+
+	class WallScript : public MonoBehaviour
 	{
 	public:
+
 		virtual void Init() override;
 		virtual void Update() override;
 
@@ -15,6 +20,6 @@ namespace Js
 		virtual void OnCollisionExit(std::shared_ptr<Collider> _other) override;
 
 	private:
-		void die() override;
+
 	};
 }

@@ -27,20 +27,30 @@
 #include "Js_FollowTargetScript.h"
 #include "Js_PlayerScript.h"
 #include "Js_MarioCameraScript.h"
-#include "Js_GoombaScript.h"
+#include "Js_DefaultMoveScript.h"
 #include "Js_MarioScript.h"
+#include "Js_WallScript.h"
+#include "Js_EndLineScript.h"
+#include "Js_GoombaScript.h"
 
 namespace Js
 {
 	void PlayScene::Init()
 	{
+#pragma region ObjectInitailize
+
 		m_Goombas.resize(10);
 
+#pragma endregion
+
+#pragma region Camera
 		camera = object::Instantiate<DxObject>();
 		{
 			camera->AddComponent(std::make_shared<Camera>());
 		}
+#pragma endregion
 
+#pragma region BackGround
 		bg = object::Instantiate<DxObject>(L"BackGround");
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
@@ -52,6 +62,9 @@ namespace Js
 			bg->GetTransform()->SetPosition(Vector3(0, 0, 0));
 			bg->GetTransform()->SetScale(bg->GetSize());
 		}
+#pragma endregion
+
+#pragma region Player
 
 		player = object::Instantiate<Player>(L"Player", LayerType::Player);
 		{
@@ -63,12 +76,10 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
 			player->GetTransform()->SetScale(player->GetSize());
-		    //layer->AddComponent(std::make_shared<MoveScript>());
-		    player->AddComponent(std::make_shared<PlayerScript>(mario));
+		    //player->AddComponent(std::make_shared<MoveScript>());
+		    player->AddComponent(std::make_shared<PlayerScript>());
 		    player->AddComponent(std::make_shared<Rigidbody>());
-			//player->AddComponent(std::make_shared<MarioScript>());
 			//player->AddComponent(std::make_shared<FireballScript>(player));
-			
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
 			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
@@ -76,6 +87,24 @@ namespace Js
 			auto col = std::make_shared<Collider>();
 			player->AddComponent(col);
 		}
+#pragma endregion
+
+#pragma region End of Wall
+		std::shared_ptr<DxObject> endWall = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			endWall->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block1");
+			meshRender->SetMaterial(material);
+			endWall->GetTransform()->SetScale(Vector3(16, 1000, 1));
+			endWall->GetTransform()->SetPosition(Vector3(-2898, -300, 0));
+			auto col = std::make_shared<Collider>();
+			endWall->AddComponent(col);
+			endWall->AddComponent(std::make_shared<EndLineScript>());
+		}
+#pragma endregion
 
 		m_Goombas[0] = object::Instantiate<DxObject>(L"Goomba", LayerType::Monster);
 		{
@@ -133,12 +162,13 @@ namespace Js
 			tower3->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block3");
+			auto material = I_Resource->Get<Material>(L"Block2");
 			meshRender->SetMaterial(material);
 			tower3->GetTransform()->SetScale(tower3->GetSize());
 			tower3->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
 			auto col = std::make_shared<Collider>();
 			tower3->AddComponent(col);
+			tower3->AddComponent(std::make_shared<WallScript>());
 		}
 
 		std::shared_ptr<DxObject> Floor1 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
@@ -248,9 +278,8 @@ namespace Js
 			deadLine->AddComponent(col);
 		}
 
-		//camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
-		mario = player;
 		Scene::Init();
 	}
 
@@ -277,6 +306,10 @@ namespace Js
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
+
+		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Wall, true);
+		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Floor, true);
+
 		SoundManager::Add(L"overworld.wav", L"overworld.wav");
 		m_Sound = SoundManager::Get(L"overworld.wav");
 		if (m_Sound) 

@@ -147,6 +147,7 @@
     <ClInclude Include="Js_Animator.h" />
     <ClInclude Include="Js_ClearScene.h" />
     <ClInclude Include="Js_CollisionManager.h" />
+    <ClInclude Include="Js_EndLineScript.h" />
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
     <ClInclude Include="Js_FlagScript.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Js_Engine.h" />
     <ClInclude Include="Js_Geometry.h" />
     <ClInclude Include="Js_GeometryHelper.h" />
+    <ClInclude Include="Js_DefaultMoveScript.h" />
     <ClInclude Include="Js_GoombaScript.h" />
     <ClInclude Include="Js_IndexBuffer.h" />
     <ClInclude Include="Js_Input.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="Js_Material.h" />
     <ClInclude Include="Js_Mesh.h" />
     <ClInclude Include="Js_MonoBehaviour.h" />
+    <ClInclude Include="Js_MushroomScript.h" />
     <ClInclude Include="Js_Object.h" />
     <ClInclude Include="Js_Pipeline.h" />
     <ClInclude Include="Js_Player.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="Js_Transform.h" />
     <ClInclude Include="Js_VertexBuffer.h" />
     <ClInclude Include="Js_VertexData.h" />
+    <ClInclude Include="Js_WallScript.h" />
     <ClInclude Include="Js_Window.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Js_MeshRenderer.h" />
@@ -214,6 +218,7 @@
     <ClCompile Include="Js_Animator.cpp" />
     <ClCompile Include="Js_ClearScene.cpp" />
     <ClCompile Include="Js_CollisionManager.cpp" />
+    <ClCompile Include="Js_EndLineScript.cpp" />
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
     <ClCompile Include="Js_FlagScript.cpp" />
@@ -229,6 +234,7 @@
     <ClCompile Include="Js_DxWrite.cpp" />
     <ClCompile Include="Js_Geometry.cpp" />
     <ClCompile Include="Js_GeometryHelper.cpp" />
+    <ClCompile Include="Js_DefaultMoveScript.cpp" />
     <ClCompile Include="Js_GoombaScript.cpp" />
     <ClCompile Include="Js_IndexBuffer.cpp" />
     <ClCompile Include="Js_Input.cpp" />
@@ -238,6 +244,7 @@
     <ClCompile Include="Js_Material.cpp" />
     <ClCompile Include="Js_Mesh.cpp" />
     <ClCompile Include="Js_MonoBehaviour.cpp" />
+    <ClCompile Include="Js_MushroomScript.cpp" />
     <ClCompile Include="Js_Pipeline.cpp" />
     <ClCompile Include="Js_Player.cpp" />
     <ClCompile Include="Js_RasterizerState.cpp" />
@@ -259,6 +266,7 @@
     <ClCompile Include="Js_Transform.cpp" />
     <ClCompile Include="Js_VertexBuffer.cpp" />
     <ClCompile Include="Js_VertexData.cpp" />
+    <ClCompile Include="Js_WallScript.cpp" />
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Js_MeshRenderer.cpp" />

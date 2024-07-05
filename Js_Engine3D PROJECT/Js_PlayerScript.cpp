@@ -11,13 +11,13 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
+#include "Js_WallScript.h"
 
 #include "Js_GoombaScript.h"
 
 namespace Js
 {
-    PlayerScript::PlayerScript(std::shared_ptr<DxObject> _player)
-        : m_Player(_player)
+    PlayerScript::PlayerScript()
     {
     }
     PlayerScript::~PlayerScript()
@@ -196,10 +196,13 @@ namespace Js
         {
             auto material = I_Resource->Get<Material>(L"마리오2");
             GetOwner()->GetMeshRenderer()->SetMaterial(material);
-            GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
-            auto anim = I_Resource->Get<Animation>(L"슈퍼마리오");
-            GetOwner()->GetAnimator()->SetAnimation(anim);
-
+			if (isFacingRight)
+				m_Animation = I_Resource->Get<Animation>(L"SuperMario_R");
+			else
+				m_Animation = I_Resource->Get<Animation>(L"SuperMario_L");
+			
+			GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+			GetOwner()->GetAnimator()->SetAnimation(m_Animation);
             SetType(MarioType::Super);
         }
     }
@@ -232,34 +235,4 @@ namespace Js
             object::Destroy(_other->GetOwner());
          
     }
-	void PlayerScript::animSetting(MarioType _type)
-	{
-		m_Type = _type;
-
-		switch (m_Type)
-		{
-		case MarioType::Nomal:
-			if (m_State == State::Idle && isFacingRight && !isJump)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_rightIdle");
-			if(m_State == State::Idle && !isFacingRight && !isJump)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
-			if (m_State == State::Move && isFacingRight && !isJump)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
-			if (m_State == State::Move && !isFacingRight && !isJump)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_leftIdle");
-			if (isJump && isFacingRight)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_rightJump");
-			if (isJump && !isFacingRight)
-				m_Animation = I_Resource->Get<Animation>(L"Mario_leftJump");
-			break;
-		case MarioType::Super:
-			break;
-		case MarioType::Fire:
-			break;
-		default:
-			break;
-		}
-
-		m_Animator->SetAnimation(m_Animation);
-	}
 }

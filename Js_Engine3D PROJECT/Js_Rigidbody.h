@@ -24,7 +24,7 @@ namespace Js
 
 		void SetAcceleration(const Vector3& acceleration) { m_Acceleration = acceleration; }
 		Vector3 GetAcceleration() const { return m_Acceleration; }
-
+		 
 		bool IsGrounded() const { return m_IsGrounded; }
 		void SetGrounded(bool grounded) { m_IsGrounded = grounded; }
 
@@ -45,9 +45,9 @@ namespace Js
 		Vector3 m_MaxHorizontalSpeed = Vector3(300.0f, 600.0f, 0.f);
 		Vector3 m_Gravity = Vector3(0.f, -980.f, 0.f);
 			  
-		float m_Mass = 10.f;
+		float m_Mass = 8.f;
 		bool m_IsGrounded = false;
-		float m_Friction = 5.f;
+		float m_Friction = 10.f;
 
 		std::shared_ptr<Transform> m_Transform = nullptr;
 		float m_MaxVerticalSpeed = 10.f;
