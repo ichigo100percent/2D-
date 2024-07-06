@@ -33,6 +33,12 @@ namespace Js
 
 			return nullptr;
 		}
+		
+		static void Clear()
+		{
+			if(!m_SoundList.empty())
+				m_SoundList.clear();
+		}
 
 	private:
 		static FMOD::System* m_FmodSystem;

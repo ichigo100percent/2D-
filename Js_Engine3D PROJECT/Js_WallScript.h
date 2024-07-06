@@ -20,6 +20,6 @@ namespace Js
 		virtual void OnCollisionExit(std::shared_ptr<Collider> _other) override;
 
 	private:
-
+		UINT m_Count = 0;
 	};
 }

@@ -11,6 +11,7 @@ namespace Js
 		void Update() override;
 		void LateUpdate() override;
 		void Render(std::shared_ptr<Pipeline> _pipeline) override;
+		void Release() override;
 
 		void OnEnter() override;
 		void OnExit() override;

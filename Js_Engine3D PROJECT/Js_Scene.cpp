@@ -67,11 +67,16 @@ namespace Js
 			_gameObject->Render(_pipeline);
 		}
 	}
+	void Scene::Release()
+	{
+	}
+
 	void Scene::OnEnter()
 	{
 	}
 	void Scene::OnExit()
 	{
+		m_GameObjectList.clear();
 	}
 	void Scene::Destroy()
 	{

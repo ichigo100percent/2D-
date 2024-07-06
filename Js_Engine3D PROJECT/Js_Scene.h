@@ -15,6 +15,7 @@ namespace Js
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(std::shared_ptr<Pipeline> _pipeline);
+		virtual void Release();
 
 		virtual void Destroy();
 		virtual void OnEnter();

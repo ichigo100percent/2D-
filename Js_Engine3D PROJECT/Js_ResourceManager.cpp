@@ -423,7 +423,7 @@ namespace Js
 		}
 		{
 			auto animation = std::make_shared<Animation>();
-			animation->SetName(L"SuperMario_righMove");
+			animation->SetName(L"SuperMario_rightMove");
 			animation->SetTexture(Get<Texture>(L"½´ÆÛ¸¶¸®¿À_R"));
 			animation->SetLoop(true);
 

@@ -38,15 +38,10 @@ namespace Js
 				auto mario = std::dynamic_pointer_cast<PlayerScript>(script);
 				if (mario)
 				{
-					if (mario->GetMarioType() == MarioType::Super && mario->GetMarioState() == State::Jump)
-					{
-						object::Destroy(GetOwner());
-					}
-					if (mario->GetMarioType() == MarioType::Nomal && mario->GetMarioState() == State::Jump)
+					if (mario->GetMarioType() == MarioType::Nomal && mario->GetMarioState() == State::Jump && m_Count == 0)
 					{
 						auto transform = GetOwner()->GetTransform();
-						
-
+					
 						// 버섯 생성 및 위치 초기화
 						std::shared_ptr<DxObject> mushroom = object::Instantiate<DxObject>(L"Mushroom", enums::LayerType::MunshRoom);
 						{
@@ -58,11 +53,12 @@ namespace Js
 							meshRender->SetMaterial(material);
 							mushroom->AddTransform();
 							mushroom->GetTransform()->SetScale(mushroom->GetSize());
-							mushroom->GetTransform()->SetPosition(Vector3(pos.x, pos.y + 32.f, 0));
+							mushroom->GetTransform()->SetPosition(Vector3(pos.x, pos.y + 33.f, 0));
 							auto col = std::make_shared<Collider>();
 							mushroom->AddComponent(col);
 							mushroom->AddComponent(std::make_shared<MushroomScript>());
 						}
+						m_Count++;
 					}
 				}
 			}

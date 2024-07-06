@@ -71,6 +71,7 @@ namespace Js
 	void TitleScene::OnEnter()
 	{
 		Scene::OnEnter();
+		TitleScene::Init();
 	}
 	void TitleScene::OnExit()
 	{

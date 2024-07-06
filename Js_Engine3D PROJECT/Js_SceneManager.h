@@ -21,7 +21,7 @@ namespace Js
 			std::shared_ptr<T> scene = std::make_shared<T>();
 			scene->SetName(_name);
 			m_CurrentScene = scene;
-			scene->Init();
+			//scene->Init();
 
 			m_Scenes.insert(std::make_pair(_name, scene));
 

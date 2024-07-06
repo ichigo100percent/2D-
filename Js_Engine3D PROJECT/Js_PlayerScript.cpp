@@ -14,6 +14,8 @@
 #include "Js_WallScript.h"
 
 #include "Js_GoombaScript.h"
+#include "Js_CollisionManager.h"
+
 
 namespace Js
 {
@@ -34,12 +36,16 @@ namespace Js
 		if (m_Animator == nullptr)
 			m_Animator = GetOwner()->GetAnimator();
 		
-		move();
-		jump();
-		idle();
+		if (GetMarioState() != State::Die)
+		{
+			move();
+			jump();
+			idle();
 
-		m_Rigidbody->SetGrounded(false);
+			m_Rigidbody->SetGrounded(false);
+		}
 
+		die();
 	}
 
 	void PlayerScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
@@ -47,6 +53,11 @@ namespace Js
 		HandleCollision(_other);
 		growUp(_other);
 		CollisionInteraction(_other);
+
+		if (_other->GetOwner()->GetLayerType() == LayerType::End)
+		{
+			std::dynamic_pointer_cast<TitleScene>(SceneManager::LoadScene<TitleScene>(L"Title"));
+		}
 	}
 
 	void PlayerScript::OnCollisionStay(std::shared_ptr<Collider> _other)
@@ -58,7 +69,7 @@ namespace Js
 	{
 		auto type = _other->GetOwner()->GetLayerType();
 		auto rb = GetOwner()->GetComponent<Rigidbody>();
-		if (type == enums::LayerType::Floor || type == enums::LayerType::Wall)
+		if (type == enums::LayerType::Floor || type == enums::LayerType::Wall || type == enums::LayerType::WallEnd)
 		{
 			isJump = false;
 		}
@@ -86,7 +97,7 @@ namespace Js
 					rb->SetVelocity(velocity);
 				}
 			}
-			else if (type == enums::LayerType::Wall)
+			else if (type == enums::LayerType::Wall || type == enums::LayerType::WallEnd)
 			{
 				if (pushVector.y > 0) // 플레이어가 타워 위에 있을 때
 				{
@@ -108,6 +119,8 @@ namespace Js
 						velocity.y = -200; // 즉시 아래로 떨어지게 설정
 						rb->SetVelocity(velocity);
 					}
+					if (GetMarioType() == MarioType::Super || GetMarioType() == MarioType::Fire)
+						object::Destroy(_other->GetOwner());
 				}
 			}
 		}
@@ -117,13 +130,55 @@ namespace Js
     {
 		if (m_State == State::Idle && !isJump && isFacingRight)
 		{
-			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
-			m_Animator->SetAnimation(anim);
+			switch (static_cast<MarioType>(m_Type))
+			{
+			case MarioType::Nomal:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
+				m_Animator->SetAnimation(anim);
+			}
+				break;
+			case MarioType::Super:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_rightIdle");
+				m_Animator->SetAnimation(anim);
+			}
+				break;
+			case MarioType::Fire:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_rightIdle");
+				m_Animator->SetAnimation(anim);
+			}
+				break;
+			default:
+				break;
+			}
 		}
 		else if (m_State == State::Idle && !isJump && !isFacingRight)
 		{
-			auto anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
-			m_Animator->SetAnimation(anim);
+			switch (static_cast<MarioType>(m_Type))
+			{
+			case MarioType::Nomal:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Super:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_leftIdle");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Fire:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_leftIdle");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			default:
+				break;
+			}
 		}
     }
     void PlayerScript::move()
@@ -132,8 +187,29 @@ namespace Js
 		{
 			if (!isJump)
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_leftMove");
-				m_Animator->SetAnimation(anim);
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					auto anim = I_Resource->Get<Animation>(L"Mario_leftMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					auto anim = I_Resource->Get<Animation>(L"SuperMario_leftMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					auto anim = I_Resource->Get<Animation>(L"FireMario_leftMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 			m_State = State::Move;
 			m_Rigidbody->AddForce(Vector3(-1000, 0, 0));
@@ -143,17 +219,58 @@ namespace Js
 		{
 			if (!isJump)
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
-				m_Animator->SetAnimation(anim);
-				m_State = State::Idle;
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"Mario_leftIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_leftIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_leftIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 		}
 		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
 		{
 			if (!isJump)
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
-				m_Animator->SetAnimation(anim);
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					auto anim = I_Resource->Get<Animation>(L"SuperMario_rightMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					auto anim = I_Resource->Get<Animation>(L"FireMario_rightMove");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 			m_State = State::Move;
 			m_Rigidbody->AddForce(Vector3(1000, 0, 0));
@@ -163,9 +280,29 @@ namespace Js
 		{
 			if (!isJump)
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
-				m_Animator->SetAnimation(anim);
-				m_State = State::Idle;
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_rightIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_rightIdle");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 		}
     }
@@ -175,18 +312,89 @@ namespace Js
 		{
 			if (isFacingRight)
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_rightJump");
-				m_Animator->SetAnimation(anim);
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					auto anim = I_Resource->Get<Animation>(L"Mario_rightJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_rightJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_rightJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 			else
 			{
-				auto anim = I_Resource->Get<Animation>(L"Mario_leftJump");
-				m_Animator->SetAnimation(anim);
+				switch (static_cast<MarioType>(m_Type))
+				{
+				case MarioType::Nomal:
+				{
+					auto anim = I_Resource->Get<Animation>(L"Mario_leftJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Super:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_leftJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				case MarioType::Fire:
+				{
+					std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_leftJump");
+					m_Animator->SetAnimation(anim);
+				}
+				break;
+				default:
+					break;
+				}
 			}
 			m_Rigidbody->Jump(600.0f); // 점프 힘 설정
 			isJump = true;
+			m_State = State::Jump;
 		}
     }
+	void PlayerScript::die()
+	{
+		if (m_State == State::Die)
+		{
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Floor, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::WallEnd, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, false);
+
+			auto anim = I_Resource->Get<Animation>(L"Mario_die");
+			m_Animator->SetAnimation(anim);
+			auto veloctiy = m_Rigidbody->GetVelocity();
+			veloctiy.x = 0;
+			veloctiy.y = 450;
+			m_Rigidbody->SetVelocity(veloctiy);
+			m_Rigidbody->SetGrounded(true);
+
+			time = Time::DeltaTime();
+			deadTime += time;
+			if (deadTime > 0.3)
+			{
+				veloctiy.y = -450;
+				m_Rigidbody->SetVelocity(veloctiy);
+				m_Rigidbody->SetGrounded(false);
+			}
+		}
+	}
 
     void PlayerScript::growUp(std::shared_ptr<Collider> _other)
     {
@@ -201,6 +409,14 @@ namespace Js
 			else
 				m_Animation = I_Resource->Get<Animation>(L"SuperMario_L");
 			
+			time = Time::DeltaTime();
+			deadTime += time;
+			if (deadTime > 0.3)
+			{
+				veloctiy.y = -450;
+				m_Rigidbody->SetVelocity(veloctiy);
+				m_Rigidbody->SetGrounded(false);
+			}
 			GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
 			GetOwner()->GetAnimator()->SetAnimation(m_Animation);
             SetType(MarioType::Super);
@@ -220,15 +436,15 @@ namespace Js
                 if (goomba)
                     break;
             }
-			if (isJump && goomba)
+			if (m_State == State::Jump && goomba)
 			{
 				auto velocity = m_Rigidbody->GetVelocity();
 				velocity.y = 200;
 				m_Rigidbody->SetVelocity(velocity);
 				goomba->SetState(State::Die);
 			}
-            else if(goomba->GetState() == State::Move)
-                object::Destroy(GetOwner());
+			else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Nomal)
+				m_State = State::Die;
         }
 
         if (type == enums::LayerType::MunshRoom || type == enums::LayerType::Flower)

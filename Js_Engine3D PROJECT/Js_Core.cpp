@@ -35,6 +35,7 @@ namespace Js
 		CollisionManager::Init();
 		SoundManager::Init();
 		SceneManager::InitailizeScene();
+		SceneManager::Init();
 
 #ifdef _DEBUG
 		{

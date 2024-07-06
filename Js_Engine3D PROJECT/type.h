@@ -30,6 +30,7 @@ namespace Js::enums
 		Floor,
 		Tower,
 		Wall,
+		WallEnd, // º® ³¡
 		MunshRoom,
 		Flower,
 		Monster,

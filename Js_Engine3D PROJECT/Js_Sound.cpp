@@ -19,6 +19,12 @@ namespace Js
 	}
 	void Fmod::Release()
 	{
+		if (m_Sound)
+		{
+			Stop();
+			m_Sound->release();
+		}
+		m_Sound = nullptr;
 	}
 	bool Fmod::Load(const std::wstring& _fileName)
 	{
@@ -73,6 +79,10 @@ namespace Js
 	}
 	void Fmod::Stop()
 	{
+		if (m_Channel != nullptr)
+		{
+			m_Channel->stop();
+		}
 	}
 	void Fmod::Paused()
 	{

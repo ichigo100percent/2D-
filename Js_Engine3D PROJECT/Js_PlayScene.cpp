@@ -156,20 +156,51 @@ namespace Js
 			tower2->AddComponent(col);
 		}
 
-		std::shared_ptr<DxObject> tower3 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		std::shared_ptr<DxObject> wall1 = object::Instantiate<DxObject>(L"wall", LayerType::WallEnd);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			tower3->AddComponent(meshRender);
+			wall1->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
 			auto material = I_Resource->Get<Material>(L"Block2");
 			meshRender->SetMaterial(material);
-			tower3->GetTransform()->SetScale(tower3->GetSize());
-			tower3->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
+			wall1->GetTransform()->SetScale(wall1->GetSize());
+			wall1->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
 			auto col = std::make_shared<Collider>();
-			tower3->AddComponent(col);
-			tower3->AddComponent(std::make_shared<WallScript>());
+			wall1->AddComponent(col);
+			wall1->AddComponent(std::make_shared<WallScript>());
 		}
+		std::shared_ptr<DxObject> wall2 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			wall2->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block2");
+			meshRender->SetMaterial(material);
+			wall2 ->GetTransform()->SetScale(wall2->GetSize());
+			wall2 ->GetTransform()->SetPosition(Vector3(-2732, -300, 0));
+			auto col = std::make_shared<Collider>();
+			wall2 ->AddComponent(col);
+			wall2 ->AddComponent(std::make_shared<WallScript>());
+		}
+		std::shared_ptr<DxObject> wall3 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			wall3->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block2");
+			meshRender->SetMaterial(material);
+			wall3->GetTransform()->SetScale(wall3->GetSize());
+			wall3->GetTransform()->SetPosition(Vector3(-2764, -300, 0));
+			auto col = std::make_shared<Collider>();
+			wall3->AddComponent(col);
+			wall3->AddComponent(std::make_shared<WallScript>());
+		}
+
+
+
 
 		std::shared_ptr<DxObject> Floor1 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
 		{
@@ -236,19 +267,19 @@ namespace Js
 			}
 		}
 
-		monster = object::Instantiate<DxObject>(L"Monster", LayerType::Monster);
-		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			monster->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"마리오2");
-			meshRender->SetMaterial(material);
-			monster->GetTransform()->SetScale(monster->GetSize());
-			monster->GetTransform()->SetPosition(Vector3(-2864, -208, 0));
-			auto col = std::make_shared<Collider>();
-			monster->AddComponent(col);
-		}
+		//monster = object::Instantiate<DxObject>(L"Monster", LayerType::Monster);
+		//{
+		//	auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+		//	monster->AddComponent(meshRender);
+		//	auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+		//	meshRender->SetMesh(mesh);
+		//	auto material = I_Resource->Get<Material>(L"마리오2");
+		//	meshRender->SetMaterial(material);
+		//	monster->GetTransform()->SetScale(monster->GetSize());
+		//	monster->GetTransform()->SetPosition(Vector3(-2864, -208, 0));
+		//	auto col = std::make_shared<Collider>();
+		//	monster->AddComponent(col);
+		//}
 
 		std::shared_ptr<DxObject> mushroom = object::Instantiate<DxObject>(L"Monster", LayerType::MunshRoom);
 		{
@@ -280,6 +311,8 @@ namespace Js
 
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
+
+		SoundManager::Add(L"overworld.wav", L"overworld.wav");
 		Scene::Init();
 	}
 
@@ -295,29 +328,39 @@ namespace Js
 	{
 		Scene::Render(_pipeline);
 	}
+	void PlayScene::Release()
+	{
+		Scene::Release();
+	}
 	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
+		PlayScene::Init();
+		m_Sound = SoundManager::Get(L"overworld.wav");
+		if (m_Sound)
+			m_Sound->Play(true);
+
+
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::WallEnd, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Wall, true);
+		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::WallEnd, true);
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Floor, true);
-
-		SoundManager::Add(L"overworld.wav", L"overworld.wav");
-		m_Sound = SoundManager::Get(L"overworld.wav");
-		if (m_Sound) 
-			m_Sound->Play(true);
 	}
 	void PlayScene::OnExit()
 	{
 		Scene::OnExit();
-
+		if (m_Sound)
+			m_Sound->Release();
+		
+		SoundManager::Clear();
 	}
 }
