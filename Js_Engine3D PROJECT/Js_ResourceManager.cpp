@@ -26,6 +26,7 @@ namespace Js
 		createMonsterAnimation();
 		createMarioAnimation();
 		createSuperMarioAnimation();
+		createFireMarioAnimation();
 	}
 	void ResourceManager::createDefaultMesh()
 	{
@@ -169,6 +170,20 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"꽃");
+			texture->Create(L"../../Res/Sprite/꽃.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"불꽃");
+			texture->Create(L"../../Res/Sprite/불꽃.png");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createMonsterTextrue()
 	{
@@ -240,6 +255,20 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"파이어마리오_L");
+			texture->Create(L"../../Res/Sprite/파이어마리오_왼쪽.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"파이어마리오_R");
+			texture->Create(L"../../Res/Sprite/파이어마리오_오른쪽.png");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createSuperMarioTexture()
 	{
@@ -276,6 +305,22 @@ namespace Js
 			material->SetName(L"버섯");
 			material->SetShader(Get<Shader>(L"Default"));
 			material->SetTexture(Get<Texture>(L"버섯"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"꽃");
+			material->SetShader(Get<Shader>(L"Default"));
+			material->SetTexture(Get<Texture>(L"꽃"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"불꽃");
+			material->SetShader(Get<Shader>(L"Default"));
+			material->SetTexture(Get<Texture>(L"불꽃"));
 
 			Add(material->GetName(), material);
 		}
@@ -464,5 +509,65 @@ namespace Js
 	}
 	void ResourceManager::createFireMarioAnimation()
 	{
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_rightIdle");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_R"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_leftIdle");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_L"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(96.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_rightMove");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_R"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 32.0f), 3, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_leftMove");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_L"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 32.0f), 3, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_rightJump");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_R"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(96.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_leftJump");
+			animation->SetTexture(Get<Texture>(L"파이어마리오_L"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
 	}
 }

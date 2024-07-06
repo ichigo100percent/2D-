@@ -64,31 +64,6 @@ namespace Js
 		}
 #pragma endregion
 
-#pragma region Player
-
-		player = object::Instantiate<Player>(L"Player", LayerType::Player);
-		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			player->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Default");
-			meshRender->SetMaterial(material);
-			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
-			player->GetTransform()->SetScale(player->GetSize());
-		    //player->AddComponent(std::make_shared<MoveScript>());
-		    player->AddComponent(std::make_shared<PlayerScript>());
-		    player->AddComponent(std::make_shared<Rigidbody>());
-			//player->AddComponent(std::make_shared<FireballScript>(player));
-			auto animator = std::make_shared<Animator>();
-			player->AddComponent(animator);
-			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
-			animator->SetAnimation(anim);
-			auto col = std::make_shared<Collider>();
-			player->AddComponent(col);
-		}
-#pragma endregion
-
 #pragma region End of Wall
 		std::shared_ptr<DxObject> endWall = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
@@ -281,18 +256,18 @@ namespace Js
 		//	monster->AddComponent(col);
 		//}
 
-		std::shared_ptr<DxObject> mushroom = object::Instantiate<DxObject>(L"Monster", LayerType::MunshRoom);
+		std::shared_ptr<DxObject> Flower = object::Instantiate<DxObject>(L"Monster", LayerType::Flower);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			mushroom->AddComponent(meshRender);
+			Flower->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"¸¶¸®¿À2");
+			auto material = I_Resource->Get<Material>(L"²É");
 			meshRender->SetMaterial(material);
-			mushroom->GetTransform()->SetScale(mushroom->GetSize());
-			mushroom->GetTransform()->SetPosition(Vector3(-2600, -300, 0));
+			Flower->GetTransform()->SetScale(Flower->GetSize());
+			Flower->GetTransform()->SetPosition(Vector3(-2600, -300, 0));
 			auto col = std::make_shared<Collider>();
-			mushroom->AddComponent(col);
+			Flower->AddComponent(col);
 		}
 
 		std::shared_ptr<DxObject> deadLine = object::Instantiate<DxObject>(L"DeadLine", LayerType::End);
@@ -308,6 +283,31 @@ namespace Js
 			auto col = std::make_shared<Collider>();
 			deadLine->AddComponent(col);
 		}
+
+#pragma region Player
+
+		player = object::Instantiate<Player>(L"Player", LayerType::Player);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			player->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
+			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
+			player->GetTransform()->SetScale(player->GetSize());
+			//player->AddComponent(std::make_shared<MoveScript>());
+			player->AddComponent(std::make_shared<PlayerScript>());
+			player->AddComponent(std::make_shared<Rigidbody>());
+			//player->AddComponent(std::make_shared<FireballScript>(player));
+			auto animator = std::make_shared<Animator>();
+			player->AddComponent(animator);
+			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
+			animator->SetAnimation(anim);
+			auto col = std::make_shared<Collider>();
+			player->AddComponent(col);
+		}
+#pragma endregion
 
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
@@ -347,6 +347,7 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::WallEnd, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flower, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);

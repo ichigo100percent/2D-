@@ -28,6 +28,7 @@ namespace Js
 		void idle();
 		void move();
 		void jump();
+		void attack();
 		void die();
 		void growUp(std::shared_ptr<Collider> _other);
 
@@ -41,8 +42,10 @@ namespace Js
 
 		bool isJump = false;
 		bool isFacingRight = true;
+		bool isInvincible = false;
 		float time = 0.0f;
 		float deadTime = 0.0f;
+		float invincibilityTimer = 0.0f;
 
 	private:
 		State m_State = State::Idle;

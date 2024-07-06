@@ -44,6 +44,16 @@ namespace Js
 
 			m_Rigidbody->SetGrounded(false);
 		}
+		if (isInvincible)
+		{
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, false);
+			invincibilityTimer -= Time::DeltaTime();
+			if (invincibilityTimer <= 0.0f)
+			{
+				CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, true);
+				isInvincible = false;
+			}
+		}
 
 		die();
 	}
@@ -125,7 +135,6 @@ namespace Js
 			}
 		}
 	}
-
     void PlayerScript::idle()
     {
 		if (m_State == State::Idle && !isJump && isFacingRight)
@@ -367,6 +376,16 @@ namespace Js
 			m_State = State::Jump;
 		}
     }
+	void PlayerScript::attack()
+	{
+		if (GetMarioType() == MarioType::Fire)
+		{
+			if (Input::KeyCheck('W') == KeyState::KEY_UP)
+			{
+
+			}
+		}
+	}
 	void PlayerScript::die()
 	{
 		if (m_State == State::Die)
@@ -404,23 +423,27 @@ namespace Js
         {
             auto material = I_Resource->Get<Material>(L"마리오2");
             GetOwner()->GetMeshRenderer()->SetMaterial(material);
-			if (isFacingRight)
-				m_Animation = I_Resource->Get<Animation>(L"SuperMario_R");
-			else
-				m_Animation = I_Resource->Get<Animation>(L"SuperMario_L");
-			
-			time = Time::DeltaTime();
-			deadTime += time;
-			if (deadTime > 0.3)
-			{
-				veloctiy.y = -450;
-				m_Rigidbody->SetVelocity(veloctiy);
-				m_Rigidbody->SetGrounded(false);
-			}
 			GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
-			GetOwner()->GetAnimator()->SetAnimation(m_Animation);
             SetType(MarioType::Super);
+
+			// Set invincibility
+			isInvincible = true;
+			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
         }
+		if (type == enums::LayerType::Flower && GetMarioType() == MarioType::Super)
+		{
+			auto material = I_Resource->Get<Material>(L"마리오2");
+			GetOwner()->GetMeshRenderer()->SetMaterial(material);
+			GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+			SetType(MarioType::Fire);
+
+			auto anim = I_Resource->Get<Animation>(L"FireMario_rightJump");
+			m_Animator->SetAnimation(anim);
+
+			// Set invincibility
+			isInvincible = true;
+			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
+		}
     }
     void PlayerScript::CollisionInteraction(std::shared_ptr<Collider> _other)
     {
@@ -436,7 +459,7 @@ namespace Js
                 if (goomba)
                     break;
             }
-			if (m_State == State::Jump && goomba)
+			if (isJump && goomba)
 			{
 				auto velocity = m_Rigidbody->GetVelocity();
 				velocity.y = 200;
@@ -445,6 +468,15 @@ namespace Js
 			}
 			else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Nomal)
 				m_State = State::Die;
+			else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Super)
+			{
+				auto material = I_Resource->Get<Material>(L"Default");
+				GetOwner()->GetMeshRenderer()->SetMaterial(material);
+				GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+				m_Type = MarioType::Nomal;
+				invincibilityTimer = 1.0f;
+				isInvincible = true;
+			}
         }
 
         if (type == enums::LayerType::MunshRoom || type == enums::LayerType::Flower)
