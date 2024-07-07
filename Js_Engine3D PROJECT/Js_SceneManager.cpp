@@ -1,6 +1,7 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
+#include "Js_ClearScene.h"
 
 namespace Js
 {
@@ -76,9 +77,10 @@ namespace Js
 	{
 		CreateScene<PlayScene>(L"Play");
 		CreateScene<TitleScene>(L"Title");
+		CreateScene<EndingScene>(L"Ending");
 
 		LoadScene<TitleScene>(L"Title");
-		//LoadScene<PlayScene>(L"test");
+		//LoadScene<EndingScene>(L"Ending");
 	}
 	void SceneManager::Destroy()
 	{

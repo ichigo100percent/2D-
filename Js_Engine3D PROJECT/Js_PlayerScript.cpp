@@ -11,10 +11,11 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
-#include "Js_MushroomWalllScript.h"
+#include "Js_MushroomWallScript.h"
 
 #include "Js_GoombaScript.h"
 #include "Js_CollisionManager.h"
+#include "Js_FireballScript.h"
 
 
 namespace Js
@@ -41,6 +42,7 @@ namespace Js
 			move();
 			jump();
 			idle();
+			attack();
 
 			m_Rigidbody->SetGrounded(false);
 		}
@@ -56,6 +58,8 @@ namespace Js
 			position.x += 100 * Time::DeltaTime();
 			GetOwner()->GetTransform()->SetPosition(position);
 		}
+
+		// 마리오 무적시간
 		if (isInvincible)
 		{
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Monster, false);
@@ -75,7 +79,7 @@ namespace Js
 		HandleCollision(_other);
 		growUp(_other);
 		CollisionInteraction(_other);
-		gameEnd(_other);
+		endPointTouch(_other);
 
 		if (_other->GetOwner()->GetLayerType() == LayerType::End)
 		{
@@ -393,9 +397,34 @@ namespace Js
 	{
 		if (GetMarioType() == MarioType::Fire)
 		{
-			if (Input::KeyCheck('W') == KeyState::KEY_UP)
+			if (Input::KeyCheck(VK_SPACE) == KeyState::KEY_UP)
 			{
+				std::shared_ptr<DxObject> fireball = object::Instantiate<DxObject>(L"Fireball", enums::LayerType::Fireball);
+				{
+					auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+					fireball->AddComponent(meshRender);
+					auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+					meshRender->SetMesh(mesh);
+					auto material = I_Resource->Get<Material>(L"Default");
+					meshRender->SetMaterial(material);
+					auto animator = std::make_shared<Animator>();
+					auto anim = I_Resource->Get<Animation>(L"불꽃발싸");
+					animator->SetAnimation(anim);
+					fireball->AddComponent(animator);
+					fireball->GetTransform()->SetScale(Vector3(16, 16, 0));
+					auto col = std::make_shared<Collider>();
+					fireball->AddComponent(col);
 
+					// 플레이어의 위치와 방향 가져오기
+					Vector3 position = GetOwner()->GetTransform()->GetPosition();
+					Vector3 direction = isFacingRight ? Vector3(1, 0, 0) : Vector3(-1, 0, 0);
+
+					// 화염볼의 초기 위치 설정
+					fireball->GetTransform()->SetPosition(position);
+
+					// 화염볼 스크립트 추가
+					fireball->AddComponent(std::make_shared<FireballScript>(GetOwner(), direction));
+				}
 			}
 		}
 	}
@@ -427,6 +456,7 @@ namespace Js
 			}
 		}
 	}
+
 	void PlayerScript::growUp(std::shared_ptr<Collider> _other)
     {
         auto type = _other->GetOwner()->GetLayerType();
@@ -457,7 +487,7 @@ namespace Js
 			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
 		}
     }
-	void PlayerScript::gameEnd(std::shared_ptr<Collider> _other)
+	void PlayerScript::endPointTouch(std::shared_ptr<Collider> _other)
 	{
 		auto type = _other->GetOwner()->GetLayerType();
 
@@ -469,23 +499,65 @@ namespace Js
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flag, false);
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, false);
 			// 애니메이션 설정
+
+			switch (static_cast<MarioType>(m_Type))
+			{
+			case MarioType::Nomal:
+			{
+				auto anim = I_Resource->Get<Animation>(L"Mario_flag");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Super:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"SuperMario_flag");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Fire:
+			{
+				std::shared_ptr<Animation> anim = I_Resource->Get<Animation>(L"FireMario_flag");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			default:
+				break;
+			}
 		}
 
 		if (type == enums::LayerType::Floor && flagTouch)
 		{
 			flagAtGround = true;
+
+			switch (static_cast<MarioType>(m_Type))
+			{
+			case MarioType::Nomal:
+			{
+				auto anim = I_Resource->Get<Animation>(L"Mario_rightMove");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Super:
+			{
+				auto anim = I_Resource->Get<Animation>(L"SuperMario_rightMove");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			case MarioType::Fire:
+			{
+				auto anim = I_Resource->Get<Animation>(L"FireMario_rightMove");
+				m_Animator->SetAnimation(anim);
+			}
+			break;
+			default:
+				break;
+			}
 		}
 
 		// x축으로 이동하면서 endPoint에 충돌시 겜오브젝트 삭제 2초뒤 신이동
 		if (type == enums::LayerType::EndPoint)
 		{
 			object::Destroy(GetOwner());
-			time = Time::DeltaTime();
-			elapsedTime += time;
-			if (elapsedTime > 2)
-			{
-				std::dynamic_pointer_cast<TitleScene>(SceneManager::LoadScene<TitleScene>(L"Title"));
-			}
 		}
 	}
     void PlayerScript::CollisionInteraction(std::shared_ptr<Collider> _other)

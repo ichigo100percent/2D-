@@ -179,6 +179,9 @@
     <ClCompile Include="Js_MushroomScript.cpp">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Js_EndPointScript.cpp">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -382,13 +385,16 @@
     <ClInclude Include="Js_EndLineScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Js_MushroomWalllScript.h">
+    <ClInclude Include="Js_MushroomWallScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_GoombaScript.h">
       <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_MushroomScript.h">
+      <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_EndPointScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -543,6 +549,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.hlsl">
+      <Filter>소스 파일\98. Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Nomal.hlsl">
       <Filter>소스 파일\98. Shader</Filter>
     </FxCompile>
   </ItemGroup>

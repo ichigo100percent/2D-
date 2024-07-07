@@ -33,6 +33,7 @@ namespace Js::enums
 		WallEnd, // º® ³¡
 		MunshRoom,
 		Flower,
+		Fireball,
 		Monster,
 		Flag,
 		EndPoint,
@@ -63,4 +64,5 @@ enum class MarioType
 	Nomal,
 	Super,
 	Fire,
+	End,
 };

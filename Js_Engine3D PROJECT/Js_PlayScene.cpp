@@ -29,9 +29,10 @@
 #include "Js_MarioCameraScript.h"
 #include "Js_DefaultMoveScript.h"
 #include "Js_MarioScript.h"
-#include "Js_MushroomWalllScript.h"
+#include "Js_MushroomWallScript.h"
 #include "Js_EndLineScript.h"
 #include "Js_GoombaScript.h"
+#include "Js_EndPointScript.h"
 
 namespace Js
 {
@@ -81,56 +82,222 @@ namespace Js
 		}
 #pragma endregion
 
-		m_Goombas[0] = object::Instantiate<DxObject>(L"Goomba", LayerType::Monster);
+#pragma region Floors
+
+		std::shared_ptr<DxObject> Floor1 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			m_Goombas[0]->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block1");
-			meshRender->SetMaterial(material);
-			m_Goombas[0]->GetTransform()->SetScale(m_Goombas[0]->GetSize());
-			m_Goombas[0]->GetTransform()->SetPosition(Vector3(-2240, -400, 0));
-
+			Floor1->GetTransform()->SetScale(Vector3(992, 16, 0));
+			Floor1->GetTransform()->SetPosition(Vector3(-1888, -452, 0));
 			auto col = std::make_shared<Collider>();
-			m_Goombas[0]->AddComponent(col);
-
-			auto animator = std::make_shared<Animator>();
-			m_Goombas[0]->AddComponent(animator);
-			auto anim = I_Resource->Get<Animation>(L"±À¹Ù");
-			animator->SetAnimation(anim);
-			m_Goombas[0]->AddComponent(std::make_shared<GoombaScript>());
+			Floor1->AddComponent(col);
 		}
+
+		std::shared_ptr<DxObject> Floor2 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
+		{
+			Floor2->GetTransform()->SetScale(Vector3(16 * 15, 16, 0));
+			Floor2->GetTransform()->SetPosition(Vector3(-592, -452, 0));
+			auto col = std::make_shared<Collider>();
+			Floor2->AddComponent(col);
+		}
+
+		std::shared_ptr<DxObject> Floor3 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
+		{
+			Floor3->GetTransform()->SetScale(Vector3(16 * 43, 16, 0));
+			Floor3->GetTransform()->SetPosition(Vector3(400, -452, 0));
+			auto col = std::make_shared<Collider>();
+			Floor3->AddComponent(col);
+		}
+
+		std::shared_ptr<DxObject> Floor4 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
+		{
+			Floor4->GetTransform()->SetScale(Vector3(16 * 54, 16, 0));
+			Floor4->GetTransform()->SetPosition(Vector3(2016, -452, 0));
+			auto col = std::make_shared<Collider>();
+			Floor4->AddComponent(col);
+		}
+
+#pragma endregion
+
+#pragma region Tower
 
 		std::shared_ptr<DxObject> tower = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			tower->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block1");
-			meshRender->SetMaterial(material);
-			tower->GetTransform()->SetScale(tower->GetSize() * 2);
+			tower->GetTransform()->SetScale(Vector3(32, 32, 0));
 			tower->GetTransform()->SetPosition(Vector3(-2140, -400, 0));
 			auto col = std::make_shared<Collider>();
 			tower->AddComponent(col);
 		}
-
-
 		std::shared_ptr<DxObject> tower2 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			tower2->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block3");
-			meshRender->SetMaterial(material);
-			tower2->GetTransform()->SetScale(tower->GetSize() * 2);
-			tower2->GetTransform()->SetPosition(Vector3(-2400, -400, 0));
+			tower2->GetTransform()->SetScale(Vector3(32, 48, 0));
+			tower2->GetTransform()->SetPosition(Vector3(-1850, -390, 0));
 			auto col = std::make_shared<Collider>();
 			tower2->AddComponent(col);
 		}
+		std::shared_ptr<DxObject> tower3 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			tower3->GetTransform()->SetScale(Vector3(32, 60, 0));
+			tower3->GetTransform()->SetPosition(Vector3(-1538, -370, 0));
+			auto col = std::make_shared<Collider>();
+			tower3->AddComponent(col);
+		}
+		std::shared_ptr<DxObject> tower4 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			tower4->GetTransform()->SetScale(Vector3(32, 60, 0));
+			tower4->GetTransform()->SetPosition(Vector3(-1116, -360, 0));
+			auto col = std::make_shared<Collider>();
+			tower4->AddComponent(col);
+		}
+		std::shared_ptr<DxObject> tower5 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			tower5->GetTransform()->SetScale(Vector3(32, 60, 0));
+			tower5->GetTransform()->SetPosition(Vector3(224, -370, 0));
+			auto col = std::make_shared<Collider>();
+			tower5->AddComponent(col);
+		}
+		std::shared_ptr<DxObject> tower6 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			tower6->GetTransform()->SetScale(Vector3(32, 60, 0));
+			tower6->GetTransform()->SetPosition(Vector3(874, -370, 0));
+			auto col = std::make_shared<Collider>();
+			tower6->AddComponent(col);
+		}
+		std::shared_ptr<DxObject> tower7 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+		{
+			tower7->GetTransform()->SetScale(Vector3(32, 32, 0));
+			tower7->GetTransform()->SetPosition(Vector3(1566, -400, 0));
+			auto col = std::make_shared<Collider>();
+			tower7->AddComponent(col);
+		}
+#pragma endregion
 
+#pragma region NomalWall
+		{
+			std::shared_ptr<DxObject> wall5 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+			{
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				wall5->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				wall5->GetTransform()->SetScale(wall5->GetSize());
+				wall5->GetTransform()->SetPosition(Vector3(1774, -420, 0));
+				auto col = std::make_shared<Collider>();
+				wall5->AddComponent(col);
+				wall5->AddComponent(std::make_shared<MushroomWalllScript>());
+			}
+
+			std::vector<std::shared_ptr<DxObject>> walls(2);
+			for (int i = 0; i < walls.size(); i++)
+			{
+				walls[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls[i]->GetTransform()->SetScale(walls[i]->GetSize());
+				walls[i]->GetTransform()->SetPosition(Vector3(1806, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls[i]->AddComponent(col);
+			}
+
+			std::vector<std::shared_ptr<DxObject>> walls2(3);
+			for (int i = 0; i < walls2.size(); i++)
+			{
+				walls2[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls2[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls2[i]->GetTransform()->SetScale(walls2[i]->GetSize());
+				walls2[i]->GetTransform()->SetPosition(Vector3(1838, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls2[i]->AddComponent(col);
+			}
+			std::vector<std::shared_ptr<DxObject>> walls3(4);
+			for (int i = 0; i < walls3.size(); i++)
+			{
+				walls3[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls3[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls3[i]->GetTransform()->SetScale(walls3[i]->GetSize());
+				walls3[i]->GetTransform()->SetPosition(Vector3(1870, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls3[i]->AddComponent(col);
+			}
+			std::vector<std::shared_ptr<DxObject>> walls4(5);
+			for (int i = 0; i < walls4.size(); i++)
+			{
+				walls4[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls4[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls4[i]->GetTransform()->SetScale(walls4[i]->GetSize());
+				walls4[i]->GetTransform()->SetPosition(Vector3(1902, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls4[i]->AddComponent(col);
+			}
+			std::vector<std::shared_ptr<DxObject>> walls5(6);
+			for (int i = 0; i < walls5.size(); i++)
+			{
+				walls5[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls5[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls5[i]->GetTransform()->SetScale(walls5[i]->GetSize());
+				walls5[i]->GetTransform()->SetPosition(Vector3(1934, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls5[i]->AddComponent(col);
+			}
+			std::vector<std::shared_ptr<DxObject>> walls6(7);
+			for (int i = 0; i < walls6.size(); i++)
+			{
+				walls6[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls6[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls6[i]->GetTransform()->SetScale(walls6[i]->GetSize());
+				walls6[i]->GetTransform()->SetPosition(Vector3(1966, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls6[i]->AddComponent(col);
+			}
+			std::vector<std::shared_ptr<DxObject>> walls7(8);
+			for (int i = 0; i < walls7.size(); i++)
+			{
+				walls7[i] = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
+				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+				walls7[i]->AddComponent(meshRender);
+				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+				meshRender->SetMesh(mesh);
+				auto material = I_Resource->Get<Material>(L"Block4");
+				meshRender->SetMaterial(material);
+				walls7[i]->GetTransform()->SetScale(walls7[i]->GetSize());
+				walls7[i]->GetTransform()->SetPosition(Vector3(1998, -420 + i * 32, 0));
+				auto col = std::make_shared<Collider>();
+				walls7[i]->AddComponent(col);
+			}
+		}
+#pragma endregion
+
+#pragma region Wall
 		std::shared_ptr<DxObject> wall1 = object::Instantiate<DxObject>(L"wall", LayerType::WallEnd);
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
@@ -173,88 +340,7 @@ namespace Js
 			wall3->AddComponent(col);
 			wall3->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
-
-
-
-
-		std::shared_ptr<DxObject> Floor1 = object::Instantiate<DxObject>(L"floor", LayerType::Floor);
-		{
-			//auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			//wall1->AddComponent(meshRender);
-			//auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			//meshRender->SetMesh(mesh);
-			//auto material = I_Resource->Get<Material>(L"Default");
-			//meshRender->SetMaterial(material);
-			Floor1->GetTransform()->SetScale(Vector3(992, 16, 0));
-			Floor1->GetTransform()->SetPosition(Vector3(-1888, -452, 0));
-			auto col = std::make_shared<Collider>();
-			Floor1->AddComponent(col);
-		}
-
-		walls2.resize(15);
-		for (int i = 0; i < walls2.size(); i++)
-		{
-			float width = 32 * i;
-			walls2[i] = object::Instantiate<DxObject>(L"wall", LayerType::Floor);
-			{
-				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-				walls2[i]->AddComponent(meshRender);
-				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-				meshRender->SetMesh(mesh);
-				auto material = I_Resource->Get<Material>(L"Default");
-				meshRender->SetMaterial(material);
-				walls2[i]->GetTransform()->SetScale(walls2[i]->GetSize());
-				walls2[i]->GetTransform()->SetPosition(Vector3(-816 + width, -272, 0));
-			}
-		}
-
-		walls3.resize(43);
-		for (int i = 0; i < walls3.size(); i++)
-		{
-			float width = 32 * i;
-			walls3[i] = object::Instantiate<DxObject>(L"wall", LayerType::Floor);
-			{
-				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-				walls3[i]->AddComponent(meshRender);
-				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-				meshRender->SetMesh(mesh);
-				auto material = I_Resource->Get<Material>(L"Default");
-				meshRender->SetMaterial(material);
-				walls3[i]->GetTransform()->SetScale(walls3[i]->GetSize());
-				walls3[i]->GetTransform()->SetPosition(Vector3(-272 + width, -272, 0));
-			}
-		}
-
-		walls4.resize(54);
-		for (int i = 0; i < walls4.size(); i++)
-		{
-			float width = 32 * i;
-			walls4[i] = object::Instantiate<DxObject>(L"wall");
-			{
-				auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-				walls4[i]->AddComponent(meshRender);
-				auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-				meshRender->SetMesh(mesh);
-				auto material = I_Resource->Get<Material>(L"Default");
-				meshRender->SetMaterial(material);
-				walls4[i]->GetTransform()->SetScale(walls4[i]->GetSize());
-				walls4[i]->GetTransform()->SetPosition(Vector3(1170 + width, -240, 0));
-			}
-		}
-
-		//monster = object::Instantiate<DxObject>(L"Monster", LayerType::Monster);
-		//{
-		//	auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-		//	monster->AddComponent(meshRender);
-		//	auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-		//	meshRender->SetMesh(mesh);
-		//	auto material = I_Resource->Get<Material>(L"¸¶¸®¿À2");
-		//	meshRender->SetMaterial(material);
-		//	monster->GetTransform()->SetScale(monster->GetSize());
-		//	monster->GetTransform()->SetPosition(Vector3(-2864, -208, 0));
-		//	auto col = std::make_shared<Collider>();
-		//	monster->AddComponent(col);
-		//}
+#pragma endregion
 
 		std::shared_ptr<DxObject> Flower = object::Instantiate<DxObject>(L"Monster", LayerType::Flower);
 		{
@@ -272,45 +358,55 @@ namespace Js
 
 		std::shared_ptr<DxObject> deadLine = object::Instantiate<DxObject>(L"DeadLine", LayerType::End);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			deadLine->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Default");
-			meshRender->SetMaterial(material);
 			deadLine->GetTransform()->SetScale(Vector3(10000, 16, 0));
 			deadLine->GetTransform()->SetPosition(Vector3(-1888, -520, 0));
 			auto col = std::make_shared<Collider>();
 			deadLine->AddComponent(col);
 		}
 
+#pragma region GameEndPoint
 		std::shared_ptr<DxObject> flag = object::Instantiate<DxObject>(L"Flag", LayerType::EndPoint);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			flag->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"¸¶¸®¿À2");
-			meshRender->SetMaterial(material);
 			flag->GetTransform()->SetScale(Vector3(16, 1000, 0));
-			flag->GetTransform()->SetPosition(Vector3(-2250, -300, 0));
+			flag->GetTransform()->SetPosition(Vector3(2380, -300, 0));
 			auto col = std::make_shared<Collider>();
 			flag->AddComponent(col);
+			flag->AddComponent(std::make_shared<EndPointScript>());
 		}
 
 		std::shared_ptr<DxObject> endPoint = object::Instantiate<DxObject>(L"EndPoint", LayerType::Flag);
 		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			endPoint->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Default");
-			meshRender->SetMaterial(material);
 			endPoint->GetTransform()->SetScale(Vector3(16, 10000, 0));
-			endPoint->GetTransform()->SetPosition(Vector3(-2464, -300, 0));
+			endPoint->GetTransform()->SetPosition(Vector3(2200, -300, 0));
 			auto col = std::make_shared<Collider>();
 			endPoint->AddComponent(col);
 		}
+#pragma endregion
+
+#pragma region Monsters
+
+		m_Goombas[0] = object::Instantiate<DxObject>(L"Goomba", LayerType::Monster);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			m_Goombas[0]->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block1");
+			meshRender->SetMaterial(material);
+			m_Goombas[0]->GetTransform()->SetScale(m_Goombas[0]->GetSize());
+			m_Goombas[0]->GetTransform()->SetPosition(Vector3(-2040, -400, 0));
+
+			auto col = std::make_shared<Collider>();
+			m_Goombas[0]->AddComponent(col);
+
+			auto animator = std::make_shared<Animator>();
+			m_Goombas[0]->AddComponent(animator);
+			auto anim = I_Resource->Get<Animation>(L"±À¹Ù");
+			animator->SetAnimation(anim);
+			m_Goombas[0]->AddComponent(std::make_shared<GoombaScript>());
+		}
+
+#pragma endregion
 
 #pragma region Player
 
@@ -327,7 +423,7 @@ namespace Js
 			//player->AddComponent(std::make_shared<MoveScript>());
 			player->AddComponent(std::make_shared<PlayerScript>());
 			player->AddComponent(std::make_shared<Rigidbody>());
-			player->AddComponent(std::make_shared<FireballScript>(player));
+			//player->AddComponent(std::make_shared<FireballScript>(player));
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
 			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
@@ -381,10 +477,13 @@ namespace Js
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Fireball, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::WallEnd, true);
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Floor, true);
+
+		CollisionManager::CollisionLayerCheck(LayerType::Fireball, LayerType::Floor, true);
 	}
 	void PlayScene::OnExit()
 	{

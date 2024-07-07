@@ -46,7 +46,7 @@ namespace Js
 			script->Init();
 		}
 
-		m_IsActive = true; // 초기화가 끝나면 활성 상태로 설정
+		m_IsActive = true; 
 		OutputDebugStringA("DxObject initialized.\n");
 	}
 	void DxObject::Update()

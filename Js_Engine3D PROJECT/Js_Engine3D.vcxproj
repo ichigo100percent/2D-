@@ -148,6 +148,7 @@
     <ClInclude Include="Js_ClearScene.h" />
     <ClInclude Include="Js_CollisionManager.h" />
     <ClInclude Include="Js_EndLineScript.h" />
+    <ClInclude Include="Js_EndPointScript.h" />
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
     <ClInclude Include="Js_FlagScript.h" />
@@ -198,7 +199,7 @@
     <ClInclude Include="Js_Transform.h" />
     <ClInclude Include="Js_VertexBuffer.h" />
     <ClInclude Include="Js_VertexData.h" />
-    <ClInclude Include="Js_MushroomWalllScript.h" />
+    <ClInclude Include="Js_MushroomWallScript.h" />
     <ClInclude Include="Js_Window.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Js_MeshRenderer.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Js_ClearScene.cpp" />
     <ClCompile Include="Js_CollisionManager.cpp" />
     <ClCompile Include="Js_EndLineScript.cpp" />
+    <ClCompile Include="Js_EndPointScript.cpp" />
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
     <ClCompile Include="Js_FlagScript.cpp" />
@@ -288,6 +290,14 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Nomal.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

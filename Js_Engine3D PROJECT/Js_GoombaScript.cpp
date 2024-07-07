@@ -28,7 +28,16 @@ namespace Js
 	}
 	void GoombaScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
 	{
-		DefaultMoveScript::OnCollisionEnter(_other);
+		auto type = _other->GetOwner()->GetLayerType();
+
+		if (type == enums::LayerType::Wall && m_State == State::Move)
+		{
+			m_Direction = -m_Direction;
+		}
+		if (type == enums::LayerType::Floor && m_State == State::Move)
+		{
+			m_IsGround = true;
+		}
 	}
 	void GoombaScript::OnCollisionStay(std::shared_ptr<Collider> _other)
 	{
@@ -36,7 +45,12 @@ namespace Js
 	}
 	void GoombaScript::OnCollisionExit(std::shared_ptr<Collider> _other)
 	{
-		DefaultMoveScript::OnCollisionExit(_other);
+		auto type = _other->GetOwner()->GetLayerType();
+
+		if (type == enums::LayerType::Floor)
+		{
+			m_IsGround = false;
+		}
 	}
 	void GoombaScript::die()
 	{

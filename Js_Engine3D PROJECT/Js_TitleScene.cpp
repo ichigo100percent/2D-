@@ -41,7 +41,6 @@ namespace Js
 		{
 			camera->AddComponent(std::make_shared<Camera>());
 		}
-
 		std::shared_ptr<DxObject> bg = object::Instantiate<DxObject>(L"BackGround");
 		{
 			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
@@ -53,7 +52,6 @@ namespace Js
 			bg->GetTransform()->SetPosition(Vector3(0, 0, 0));
 			bg->GetTransform()->SetScale(Vector3(480, 240, 0));
 		}
-
 		Scene::Init();
 	}
 	void TitleScene::Update()

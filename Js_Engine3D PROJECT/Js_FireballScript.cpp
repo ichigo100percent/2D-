@@ -13,13 +13,47 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
-#include "Js_MushroomWalllScript.h"
+#include "Js_MushroomWallScript.h"
 
 #include "Js_GoombaScript.h"
 #include "Js_CollisionManager.h"
 
 namespace Js
 {
+    FireballScript::FireballScript(std::shared_ptr<DxObject> _owner, Vector3 _pos)
+        : m_Owner(_owner) , m_Direction(_pos)
+    {
+    }
+    void FireballScript::Update()
+    {
+		float speed = 500 * Time::DeltaTime();
+		float gravity = -300.0f * Time::DeltaTime();
+		auto position = GetOwner()->GetTransform()->GetPosition();
+
+		// 방향에 따라 위치 업데이트
+		position.x += m_Direction.x * speed;
+		position.y += gravity;
+
+		GetOwner()->GetTransform()->SetPosition(position);
+    }
+    void FireballScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
+    {
+        if (_other->GetOwner()->GetLayerType() == LayerType::Floor)
+        {
+			// y축 점프
+			auto position = GetOwner()->GetTransform()->GetPosition();
+			position.y += 30.0f; // 점프 높이 설정
+			GetOwner()->GetTransform()->SetPosition(position);
+        }
+    }
+    void FireballScript::OnCollisionStay(std::shared_ptr<Collider> _other)
+    {
+    }
+    void FireballScript::OnCollisionExit(std::shared_ptr<Collider> _other)
+    {
+    }
+
+    /*
 	void FireballScript::Update()
 	{
         m_DeathTime += Time::DeltaTime();
@@ -77,4 +111,59 @@ namespace Js
         }
 
 	}
+    */
+
+    
+
+    //FireballScript::FireballScript(std::shared_ptr<DxObject> _owner, Vector3 _pos)
+    //    : m_Owner(_owner)
+    //    , m_Direction(_pos)
+    //{
+    //}
+
+    //FireballScript::~FireballScript()
+    //{
+    //}
+
+    //void FireballScript::Init()
+    //{     
+    //    
+    //}
+
+    //void FireballScript::Update()
+    //{
+    //    float speed = 500 * Time::DeltaTime();
+    //    float gravity = -500.0f * Time::DeltaTime();
+    //    auto position = GetOwner()->GetTransform()->GetPosition();
+
+    //    // 방향에 따라 위치 업데이트
+    //    position.x += m_Direction.x * speed;
+    //    position.y += gravity;
+
+    //    GetOwner()->GetTransform()->SetPosition(position);
+    //}
+
+    //void FireballScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
+    //{
+    //    auto type = _other->GetOwner()->GetLayerType();
+
+    //    if (type == enums::LayerType::Floor)
+    //    {
+    //        // y축 점프
+    //        auto position = GetOwner()->GetTransform()->GetPosition();
+    //        position.y += 300.0f; // 점프 높이 설정
+    //        GetOwner()->GetTransform()->SetPosition(position);
+    //    }
+    //}
+
+    //void FireballScript::OnCollisionStay(std::shared_ptr<Collider> _other)
+    //{
+    //}
+
+    //void FireballScript::OnCollisionExit(std::shared_ptr<Collider> _other)
+    //{
+    //}
+    //
+
+    
 }

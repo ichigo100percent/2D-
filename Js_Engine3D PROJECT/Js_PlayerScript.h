@@ -23,6 +23,7 @@ namespace Js
 		State GetMarioState() { return m_State; }
 		MarioType GetMarioType() { return m_Type; }
 		bool GetJump() { return isJump; }
+		bool GetisFacingRight() { return isFacingRight; }
 
 	private:
 		void idle();
@@ -30,9 +31,9 @@ namespace Js
 		void jump();
 		void attack();
 		void die();
-	
+
 		void growUp(std::shared_ptr<Collider> _other);
-		void gameEnd(std::shared_ptr<Collider> _other);
+		void endPointTouch(std::shared_ptr<Collider> _other);
 
 		void CollisionInteraction(std::shared_ptr<Collider> _other);
 

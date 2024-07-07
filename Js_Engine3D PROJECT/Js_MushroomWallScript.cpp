@@ -1,4 +1,4 @@
-#include "Js_MushroomWalllScript.h"
+#include "Js_MushroomWallScript.h"
 #include "Js_PlayerScript.h"
 
 #include "Js_Input.h"

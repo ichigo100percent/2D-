@@ -58,6 +58,25 @@ namespace Js
 			
 			Add(shader->GetName(), shader);
 		}
+
+		{
+			auto vertexShader = std::make_shared<VertexShader>(m_Device);
+			vertexShader->Create(L"Nomal.hlsl", "VS", "vs_5_0");
+
+			auto inputLayout = std::make_shared<InputLayout>(m_Device);
+			inputLayout->Create(VertexTextureData::descs, vertexShader->GetBlob());
+
+			auto pixelShader = std::make_shared<PixelShader>(m_Device);
+			pixelShader->Create(L"Nomal.hlsl", "PS", "ps_5_0");
+
+			std::shared_ptr<Shader> shader = std::make_shared<Shader>();
+			shader->SetName(L"Nomal");
+			shader->SetVertexShadaer(vertexShader);
+			shader->SetPixelShader(pixelShader);
+			shader->SetInputLayout(inputLayout);
+
+			Add(shader->GetName(), shader);
+		}
 	}
 	void ResourceManager::createDefaultTexture()
 	{
@@ -162,7 +181,13 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"Block4");
+			texture->Create(L"../../Res/Sprite/block4.png");
 
+			Add(texture->GetName(), texture);
+		}
 		{
 			auto texture = std::make_shared<Texture>(m_Device);
 			texture->SetName(L"¹ö¼¸");
@@ -181,6 +206,13 @@ namespace Js
 			auto texture = std::make_shared<Texture>(m_Device);
 			texture->SetName(L"ºÒ²É");
 			texture->Create(L"../../Res/Sprite/ºÒ²É.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"¿£µù");
+			texture->Create(L"../../Res/Sprite/ending.jpg");
 
 			Add(texture->GetName(), texture);
 		}
@@ -269,6 +301,27 @@ namespace Js
 
 			Add(texture->GetName(), texture);
 		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"¸¶¸®¿À_±ê¹ß");
+			texture->Create(L"../../Res/Sprite/¸¶¸®¿À_±ê¹ß.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"½´ÆÛ¸¶¸®¿À_±ê¹ß");
+			texture->Create(L"../../Res/Sprite/½´ÆÛ¸¶¸®¿À_±ê¹ß.png");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"ÆÄÀÌ¾î¸¶¸®¿À_±ê¹ß");
+			texture->Create(L"../../Res/Sprite/ÆÄÀÌ¾î¸¶¸®¿À_±ê¹ß.png");
+
+			Add(texture->GetName(), texture);
+		}
 	}
 	void ResourceManager::createSuperMarioTexture()
 	{
@@ -302,6 +355,14 @@ namespace Js
 		}
 		{
 			auto material = std::make_shared<Material>();
+			material->SetName(L"Block4");
+			material->SetShader(Get<Shader>(L"Default"));
+			material->SetTexture(Get<Texture>(L"Block4"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
 			material->SetName(L"¹ö¼¸");
 			material->SetShader(Get<Shader>(L"Default"));
 			material->SetTexture(Get<Texture>(L"¹ö¼¸"));
@@ -321,6 +382,14 @@ namespace Js
 			material->SetName(L"ºÒ²É");
 			material->SetShader(Get<Shader>(L"Default"));
 			material->SetTexture(Get<Texture>(L"ºÒ²É"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"¿£µù");
+			material->SetShader(Get<Shader>(L"Nomal"));
+			material->SetTexture(Get<Texture>(L"¿£µù"));
 
 			Add(material->GetName(), material);
 		}
@@ -417,6 +486,36 @@ namespace Js
 			animation->SetLoop(true);
 
 			animation->SetKeyFrame(Vector2(96.0f, 0.0f), Vector2(16.0f, 16.0f), 1, 0.07f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"Mario_flag");
+			animation->SetTexture(Get<Texture>(L"¸¶¸®¿À_±ê¹ß"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 16.0f), 1, 0.07f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"SuperMario_flag");
+			animation->SetTexture(Get<Texture>(L"½´ÆÛ¸¶¸®¿À_±ê¹ß"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.07f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"FireMario_flag");
+			animation->SetTexture(Get<Texture>(L"ÆÄÀÌ¾î¸¶¸®¿À_±ê¹ß"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 32.0f), 1, 0.07f);
 
 			Add(animation->GetName(), animation);
 		}
