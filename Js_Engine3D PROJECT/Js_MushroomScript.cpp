@@ -11,7 +11,7 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
-#include "Js_WallScript.h"
+#include "Js_MushroomWalllScript.h"
 
 #include "Js_GoombaScript.h"
 

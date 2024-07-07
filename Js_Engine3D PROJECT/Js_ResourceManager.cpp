@@ -569,5 +569,15 @@ namespace Js
 
 			Add(animation->GetName(), animation);
 		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"ºÒ²É¹ß½Î");
+			animation->SetTexture(Get<Texture>(L"ºÒ²É"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(15.0f, 16.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
 	}
 }

@@ -198,7 +198,7 @@
     <ClInclude Include="Js_Transform.h" />
     <ClInclude Include="Js_VertexBuffer.h" />
     <ClInclude Include="Js_VertexData.h" />
-    <ClInclude Include="Js_WallScript.h" />
+    <ClInclude Include="Js_MushroomWalllScript.h" />
     <ClInclude Include="Js_Window.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Js_MeshRenderer.h" />
@@ -266,7 +266,7 @@
     <ClCompile Include="Js_Transform.cpp" />
     <ClCompile Include="Js_VertexBuffer.cpp" />
     <ClCompile Include="Js_VertexData.cpp" />
-    <ClCompile Include="Js_WallScript.cpp" />
+    <ClCompile Include="Js_MushroomWallScript.cpp" />
     <ClCompile Include="Js_Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Js_MeshRenderer.cpp" />

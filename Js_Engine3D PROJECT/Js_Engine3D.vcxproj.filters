@@ -170,7 +170,7 @@
     <ClCompile Include="Js_EndLineScript.cpp">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Js_WallScript.cpp">
+    <ClCompile Include="Js_MushroomWallScript.cpp">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_GoombaScript.cpp">
@@ -382,7 +382,7 @@
     <ClInclude Include="Js_EndLineScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Js_WallScript.h">
+    <ClInclude Include="Js_MushroomWalllScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_GoombaScript.h">

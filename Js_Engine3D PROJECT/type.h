@@ -34,6 +34,8 @@ namespace Js::enums
 		MunshRoom,
 		Flower,
 		Monster,
+		Flag,
+		EndPoint,
 		End,
 		Max,
 	};

@@ -1,13 +1,22 @@
 #include "Js_FireballScript.h"
-#include "Js_Core.h"
-#include "Js_DxObject.h"
+#include "Js_Fireball.h"
+#include "Js_PlayerScript.h"
 #include "Js_Input.h"
 #include "Js_Time.h"
+#include "Js_DxObject.h"
 #include "Js_Transform.h"
-#include "Js_SceneManager.h"
+#include "Js_MeshRenderer.h"
 #include "Js_Object.h"
-#include "Js_Fireball.h"
+#include "Js_Rigidbody.h"
+#include "Js_Animation.h"
 #include "Js_Player.h"
+#include "Js_SceneManager.h"
+#include "Js_PlayScene.h"
+#include "Js_TitleScene.h"
+#include "Js_MushroomWalllScript.h"
+
+#include "Js_GoombaScript.h"
+#include "Js_CollisionManager.h"
 
 namespace Js
 {
@@ -19,12 +28,20 @@ namespace Js
 		{
 			ShootFireball();
 		}
-        if (m_DeathTime > 3.f)
-        {
-           /* if(fireball)
-                object::Destory(fireball);*/
-        }
 	}
+    void FireballScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
+    {
+        if (_other->GetOwner()->GetLayerType() == LayerType::Monster)
+        {
+            object::Destroy(fireball);
+        }
+    }
+    void FireballScript::OnCollisionStay(std::shared_ptr<Collider> _other)
+    {
+    }
+    void FireballScript::OnCollisionExit(std::shared_ptr<Collider> _other)
+    {
+    }
 	void FireballScript::ShootFireball()
 	{
         auto player = m_Player.lock();
@@ -48,10 +65,15 @@ namespace Js
             meshRender->SetMesh(mesh);
             auto material = I_Resource->Get<Material>(L"Default");
             meshRender->SetMaterial(material);
-            fireball->GetTransform()->SetScale(fireball->GetSize());
+            fireball->GetTransform()->SetScale(Vector3(16, 16, 0));
 
             fireball->GetTransform()->SetPosition(offsetPosition);
             fireball->GetTransform()->SetForward2D(playerDirection);
+
+            auto animator = std::make_shared<Animator>();
+            auto anim = I_Resource->Get<Animation>(L"ºÒ²É¹ß½Î");
+            animator->SetAnimation(anim);
+            fireball->AddComponent(animator);
         }
 
 	}

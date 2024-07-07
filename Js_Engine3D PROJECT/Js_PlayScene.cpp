@@ -29,7 +29,7 @@
 #include "Js_MarioCameraScript.h"
 #include "Js_DefaultMoveScript.h"
 #include "Js_MarioScript.h"
-#include "Js_WallScript.h"
+#include "Js_MushroomWalllScript.h"
 #include "Js_EndLineScript.h"
 #include "Js_GoombaScript.h"
 
@@ -143,7 +143,7 @@ namespace Js
 			wall1->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall1->AddComponent(col);
-			wall1->AddComponent(std::make_shared<WallScript>());
+			wall1->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
 		std::shared_ptr<DxObject> wall2 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
@@ -157,7 +157,7 @@ namespace Js
 			wall2 ->GetTransform()->SetPosition(Vector3(-2732, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall2 ->AddComponent(col);
-			wall2 ->AddComponent(std::make_shared<WallScript>());
+			wall2 ->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
 		std::shared_ptr<DxObject> wall3 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
@@ -171,7 +171,7 @@ namespace Js
 			wall3->GetTransform()->SetPosition(Vector3(-2764, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall3->AddComponent(col);
-			wall3->AddComponent(std::make_shared<WallScript>());
+			wall3->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
 
 
@@ -284,6 +284,34 @@ namespace Js
 			deadLine->AddComponent(col);
 		}
 
+		std::shared_ptr<DxObject> flag = object::Instantiate<DxObject>(L"Flag", LayerType::EndPoint);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			flag->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"¸¶¸®¿À2");
+			meshRender->SetMaterial(material);
+			flag->GetTransform()->SetScale(Vector3(16, 1000, 0));
+			flag->GetTransform()->SetPosition(Vector3(-2250, -300, 0));
+			auto col = std::make_shared<Collider>();
+			flag->AddComponent(col);
+		}
+
+		std::shared_ptr<DxObject> endPoint = object::Instantiate<DxObject>(L"EndPoint", LayerType::Flag);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			endPoint->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
+			endPoint->GetTransform()->SetScale(Vector3(16, 10000, 0));
+			endPoint->GetTransform()->SetPosition(Vector3(-2464, -300, 0));
+			auto col = std::make_shared<Collider>();
+			endPoint->AddComponent(col);
+		}
+
 #pragma region Player
 
 		player = object::Instantiate<Player>(L"Player", LayerType::Player);
@@ -299,7 +327,7 @@ namespace Js
 			//player->AddComponent(std::make_shared<MoveScript>());
 			player->AddComponent(std::make_shared<PlayerScript>());
 			player->AddComponent(std::make_shared<Rigidbody>());
-			//player->AddComponent(std::make_shared<FireballScript>(player));
+			player->AddComponent(std::make_shared<FireballScript>(player));
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
 			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
@@ -348,6 +376,8 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::WallEnd, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flower, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flag, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::EndPoint, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);

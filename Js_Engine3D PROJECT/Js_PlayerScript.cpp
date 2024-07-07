@@ -11,7 +11,7 @@
 #include "Js_SceneManager.h"
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
-#include "Js_WallScript.h"
+#include "Js_MushroomWalllScript.h"
 
 #include "Js_GoombaScript.h"
 #include "Js_CollisionManager.h"
@@ -36,13 +36,25 @@ namespace Js
 		if (m_Animator == nullptr)
 			m_Animator = GetOwner()->GetAnimator();
 		
-		if (GetMarioState() != State::Die)
+		if (GetMarioState() != State::Die && !flagTouch)
 		{
 			move();
 			jump();
 			idle();
 
 			m_Rigidbody->SetGrounded(false);
+		}
+		else if (flagTouch && !flagAtGround)
+		{			
+			auto position = GetOwner()->GetTransform()->GetPosition();
+			position.y -= 100 * Time::DeltaTime();
+			GetOwner()->GetTransform()->SetPosition(position);
+		}
+		else if(flagAtGround)
+		{
+			auto position = GetOwner()->GetTransform()->GetPosition();
+			position.x += 100 * Time::DeltaTime();
+			GetOwner()->GetTransform()->SetPosition(position);
 		}
 		if (isInvincible)
 		{
@@ -63,6 +75,7 @@ namespace Js
 		HandleCollision(_other);
 		growUp(_other);
 		CollisionInteraction(_other);
+		gameEnd(_other);
 
 		if (_other->GetOwner()->GetLayerType() == LayerType::End)
 		{
@@ -405,8 +418,8 @@ namespace Js
 			m_Rigidbody->SetGrounded(true);
 
 			time = Time::DeltaTime();
-			deadTime += time;
-			if (deadTime > 0.3)
+			elapsedTime += time;
+			if (elapsedTime > 0.3)
 			{
 				veloctiy.y = -450;
 				m_Rigidbody->SetVelocity(veloctiy);
@@ -414,8 +427,7 @@ namespace Js
 			}
 		}
 	}
-
-    void PlayerScript::growUp(std::shared_ptr<Collider> _other)
+	void PlayerScript::growUp(std::shared_ptr<Collider> _other)
     {
         auto type = _other->GetOwner()->GetLayerType();
 
@@ -445,6 +457,37 @@ namespace Js
 			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
 		}
     }
+	void PlayerScript::gameEnd(std::shared_ptr<Collider> _other)
+	{
+		auto type = _other->GetOwner()->GetLayerType();
+
+		if (type == enums::LayerType::Flag)
+		{
+			flagTouch = true;
+			m_Rigidbody->SetGrounded(true);
+			m_Rigidbody->SetVelocity(Vector3::Zero);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flag, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, false);
+			// 애니메이션 설정
+		}
+
+		if (type == enums::LayerType::Floor && flagTouch)
+		{
+			flagAtGround = true;
+		}
+
+		// x축으로 이동하면서 endPoint에 충돌시 겜오브젝트 삭제 2초뒤 신이동
+		if (type == enums::LayerType::EndPoint)
+		{
+			object::Destroy(GetOwner());
+			time = Time::DeltaTime();
+			elapsedTime += time;
+			if (elapsedTime > 2)
+			{
+				std::dynamic_pointer_cast<TitleScene>(SceneManager::LoadScene<TitleScene>(L"Title"));
+			}
+		}
+	}
     void PlayerScript::CollisionInteraction(std::shared_ptr<Collider> _other)
     {
         auto type = _other->GetOwner()->GetLayerType();

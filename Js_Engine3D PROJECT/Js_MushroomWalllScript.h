@@ -8,7 +8,7 @@ namespace Js
 
 	};
 
-	class WallScript : public MonoBehaviour
+	class MushroomWalllScript : public MonoBehaviour
 	{
 	public:
 

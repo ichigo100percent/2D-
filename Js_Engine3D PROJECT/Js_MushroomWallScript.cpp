@@ -1,4 +1,4 @@
-#include "Js_WallScript.h"
+#include "Js_MushroomWalllScript.h"
 #include "Js_PlayerScript.h"
 
 #include "Js_Input.h"
@@ -19,13 +19,13 @@
 
 namespace Js
 {
-	void WallScript::Init()
+	void MushroomWalllScript::Init()
 	{
 	}
-	void WallScript::Update()
+	void MushroomWalllScript::Update()
 	{
 	}
-	void WallScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
+	void MushroomWalllScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
 	{
 		auto other = _other->GetOwner();
 		auto scripts = other->GetScripts();
@@ -65,10 +65,10 @@ namespace Js
 		}
 		
 	}
-	void WallScript::OnCollisionStay(std::shared_ptr<Collider> _other)
+	void MushroomWalllScript::OnCollisionStay(std::shared_ptr<Collider> _other)
 	{
 	}
-	void WallScript::OnCollisionExit(std::shared_ptr<Collider> _other)
+	void MushroomWalllScript::OnCollisionExit(std::shared_ptr<Collider> _other)
 	{
 	}
 }
