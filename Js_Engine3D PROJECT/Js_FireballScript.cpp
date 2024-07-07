@@ -26,24 +26,33 @@ namespace Js
     }
     void FireballScript::Update()
     {
-		float speed = 500 * Time::DeltaTime();
-		float gravity = -300.0f * Time::DeltaTime();
-		auto position = GetOwner()->GetTransform()->GetPosition();
+        float speed = 500 * Time::DeltaTime();
+        float gravity = -980.0f * Time::DeltaTime();
+        auto position = GetOwner()->GetTransform()->GetPosition();
 
-		// 방향에 따라 위치 업데이트
-		position.x += m_Direction.x * speed;
-		position.y += gravity;
+        // 방향에 따라 위치 업데이트
+        position.x += m_Direction.x * speed;
+        position.y += gravity;
 
-		GetOwner()->GetTransform()->SetPosition(position);
+        if (!isGround)
+        {
+            m_Velocity.y += gravity; // 중력 적용
+        }
+
+        position.y += m_Velocity.y * Time::DeltaTime();
+
+        GetOwner()->GetTransform()->SetPosition(position);
     }
+
     void FireballScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
     {
         if (_other->GetOwner()->GetLayerType() == LayerType::Floor)
         {
-			// y축 점프
-			auto position = GetOwner()->GetTransform()->GetPosition();
-			position.y += 30.0f; // 점프 높이 설정
-			GetOwner()->GetTransform()->SetPosition(position);
+            isGround = true;
+
+            // 바닥에 닿으면 튀게 만들기, 속도를 줄임
+            m_Velocity.y = 1250.0f; // 위로 튀어 오르게 설정 (중력 반대 방향 속도)
+            isGround = false;
         }
     }
     void FireballScript::OnCollisionStay(std::shared_ptr<Collider> _other)
@@ -51,6 +60,7 @@ namespace Js
     }
     void FireballScript::OnCollisionExit(std::shared_ptr<Collider> _other)
     {
+
     }
 
     /*

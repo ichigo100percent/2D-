@@ -420,7 +420,7 @@ namespace Js
 					Vector3 direction = isFacingRight ? Vector3(1, 0, 0) : Vector3(-1, 0, 0);
 
 					// 화염볼의 초기 위치 설정
-					fireball->GetTransform()->SetPosition(position);
+					fireball->GetTransform()->SetPosition(Vector3(position.x, position.y + 16, position.z));
 
 					// 화염볼 스크립트 추가
 					fireball->AddComponent(std::make_shared<FireballScript>(GetOwner(), direction));

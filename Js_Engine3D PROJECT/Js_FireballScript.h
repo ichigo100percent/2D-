@@ -21,7 +21,8 @@ namespace Js
 	private:
 		std::shared_ptr<DxObject> m_Owner = nullptr;
 		Vector3 m_Direction = Vector3::Zero;
-
+		Vector3 m_Velocity = Vector3::Zero;
+		bool isGround = false;
 	};
 	//class FireballScript : public MonoBehaviour
 	//{
