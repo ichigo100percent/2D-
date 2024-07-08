@@ -61,6 +61,7 @@ namespace Js
         if (_other->GetOwner()->GetLayerType() == LayerType::Monster)
         {
             object::Destroy(_other->GetOwner());
+            object::Destroy(GetOwner());
         }
     }
     void FireballScript::OnCollisionStay(std::shared_ptr<Collider> _other)

@@ -30,15 +30,19 @@ namespace Js
     }
     void PlayerScript::Init()
 	{
-		music = SoundManager::Get(L"overworld.wav");
 		if (music)
-			music->Play(true);
+			music->Release();
+		if (effect)
+			effect->Release();
 
 		m_Animator = GetOwner()->GetAnimator();
 		m_Rigidbody = GetOwner()->GetComponent<Rigidbody>();
 		m_State = State::Idle;
 		jumpeffectCount = 0;
 		count = 0;
+
+		music = SoundManager::Get(L"overworld.wav");
+		music->Play(true);
 	}
 	void PlayerScript::Update()
 	{
@@ -163,7 +167,9 @@ namespace Js
 						effect = SoundManager::Get(L"blockbreak.wav");
 						if (effect)
 							effect->PlayEffect();
-						object::Destroy(_other->GetOwner());
+
+						if(_other->GetOwner()->GetScripts().empty())
+							object::Destroy(_other->GetOwner());
 					}
 					else
 					{
@@ -447,14 +453,10 @@ namespace Js
 					auto col = std::make_shared<Collider>();
 					fireball->AddComponent(col);
 
-					// 플레이어의 위치와 방향 가져오기
 					Vector3 position = GetOwner()->GetTransform()->GetPosition();
 					Vector3 direction = isFacingRight ? Vector3(1, 0, 0) : Vector3(-1, 0, 0);
 
-					// 화염볼의 초기 위치 설정
 					fireball->GetTransform()->SetPosition(Vector3(position.x, position.y + 16, position.z));
-
-					// 화염볼 스크립트 추가
 					fireball->AddComponent(std::make_shared<FireballScript>(GetOwner(), direction));
 				}
 				effect = SoundManager::Get(L"fireball.wav");

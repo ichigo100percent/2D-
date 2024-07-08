@@ -38,6 +38,10 @@ namespace Js
 		{
 			m_IsGround = true;
 		}
+		if (type == enums::LayerType::End && m_State == State::Move)
+		{
+			object::Destroy(GetOwner());
+		}
 	}
 	void GoombaScript::OnCollisionStay(std::shared_ptr<Collider> _other)
 	{

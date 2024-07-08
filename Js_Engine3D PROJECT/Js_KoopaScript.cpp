@@ -61,6 +61,18 @@ namespace Js
 		{
 			m_IsGround = true;
 		}
+		if (type == enums::LayerType::End && m_State == State::Move)
+		{
+			object::Destroy(GetOwner());
+		}
+		if (type == enums::LayerType::End && m_State == State::Die)
+		{
+			object::Destroy(GetOwner());
+		}
+		if (type == enums::LayerType::Monster && m_State == State::Die)
+		{
+			object::Destroy(_other->GetOwner());
+		}
 	}
 	void KoopaScript::OnCollisionStay(std::shared_ptr<Collider> _other)
 	{

@@ -48,7 +48,7 @@ namespace Js
 			time = Time::DeltaTime();
 			elapsedTime += time;
 
-			if (elapsedTime > 3)
+			if (elapsedTime > 5)
 				SceneManager::LoadScene<EndingScene>(L"Ending");
 		}
 	}

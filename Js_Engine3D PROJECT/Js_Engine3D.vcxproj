@@ -152,6 +152,7 @@
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
     <ClInclude Include="Js_FlagScript.h" />
+    <ClInclude Include="Js_FlowerWallScript.h" />
     <ClInclude Include="Js_FollowTargetScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Js_BlendState.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
     <ClCompile Include="Js_FlagScript.cpp" />
+    <ClCompile Include="Js_FlowerWallScript.cpp" />
     <ClCompile Include="Js_FollowTargetScript.cpp" />
     <ClCompile Include="Js_BlendState.cpp" />
     <ClCompile Include="Js_Camera.cpp" />
