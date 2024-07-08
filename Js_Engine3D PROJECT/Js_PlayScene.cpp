@@ -33,7 +33,7 @@
 #include "Js_EndLineScript.h"
 #include "Js_GoombaScript.h"
 #include "Js_EndPointScript.h"
-
+#include "Js_KoopaScript.h"
 namespace Js
 {
 	void PlayScene::Init()
@@ -304,13 +304,12 @@ namespace Js
 			wall1->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block2");
+			auto material = I_Resource->Get<Material>(L"Block3");
 			meshRender->SetMaterial(material);
 			wall1->GetTransform()->SetScale(wall1->GetSize());
-			wall1->GetTransform()->SetPosition(Vector3(-2700, -300, 0));
+			wall1->GetTransform()->SetPosition(Vector3(-2300, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall1->AddComponent(col);
-			wall1->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
 		std::shared_ptr<DxObject> wall2 = object::Instantiate<DxObject>(L"wall", LayerType::Wall);
 		{
@@ -318,10 +317,10 @@ namespace Js
 			wall2->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block2");
+			auto material = I_Resource->Get<Material>(L"Block1");
 			meshRender->SetMaterial(material);
 			wall2 ->GetTransform()->SetScale(wall2->GetSize());
-			wall2 ->GetTransform()->SetPosition(Vector3(-2732, -300, 0));
+			wall2 ->GetTransform()->SetPosition(Vector3(-2332, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall2 ->AddComponent(col);
 			wall2 ->AddComponent(std::make_shared<MushroomWalllScript>());
@@ -332,13 +331,12 @@ namespace Js
 			wall3->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"Block2");
+			auto material = I_Resource->Get<Material>(L"Block3");
 			meshRender->SetMaterial(material);
 			wall3->GetTransform()->SetScale(wall3->GetSize());
-			wall3->GetTransform()->SetPosition(Vector3(-2764, -300, 0));
+			wall3->GetTransform()->SetPosition(Vector3(-2364, -300, 0));
 			auto col = std::make_shared<Collider>();
 			wall3->AddComponent(col);
-			wall3->AddComponent(std::make_shared<MushroomWalllScript>());
 		}
 #pragma endregion
 
@@ -406,6 +404,48 @@ namespace Js
 			m_Goombas[0]->AddComponent(std::make_shared<GoombaScript>());
 		}
 
+		//m_Goombas[1] = object::Instantiate<DxObject>(L"Goomba", LayerType::Monster);
+		//{
+		//	auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+		//	m_Goombas[1]->AddComponent(meshRender);
+		//	auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+		//	meshRender->SetMesh(mesh);
+		//	auto material = I_Resource->Get<Material>(L"Block1");
+		//	meshRender->SetMaterial(material);
+		//	m_Goombas[1]->GetTransform()->SetScale(m_Goombas[0]->GetSize());
+		//	m_Goombas[1]->GetTransform()->SetPosition(Vector3(-2200, -400, 0));
+
+		//	auto col = std::make_shared<Collider>();
+		//	m_Goombas[1]->AddComponent(col);
+
+		//	auto animator = std::make_shared<Animator>();
+		//	m_Goombas[1]->AddComponent(animator);
+		//	auto anim = I_Resource->Get<Animation>(L"±À¹Ù");
+		//	animator->SetAnimation(anim);
+		//	m_Goombas[1]->AddComponent(std::make_shared<GoombaScript>());
+		//}
+
+		std::shared_ptr<DxObject> koopa = object::Instantiate<DxObject>(L"koopa", LayerType::Monster);
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			koopa->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Block1");
+			meshRender->SetMaterial(material);
+			koopa ->GetTransform()->SetScale(koopa->GetSize());
+			koopa ->GetTransform()->SetPosition(Vector3(-2200, -400, 0));
+
+			auto col = std::make_shared<Collider>();
+			koopa->AddComponent(col);
+
+			auto animator = std::make_shared<Animator>();
+			koopa->AddComponent(animator);
+			auto anim = I_Resource->Get<Animation>(L"¾û±Ý¾û±Ý");
+			animator->SetAnimation(anim);
+			koopa->AddComponent(std::make_shared<KoopaScript>());
+		}
+
 #pragma endregion
 
 #pragma region Player
@@ -436,7 +476,20 @@ namespace Js
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
 		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
 
-		SoundManager::Add(L"overworld.wav", L"overworld.wav");
+		SoundManager::Add(L"../../Res/sounds/music/overworld.wav", L"overworld.wav");
+		SoundManager::Add(L"../../Res/sounds/music/gamewon.wav", L"gamewon.wav");
+
+		SoundManager::Add(L"../../Res/sounds/effects/flagraise.wav", L"flagraise.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/death.wav", L"death.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/jump.wav", L"jump.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/powerupcollect.wav", L"powerupcollect.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/blockhit.wav", L"blockhit.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/blockbreak.wav", L"blockbreak.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/fireball.wav", L"fireball.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/stomp.wav", L"stomp.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/kick.wav", L"kick.wav");
+		SoundManager::Add(L"../../Res/sounds/effects/powerupappear.wav", L"powerupappear.wav");
+		
 		Scene::Init();
 	}
 
@@ -460,9 +513,6 @@ namespace Js
 	{
 		Scene::OnEnter();
 		PlayScene::Init();
-		m_Sound = SoundManager::Get(L"overworld.wav");
-		if (m_Sound)
-			m_Sound->Play(true);
 
 
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, true);
@@ -474,7 +524,9 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flower, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Flag, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::EndPoint, true);
-
+		CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::ItemWall, true);
+		
+		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Wall, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(LayerType::Monster, LayerType::Fireball, true);
@@ -484,13 +536,11 @@ namespace Js
 		CollisionManager::CollisionLayerCheck(LayerType::MunshRoom, LayerType::Floor, true);
 
 		CollisionManager::CollisionLayerCheck(LayerType::Fireball, LayerType::Floor, true);
+		CollisionManager::CollisionLayerCheck(LayerType::Fireball, LayerType::Wall, true);
 	}
 	void PlayScene::OnExit()
 	{
 		Scene::OnExit();
-		if (m_Sound)
-			m_Sound->Release();
-		
 		SoundManager::Clear();
 	}
 }

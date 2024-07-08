@@ -416,6 +416,36 @@ namespace Js
 
 			Add(animation->GetName(), animation);
 		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"²®Áú");
+			animation->SetTexture(Get<Texture>(L"²®Áú"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 16.0f), 1, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"¾û±Ý¾û±Ý");
+			animation->SetTexture(Get<Texture>(L"¾û±Ý¾û±Ý"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(0.0f, 0.0f), Vector2(16.0f, 24.0f), 2, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
+		{
+			auto animation = std::make_shared<Animation>();
+			animation->SetName(L"¾û±Ý¾û±Ý2");
+			animation->SetTexture(Get<Texture>(L"¾û±Ý¾û±Ý"));
+			animation->SetLoop(true);
+
+			animation->SetKeyFrame(Vector2(32.0f, 0.0f), Vector2(16.0f, 24.0f), 2, 0.1f);
+
+			Add(animation->GetName(), animation);
+		}
 	}
 	void ResourceManager::createMarioAnimation()
 	{

@@ -182,6 +182,9 @@
     <ClCompile Include="Js_EndPointScript.cpp">
       <Filter>소스 파일\04. Scripts\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Js_KoopaScript.cpp">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -396,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="Js_EndPointScript.h">
       <Filter>소스 파일\04. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Js_KoopaScript.h">
+      <Filter>소스 파일\04. Scripts\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

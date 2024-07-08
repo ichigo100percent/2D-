@@ -2,6 +2,8 @@
 #include "Js_MonoBehaviour.h"
 #include "Js_Animator.h"
 #include "Js_Rigidbody.h"
+#include "Js_Sound.h"
+
 namespace Js
 {
 	class PlayerScript : public MonoBehaviour
@@ -55,5 +57,11 @@ namespace Js
 	private:
 		State m_State = State::Idle;
 		MarioType m_Type = MarioType::Nomal;
+
+	private:
+		std::shared_ptr<Fmod> effect = nullptr;
+		std::shared_ptr<Fmod> music = nullptr;
+		UINT jumpeffectCount = 0;
+		UINT count = 0;
 	};
 }

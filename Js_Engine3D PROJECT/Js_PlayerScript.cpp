@@ -16,6 +16,8 @@
 #include "Js_GoombaScript.h"
 #include "Js_CollisionManager.h"
 #include "Js_FireballScript.h"
+#include "Js_SoundManager.h"
+#include "Js_KoopaScript.h"
 
 
 namespace Js
@@ -28,9 +30,15 @@ namespace Js
     }
     void PlayerScript::Init()
 	{
+		music = SoundManager::Get(L"overworld.wav");
+		if (music)
+			music->Play(true);
+
 		m_Animator = GetOwner()->GetAnimator();
 		m_Rigidbody = GetOwner()->GetComponent<Rigidbody>();
-		m_State = State::Idle;       
+		m_State = State::Idle;
+		jumpeffectCount = 0;
+		count = 0;
 	}
 	void PlayerScript::Update()
 	{
@@ -83,7 +91,7 @@ namespace Js
 
 		if (_other->GetOwner()->GetLayerType() == LayerType::End)
 		{
-			std::dynamic_pointer_cast<TitleScene>(SceneManager::LoadScene<TitleScene>(L"Title"));
+			m_State = State::Die;
 		}
 	}
 
@@ -99,6 +107,7 @@ namespace Js
 		if (type == enums::LayerType::Floor || type == enums::LayerType::Wall || type == enums::LayerType::WallEnd)
 		{
 			isJump = false;
+			jumpeffectCount = 0;
 		}
 	}
 	void PlayerScript::HandleCollision(std::shared_ptr<Collider> _other)
@@ -116,6 +125,7 @@ namespace Js
 			{
 				rb->SetGrounded(true); // 땅에 닿았음을 표시
 				isJump = false;
+				jumpeffectCount = 0;
 				m_State = State::Idle;
 				if (pushVector.y != 0)
 				{
@@ -130,6 +140,7 @@ namespace Js
 				{
 					rb->SetGrounded(true);
 					isJump = false; // 점프 상태 해제
+					jumpeffectCount = 0;
 					m_State = State::Idle;
 					auto velocity = rb->GetVelocity();
 					velocity.y = 0; // 수직 속도를 0으로 설정
@@ -146,8 +157,20 @@ namespace Js
 						velocity.y = -200; // 즉시 아래로 떨어지게 설정
 						rb->SetVelocity(velocity);
 					}
+
 					if (GetMarioType() == MarioType::Super || GetMarioType() == MarioType::Fire)
+					{
+						effect = SoundManager::Get(L"blockbreak.wav");
+						if (effect)
+							effect->PlayEffect();
 						object::Destroy(_other->GetOwner());
+					}
+					else
+					{
+						effect = SoundManager::Get(L"blockhit.wav");
+						if (effect)
+							effect->PlayEffect();
+					}
 				}
 			}
 		}
@@ -392,6 +415,15 @@ namespace Js
 			isJump = true;
 			m_State = State::Jump;
 		}
+		if (Input::KeyCheck('W') == KeyState::KEY_UP)
+		{
+			effect = SoundManager::Get(L"jump.wav");
+			if (isJump && jumpeffectCount == 0)
+			{
+				effect->PlayEffect();
+				jumpeffectCount++;
+			}
+		}
     }
 	void PlayerScript::attack()
 	{
@@ -425,6 +457,9 @@ namespace Js
 					// 화염볼 스크립트 추가
 					fireball->AddComponent(std::make_shared<FireballScript>(GetOwner(), direction));
 				}
+				effect = SoundManager::Get(L"fireball.wav");
+				if (effect)
+					effect->PlayEffect();
 			}
 		}
 	}
@@ -437,7 +472,9 @@ namespace Js
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::Wall, false);
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::WallEnd, false);
 			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::MunshRoom, false);
+			CollisionManager::CollisionLayerCheck(LayerType::Player, LayerType::End, false);
 
+			GetOwner()->GetTransform()->SetScale(Vector3(16, 16, 0));
 			auto anim = I_Resource->Get<Animation>(L"Mario_die");
 			m_Animator->SetAnimation(anim);
 			auto veloctiy = m_Rigidbody->GetVelocity();
@@ -454,6 +491,20 @@ namespace Js
 				m_Rigidbody->SetVelocity(veloctiy);
 				m_Rigidbody->SetGrounded(false);
 			}
+
+			effect = SoundManager::Get(L"death.wav");
+			if (music)
+				music->Release();
+			if (effect && count == 0)
+			{
+				effect->PlayEffect();
+				count++;
+			}
+
+			if (elapsedTime > 3)
+			{
+				std::dynamic_pointer_cast<TitleScene>(SceneManager::LoadScene<TitleScene>(L"Title"));
+			}
 		}
 	}
 
@@ -468,9 +519,10 @@ namespace Js
 			GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
             SetType(MarioType::Super);
 
-			// Set invincibility
 			isInvincible = true;
-			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
+			invincibilityTimer = 1.0f; 
+			effect = SoundManager::Get(L"powerupcollect.wav");
+			effect->PlayEffect();
         }
 		if (type == enums::LayerType::Flower && GetMarioType() == MarioType::Super)
 		{
@@ -482,9 +534,11 @@ namespace Js
 			auto anim = I_Resource->Get<Animation>(L"FireMario_rightJump");
 			m_Animator->SetAnimation(anim);
 
-			// Set invincibility
 			isInvincible = true;
-			invincibilityTimer = 1.0f; // 0.5 seconds of invincibility
+			invincibilityTimer = 1.0f; 
+			effect = SoundManager::Get(L"powerupcollect.wav");
+			if(effect)
+				effect->PlayEffect();
 		}
     }
 	void PlayerScript::endPointTouch(std::shared_ptr<Collider> _other)
@@ -493,6 +547,10 @@ namespace Js
 
 		if (type == enums::LayerType::Flag)
 		{
+			music->Release();
+			music = SoundManager::Get(L"flagraise.wav");
+			music->Play(false);
+
 			flagTouch = true;
 			m_Rigidbody->SetGrounded(true);
 			m_Rigidbody->SetVelocity(Vector3::Zero);
@@ -565,6 +623,7 @@ namespace Js
         auto type = _other->GetOwner()->GetLayerType();
         auto scirpts = _other->GetOwner()->GetScripts();
         std::shared_ptr<GoombaScript> goomba = nullptr;
+		std::shared_ptr<KoopaScript> koopa = nullptr;
 
         if (type == enums::LayerType::Monster)
         {
@@ -574,23 +633,101 @@ namespace Js
                 if (goomba)
                     break;
             }
-			if (isJump && goomba)
+			if (goomba)
 			{
-				auto velocity = m_Rigidbody->GetVelocity();
-				velocity.y = 200;
-				m_Rigidbody->SetVelocity(velocity);
-				goomba->SetState(State::Die);
+				if (isJump && goomba)
+				{
+					auto velocity = m_Rigidbody->GetVelocity();
+					velocity.y = 200;
+					m_Rigidbody->SetVelocity(velocity);
+					goomba->SetState(State::Die);
+					effect = SoundManager::Get(L"stomp.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
+				else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Nomal)
+				{
+					m_State = State::Die;
+				}
+				else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Super)
+				{
+					auto material = I_Resource->Get<Material>(L"Default");
+					GetOwner()->GetMeshRenderer()->SetMaterial(material);
+					GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+					m_Type = MarioType::Nomal;
+					invincibilityTimer = 1.0f;
+					isInvincible = true;
+					effect = SoundManager::Get(L"powerupappear.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
+				else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Fire)
+				{
+					auto material = I_Resource->Get<Material>(L"마리오2");
+					GetOwner()->GetMeshRenderer()->SetMaterial(material);
+					GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+					m_Type = MarioType::Super;
+					invincibilityTimer = 1.0f;
+					isInvincible = true;
+					effect = SoundManager::Get(L"powerupappear.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
 			}
-			else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Nomal)
-				m_State = State::Die;
-			else if (goomba->GetState() == State::Move && GetMarioType() == MarioType::Super)
+			for (auto script : scirpts)
 			{
-				auto material = I_Resource->Get<Material>(L"Default");
-				GetOwner()->GetMeshRenderer()->SetMaterial(material);
-				GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
-				m_Type = MarioType::Nomal;
-				invincibilityTimer = 1.0f;
-				isInvincible = true;
+				koopa = std::dynamic_pointer_cast<KoopaScript>(script);
+				if (koopa)
+					break;
+			}
+			if (koopa)
+			{
+				if (isJump && koopa && koopa->GetState() == State::Move)
+				{
+					auto velocity = m_Rigidbody->GetVelocity();
+					velocity.y = 200;
+					m_Rigidbody->SetVelocity(velocity);
+					koopa->SetState(State::Idle);
+					effect = SoundManager::Get(L"stomp.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
+				else if (isJump && koopa->GetState() == State::Idle)
+				{
+					auto velocity = m_Rigidbody->GetVelocity();
+					velocity.y = 200;
+					m_Rigidbody->SetVelocity(velocity);
+					koopa->SetState(State::Die);
+					effect = SoundManager::Get(L"kick.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
+				else if ((koopa->GetState() == State::Move || koopa->GetState() == State::Die ) && GetMarioType() == MarioType::Nomal)
+					m_State = State::Die;
+				else if ((koopa->GetState() == State::Move || koopa->GetState() == State::Die) && GetMarioType() == MarioType::Super)
+				{
+					auto material = I_Resource->Get<Material>(L"Default");
+					GetOwner()->GetMeshRenderer()->SetMaterial(material);
+					GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+					m_Type = MarioType::Nomal;
+					invincibilityTimer = 1.0f;
+					isInvincible = true;
+					effect = SoundManager::Get(L"powerupappear.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
+				else if ((koopa->GetState() == State::Move || koopa->GetState() == State::Die) && GetMarioType() == MarioType::Fire)
+				{
+					auto material = I_Resource->Get<Material>(L"마리오2");
+					GetOwner()->GetMeshRenderer()->SetMaterial(material);
+					GetOwner()->GetTransform()->SetScale(GetOwner()->GetSize());
+					m_Type = MarioType::Super;
+					invincibilityTimer = 1.0f;
+					isInvincible = true;
+					effect = SoundManager::Get(L"powerupappear.wav");
+					if (effect)
+						effect->PlayEffect();
+				}
 			}
         }
 

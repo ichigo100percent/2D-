@@ -75,7 +75,7 @@ namespace Js
 		FMOD::Channel* pChannel = nullptr;
 		FMOD_RESULT hr = m_FmodSystem->playSound(m_Sound,
 			nullptr, false, &pChannel);
-		assert(FMOD_OK(hr));
+		//assert(FMOD_OK(hr));
 	}
 	void Fmod::Stop()
 	{

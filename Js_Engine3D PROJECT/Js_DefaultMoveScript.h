@@ -21,6 +21,7 @@ namespace Js
 	protected:
 		virtual void move();
 		virtual void die();
+		virtual void idle();
 
 	protected:
 		std::shared_ptr<DxObject> m_Owner = nullptr;

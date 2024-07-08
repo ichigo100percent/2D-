@@ -32,6 +32,8 @@ namespace Js
 		case State::Die:
 			die();
 			break;
+		case State::Idle:
+			idle();
 		default:
 			break;
 		}
@@ -91,5 +93,21 @@ namespace Js
 		{
 			object::Destroy(m_Owner);
 		}
+	}
+	void DefaultMoveScript::idle()
+	{
+		m_DeltaTime = Time::DeltaTime();
+		Vector3	position = GetOwner()->GetTransform()->GetPosition();
+
+		if (!m_IsGround)
+		{
+			position.y += m_Gravity * m_DeltaTime;
+		}
+		
+		// 일정한 속도로 이동
+		position += Vector3(0,0,0) * m_Speed * m_DeltaTime;
+
+		// 위치 업데이트
+		GetOwner()->GetTransform()->SetPosition(position);
 	}
 }

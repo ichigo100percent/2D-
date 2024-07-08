@@ -38,7 +38,7 @@ namespace Js
 				auto mario = std::dynamic_pointer_cast<PlayerScript>(script);
 				if (mario)
 				{
-					if (mario->GetMarioType() == MarioType::Nomal && mario->GetMarioState() == State::Jump && m_Count == 0)
+					if (mario->GetMarioState() == State::Jump && m_Count == 0)
 					{
 						auto transform = GetOwner()->GetTransform();
 					
@@ -59,6 +59,10 @@ namespace Js
 							mushroom->AddComponent(std::make_shared<MushroomScript>());
 						}
 						m_Count++;
+
+						auto mesh = GetOwner()->GetMeshRenderer();
+						auto material = I_Resource->Get<Material>(L"Block2");
+						mesh->SetMaterial(material);
 					}
 				}
 			}

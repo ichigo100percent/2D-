@@ -171,6 +171,7 @@
     <ClInclude Include="Js_IndexBuffer.h" />
     <ClInclude Include="Js_Input.h" />
     <ClInclude Include="Js_InputLayout.h" />
+    <ClInclude Include="Js_KoopaScript.h" />
     <ClInclude Include="Js_MarioCameraScript.h" />
     <ClInclude Include="Js_MarioScript.h" />
     <ClInclude Include="Js_Material.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="Js_IndexBuffer.cpp" />
     <ClCompile Include="Js_Input.cpp" />
     <ClCompile Include="Js_InputLayout.cpp" />
+    <ClCompile Include="Js_KoopaScript.cpp" />
     <ClCompile Include="Js_MarioCameraScript.cpp" />
     <ClCompile Include="Js_MarioScript.cpp" />
     <ClCompile Include="Js_Material.cpp" />
