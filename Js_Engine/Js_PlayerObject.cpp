@@ -38,4 +38,26 @@ namespace Js
 		SetTranslate(m_LocalPosition);
 		m_Rt = _rect;
 	}
+	void PlayerObject::Update()
+	{
+		m_Offset = Vector3::Zero;
+		if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
+		{
+			Move(Vector3(0.f, -1.f, 0));
+		}
+		if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
+		{
+			; Move(Vector3(0.f, 1.f, 0));
+		}
+		if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
+		{
+			Move(Vector3(-1.f, 0.f, 0));
+		}
+		if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
+		{
+			Move(Vector3(1.f, 0.f, 0));
+		}
+
+		Actor::Update();
+	}
 }

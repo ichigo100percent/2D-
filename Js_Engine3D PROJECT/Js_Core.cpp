@@ -55,7 +55,9 @@ namespace Js
 	{
 		Time::Update();
 		Input::Update(m_Hwnd);
+#ifdef _DEBUG
 		m_DxWrite->Update();
+#endif
 		SceneManager::Update();
 		CollisionManager::Update();
 		Update();
@@ -76,8 +78,9 @@ namespace Js
 		m_Render->RenderObjects();
 		SceneManager::Render(GetPipeline());
 		Render();
-
+#ifdef _DEBUG
 		m_DxWrite->DrawText(Time::m_csBuffer, { g_Width / 4, 0 });
+#endif
 		Device::PostRender();
 		return true;
 	}

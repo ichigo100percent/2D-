@@ -2,6 +2,7 @@
 #include "Js_PlayScene.h"
 #include "Js_TitleScene.h"
 #include "Js_ClearScene.h"
+#include "Js_TestScene.h"
 
 namespace Js
 {
@@ -75,12 +76,19 @@ namespace Js
 	}
 	void SceneManager::InitailizeScene()
 	{
+		// Mario Scene
+		/*
 		CreateScene<PlayScene>(L"Play");
 		CreateScene<TitleScene>(L"Title");
 		CreateScene<EndingScene>(L"Ending");
 
 		LoadScene<TitleScene>(L"Title");
 		//LoadScene<EndingScene>(L"Ending");
+		*/
+
+		CreateScene<TestScene>(L"Test");
+		LoadScene<TestScene>(L"Test");
+
 	}
 	void SceneManager::Destroy()
 	{

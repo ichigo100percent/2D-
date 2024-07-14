@@ -13,10 +13,10 @@ namespace Js
 	}
 	void Actor::Update()
 	{
-		auto viewMatrix = Camera::m_ViewMatrix;
+		//auto viewMatrix = Camera::m_ViewMatrix;
 
 		m_MatWorld = m_MatCenter * m_MatScale * m_MatRotate * m_MatTranslate;// *viewMatrix;
-		Transform(m_MatWorld);
+		SetWorldTransform();
 
 		if (m_Sprite != nullptr)
 		{
@@ -29,8 +29,6 @@ namespace Js
 				}
 			}
 		}
-
-		m_Offset = Vector3::Zero;
 	}
 	void Actor::Render()
 	{
@@ -53,7 +51,8 @@ namespace Js
 		m_Offset += offset;
 
 		SetTranslate(m_LocalPosition);
-		m_Rt.left = m_List[1].position.x;
+
+		m_Rt.left = m_List[0].position.x;
 		m_Rt.right = m_List[2].position.x;
 		m_Rt.top = m_List[1].position.y;
 		m_Rt.bottom = m_List[0].position.y;
@@ -97,21 +96,23 @@ namespace Js
 		m_LocalPosition.x = _dx;
 		m_LocalPosition.y = _dy;
 	}
-	void Actor::SetTransform(const Matrix& _mat)
-	{
-		for (int i = 0; i < m_Vertices.size(); ++i)
-		{
-			m_List[i].position = Vector3::Transform(m_List[i].position, _mat);
-		}
-		m_Rt.left = m_List[1].position.x;
-		m_Rt.right = m_List[2].position.x;
-		m_Rt.top = m_List[1].position.y;
-		m_Rt.bottom = m_List[0].position.y;
-		UpdateVertexBuffer();
-	}
 	void Actor::SetWorld(const Matrix& _m)
 	{
 		m_MatWorld = _m;
+	}
+	void Actor::SetWorldTransform()
+	{
+		for (int i = 0; i < m_Vertices.size(); i++)
+		{
+			m_List[i].position = Vector3::Transform(m_Vertices[i].position, m_MatWorld);
+		}
+	}
+	void Actor::SetViewTransform(const Matrix& _matrixCamera)
+	{
+		for (int i = 0; i < m_Vertices.size(); i++)
+		{
+			m_List[i].position = Vector3::Transform(m_List[i].position, _matrixCamera);
+		}
 	}
 	void Actor::SetCenterMove(const Vector3& _pos)
 	{
@@ -136,7 +137,6 @@ namespace Js
 		{
 			m_List[i].position = Vector3::Transform(m_Vertices[i].position, _m);
 		}
-		UpdateVertexBuffer();
 		return *this;
 	}
 	Actor& Actor::Transform()
@@ -145,8 +145,6 @@ namespace Js
 		{
 			m_List[i].position = Vector3::Transform(m_Vertices[i].position, m_MatWorld);
 		}
-		UpdateVertexBuffer();
-
 		return *this;
 	}
 }

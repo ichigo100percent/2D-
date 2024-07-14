@@ -132,13 +132,13 @@
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
     <ClCompile Include="Js_DefaultMoveScript.cpp">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Js_PlayerScript.cpp">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Js_MarioScript.cpp">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Js_Sound.cpp">
       <Filter>소스 파일\03. Resource\06. Sound</Filter>
@@ -153,41 +153,42 @@
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClCompile>
     <ClCompile Include="Js_FollowTargetScript.cpp">
-      <Filter>소스 파일\04. Scripts\Camera</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Js_MarioCameraScript.cpp">
-      <Filter>소스 파일\04. Scripts\Camera</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Js_SoundManager.cpp">
       <Filter>소스 파일\06. Manager</Filter>
     </ClCompile>
     <ClCompile Include="Js_FlagScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_FireballScript.cpp">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Js_EndLineScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_MushroomWallScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_GoombaScript.cpp">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Js_MushroomScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_EndPointScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_KoopaScript.cpp">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Js_FlowerWallScript.cpp">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Js_TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -353,13 +354,13 @@
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
     <ClInclude Include="Js_DefaultMoveScript.h">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_PlayerScript.h">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_MarioScript.h">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_Sound.h">
       <Filter>소스 파일\03. Resource\06. Sound</Filter>
@@ -374,41 +375,42 @@
       <Filter>소스 파일\05. Scene\SuperMario</Filter>
     </ClInclude>
     <ClInclude Include="Js_FollowTargetScript.h">
-      <Filter>소스 파일\04. Scripts\Camera</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Js_MarioCameraScript.h">
-      <Filter>소스 파일\04. Scripts\Camera</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Js_SoundManager.h">
       <Filter>소스 파일\06. Manager</Filter>
     </ClInclude>
     <ClInclude Include="Js_FlagScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_FireballScript.h">
-      <Filter>소스 파일\04. Scripts\Mario</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Js_EndLineScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_MushroomWallScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_GoombaScript.h">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_MushroomScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_EndPointScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_KoopaScript.h">
-      <Filter>소스 파일\04. Scripts\Monster</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Js_FlowerWallScript.h">
-      <Filter>소스 파일\04. Scripts\Object</Filter>
+      <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Js_TestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">
@@ -538,20 +540,23 @@
     <Filter Include="소스 파일\02. Component\06. Rigidbody">
       <UniqueIdentifier>{cfc370c2-614a-44ac-9c91-935f5968d05c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\04. Scripts\Monster">
-      <UniqueIdentifier>{baec13ff-747f-4786-808e-cbf057d76e7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\04. Scripts\Mario">
-      <UniqueIdentifier>{ed521778-021e-44e5-a20d-124d947e4bb4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\03. Resource\06. Sound">
       <UniqueIdentifier>{7e4bc6f7-f065-4c5a-98ff-4a7653b4743f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\04. Scripts\Camera">
-      <UniqueIdentifier>{6c340f23-9687-4176-830f-0b73037990ad}</UniqueIdentifier>
+    <Filter Include="소스 파일\04. Scripts\Game">
+      <UniqueIdentifier>{b74d19f1-557a-42b6-92f0-bdeed3e57122}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\04. Scripts\Object">
+    <Filter Include="소스 파일\04. Scripts\Game\Object">
       <UniqueIdentifier>{bc44f135-1459-491b-a6a5-3f74d84632a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Game\Monster">
+      <UniqueIdentifier>{baec13ff-747f-4786-808e-cbf057d76e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Game\Mario">
+      <UniqueIdentifier>{ed521778-021e-44e5-a20d-124d947e4bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Scripts\Game\Camera">
+      <UniqueIdentifier>{6c340f23-9687-4176-830f-0b73037990ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

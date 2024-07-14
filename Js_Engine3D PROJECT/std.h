@@ -33,12 +33,17 @@
 #include "DDSTextureLoader.h"
 
 
-#pragma comment( lib, "DirectXTex.lib")
+
 #pragma comment( lib, "d2d1.lib")
 #pragma comment( lib, "dwrite.lib")
 #pragma comment( lib, "d3d11.lib")
 #pragma comment( lib, "d3dcompiler.lib")
 
+#ifdef _DEBUG
+#pragma comment( lib, "DirectXTex.lib")
+#else
+#pragma comment( lib, "DirectXTex_R.lib")
+#endif
 #ifdef _DEBUG
 #pragma comment( lib, "DirectXTK_D.lib")
 #else

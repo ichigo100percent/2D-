@@ -82,6 +82,20 @@ namespace Js
 	{
 		{
 			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"paka");
+			texture->Create(L"paka.jpg");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
+			texture->SetName(L"dopa");
+			texture->Create(L"dopa.jpg");
+
+			Add(texture->GetName(), texture);
+		}
+		{
+			auto texture = std::make_shared<Texture>(m_Device);
 			texture->SetName(L"Default");
 			texture->Create(L"mario.png");
 
@@ -147,6 +161,22 @@ namespace Js
 			material->SetName(L"¸¶¸®¿À2");
 			material->SetShader(Get<Shader>(L"Default"));
 			material->SetTexture(Get<Texture>(L"Mario2"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"paka");
+			material->SetShader(Get<Shader>(L"Nomal"));
+			material->SetTexture(Get<Texture>(L"paka"));
+
+			Add(material->GetName(), material);
+		}
+		{
+			auto material = std::make_shared<Material>();
+			material->SetName(L"dopa");
+			material->SetShader(Get<Shader>(L"Nomal"));
+			material->SetTexture(Get<Texture>(L"dopa"));
 
 			Add(material->GetName(), material);
 		}

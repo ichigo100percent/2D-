@@ -411,21 +411,6 @@ namespace Js
 
 #pragma endregion
 
-		/*
-		std::shared_ptr<DxObject> Flower = object::Instantiate<DxObject>(L"Monster", LayerType::Flower);
-		{
-			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
-			Flower->AddComponent(meshRender);
-			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
-			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"²É");
-			meshRender->SetMaterial(material);
-			Flower->GetTransform()->SetScale(Flower->GetSize());
-			Flower->GetTransform()->SetPosition(Vector3(-2600, -300, 0));
-			auto col = std::make_shared<Collider>();
-			Flower->AddComponent(col);
-		}
-		*/
 #pragma region DeadLine
 		std::shared_ptr<DxObject> deadLine = object::Instantiate<DxObject>(L"DeadLine", LayerType::End);
 		{
@@ -437,22 +422,22 @@ namespace Js
 #pragma endregion
 
 #pragma region GameEndPoint
-		std::shared_ptr<DxObject> flag = object::Instantiate<DxObject>(L"Flag", LayerType::EndPoint);
-		{
-			flag->GetTransform()->SetScale(Vector3(16, 1000, 0));
-			flag->GetTransform()->SetPosition(Vector3(2380, -300, 0));
-			auto col = std::make_shared<Collider>();
-			flag->AddComponent(col);
-			flag->AddComponent(std::make_shared<EndPointScript>());
-		}
+		//std::shared_ptr<DxObject> flag = object::Instantiate<DxObject>(L"Flag", LayerType::EndPoint);
+		//{
+		//	flag->GetTransform()->SetScale(Vector3(16, 1000, 0));
+		//	flag->GetTransform()->SetPosition(Vector3(2380, -300, 0));
+		//	auto col = std::make_shared<Collider>();
+		//	flag->AddComponent(col);
+		//	flag->AddComponent(std::make_shared<EndPointScript>());
+		//}
 
-		std::shared_ptr<DxObject> endPoint = object::Instantiate<DxObject>(L"EndPoint", LayerType::Flag);
-		{
-			endPoint->GetTransform()->SetScale(Vector3(16, 10000, 0));
-			endPoint->GetTransform()->SetPosition(Vector3(2200, -300, 0));
-			auto col = std::make_shared<Collider>();
-			endPoint->AddComponent(col);
-		}
+		//std::shared_ptr<DxObject> endPoint = object::Instantiate<DxObject>(L"EndPoint", LayerType::Flag);
+		//{
+		//	endPoint->GetTransform()->SetScale(Vector3(16, 10000, 0));
+		//	endPoint->GetTransform()->SetPosition(Vector3(2200, -300, 0));
+		//	auto col = std::make_shared<Collider>();
+		//	endPoint->AddComponent(col);
+		//}
 #pragma endregion
 
 #pragma region Monsters
@@ -603,9 +588,9 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetPosition(Vector3(-2700, -400, 0));
 			player->GetTransform()->SetScale(player->GetSize());
-			//player->AddComponent(std::make_shared<MoveScript>());
-			player->AddComponent(std::make_shared<PlayerScript>());
-			player->AddComponent(std::make_shared<Rigidbody>());
+			player->AddComponent(std::make_shared<MoveScript>());
+			//player->AddComponent(std::make_shared<PlayerScript>());
+			//player->AddComponent(std::make_shared<Rigidbody>());
 			auto animator = std::make_shared<Animator>();
 			player->AddComponent(animator);
 			auto anim = I_Resource->Get<Animation>(L"Mario_rightIdle");
@@ -615,8 +600,8 @@ namespace Js
 		}
 #pragma endregion
 
-		camera->AddComponent(std::make_shared<FollowTargetScript>(player));
-		camera->AddComponent(std::make_shared<MarioCameraScript>(player));
+		//camera->AddComponent(std::make_shared<FollowTargetScript>(player));
+	    camera->AddComponent(std::make_shared<MarioCameraScript>(player));
 
 		SoundManager::Add(L"../../Res/sounds/music/overworld.wav", L"overworld.wav");
 		SoundManager::Add(L"../../Res/sounds/music/gamewon.wav", L"gamewon.wav");

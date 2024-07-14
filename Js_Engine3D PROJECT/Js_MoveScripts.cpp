@@ -24,27 +24,20 @@ namespace Js
         Vector3 direction(0, 0, 0);
 
         if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-        {
             direction.y += 1;
-        }
+        
         if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-        {
             direction.y -= 1;
-        }
+        
         if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-        {
             direction.x -= 1;
-        }
+        
         if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-        {
             direction.x += 1;
-        }
-
+        
         if (direction.Length() > 0)
-        {
             direction.Normalize();
-        }
-
+               
         position += direction * speed;
         GetOwner()->GetTransform()->SetPosition(position);
 
@@ -68,17 +61,17 @@ namespace Js
     }
     void MoveScript::OnCollisionStay(std::shared_ptr<Collider> _other)
     {
-        auto type = _other->GetOwner()->GetLayerType();
+        //auto type = _other->GetOwner()->GetLayerType();
 
-        if (type == enums::LayerType::Monster)
-        {
-            Vector3 pushVector;
-            if (Collider::CheckCollision(GetOwner()->GetTransform()->GetRect(), _other->GetOwner()->GetTransform()->GetRect(), pushVector))
-            {
-                // 충돌 방향으로 밀어내기
-                GetOwner()->GetTransform()->SetPosition(GetOwner()->GetTransform()->GetPosition() + pushVector);
-            }
-        }
+        //if (type == enums::LayerType::Monster)
+        //{
+        //    Vector3 pushVector;
+        //    if (Collider::CheckCollision(GetOwner()->GetTransform()->GetRect(), _other->GetOwner()->GetTransform()->GetRect(), pushVector))
+        //    {
+        //        // 충돌 방향으로 밀어내기
+        //        GetOwner()->GetTransform()->SetPosition(GetOwner()->GetTransform()->GetPosition() + pushVector);
+        //    }
+        //}
     }
     void MoveScript::OnCollisionExit(std::shared_ptr<Collider> _other)
     {

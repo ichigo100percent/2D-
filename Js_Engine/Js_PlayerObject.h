@@ -7,8 +7,8 @@ namespace Js
 	{
 	public:
 		PlayerObject(ComPtr<ID3D11Device> _device, ComPtr<ID3D11DeviceContext> _context, const std::wstring& _name = {});
-
-		virtual void CreateGeometry(const RECT& _rect) override;
+		void CreateGeometry(const RECT& _rect) override;
+		void Update() override;
 
 	private:
 

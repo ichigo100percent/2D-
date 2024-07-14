@@ -19,13 +19,13 @@ namespace Js
 		virtual void CreateGeometry(const RECT& _rect) override;
 		virtual void CreateObject(const RECT& _rt, const std::wstring& _texName);
 
-
 		void SetSprite(std::shared_ptr<Sprite> _sprite) { m_Sprite = _sprite; }
 		virtual void SetPos(Vector3& _pos);
 		virtual void SetPos(const float& _dx, const float& _dy);
-		void SetTransform(const Matrix& _mat);
 
 		virtual void SetWorld(const Matrix& _mat);
+		virtual void SetWorldTransform();
+		virtual void SetViewTransform(const Matrix& _matrixCamera);
 		virtual void SetCenterMove(const Vector3& _pos);
 		virtual void SetScale(const Vector3& _scale);
 		virtual void SetRotate(float _rotate);

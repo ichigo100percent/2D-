@@ -25,10 +25,8 @@ namespace Js
 		virtual void CreateSRV(const std::wstring& _texName);
 
 		virtual void CreateRasterizerState();
-		virtual void CreateSamplerState();
 		virtual void CreateBlendState();
 
-		virtual void CreateConstantBuffer();
 
 		const ComPtr<ID3D11Device> GetDevice() const { return m_Device; }
 		const ComPtr<ID3D11DeviceContext> GetContext() const { return m_Context; }

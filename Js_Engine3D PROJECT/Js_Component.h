@@ -13,7 +13,6 @@ namespace Js
 		MeshRenderer,
 		Camera,
 		Animator,
-		// ...
 		Script,
 		Collider,
 		Rigidbody,

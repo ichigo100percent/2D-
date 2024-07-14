@@ -22,6 +22,7 @@ namespace Js
 	}
 	void DxObject::PreRender()
 	{
+		UpdateVertexBuffer();
 		UINT StartSlot = 0;
 		UINT NumBuffers = 1;
 		UINT Stride = sizeof(VertexData);
@@ -56,11 +57,12 @@ namespace Js
 	}
 	void DxObject::UpdateVertexBuffer()
 	{
-		std::transform(std::begin(m_List), std::end(m_List), std::begin(m_NdcVertices),
-			[&](const VertexData& _data)
-			{
-				return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
-			});
+		for (int i = 0; i < m_Vertices.size(); i++)
+		{
+			m_NdcVertices[i].position = ConvertScreenToNDC(m_List[i].position);
+			m_NdcVertices[i].color = m_List[i].color;
+			m_NdcVertices[i].texture = m_List[i].texture;
+		}
 
 		if (m_VertexBuffer != nullptr)
 		{
@@ -106,13 +108,9 @@ namespace Js
 		m_Vertices[2].texture = Vector2(1.0f, 1.0f);
 		m_Vertices[3].texture = Vector2(1.0f, 0.0f);
 
-		// ÁÂ¿ì ¹ÝÀü
-		//m_Vertices[0].texture = Vector2(1.0f, 1.0f); 
-		//m_Vertices[1].texture = Vector2(1.0f, 0.0f); 
-		//m_Vertices[2].texture = Vector2(0.0f, 1.0f); 
-		//m_Vertices[3].texture = Vector2(0.0f, 0.0f); 
 
 		m_List = m_Vertices;
+		m_NdcVertices = m_Vertices;
 		UpdateVertexBuffer();
 	}
 	void DxObject::CreateVertexBuffer()
@@ -181,9 +179,6 @@ namespace Js
 		HRESULT hr = m_Device->CreateRasterizerState(&desc, m_RasterizerState.GetAddressOf());
 		CHECK(hr);
 	}
-	void DxObject::CreateSamplerState()
-	{
-	}
 	void DxObject::CreateBlendState()
 	{
 		D3D11_BLEND_DESC desc;
@@ -209,8 +204,5 @@ namespace Js
 
 		if (m_Texture != nullptr)
 			m_ShaderResourceView = m_Texture->m_ShaderResourceView;
-	}
-	void DxObject::CreateConstantBuffer()
-	{
 	}
 }

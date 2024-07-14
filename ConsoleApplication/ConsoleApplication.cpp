@@ -1,17 +1,15 @@
-﻿#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <memory>
-#include <map>
-#include <array>
-#include <string>
-#include <assert.h>
-using namespace std;
+﻿#include "GameObject.h"
 
 
 int main()
 {
-	int a = 0;
+	shared_ptr<GameObject> obj = make_shared<GameObject>();
+	shared_ptr<Transform> tr = make_shared<Transform>();
+	
+
+	obj->AddComponent(tr);
+
+	auto tr2 = obj->GetComponent<Animator>();
 
 	return 0;
 }

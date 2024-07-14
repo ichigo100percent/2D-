@@ -26,29 +26,10 @@ public:
         {
             bgSound->Play(true);
         }
-
         {
             RECT rt1 = { 0, 0, 2500, 600 };
             bg = std::make_shared<Actor>(GetDevice(), GetContext());
             bg->CreateObject(rt1, L"bg_blue.jpg");
-        }
-        {
-            RECT rt2 = { 400, 300, 450, 380 };
-            player = std::make_shared<Actor>(GetDevice(), GetContext());
-            player->CreateObject(rt2, L"");
-            auto sprite = std::make_shared<Sprite>();
-            sprite->Load(L"Mario_nomal.gif", Vector2(50, 0), Vector2(50, 80), 5);
-            sprite->SetAnim(0.5f);
-            player->SetSprite(sprite);
-        }
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                RECT rt3{ i * 32, 0, 32 + (32 * i), 32 };
-                objects.push_back(std::make_shared<Actor>(GetDevice(), GetContext()));
-                objects[i]->CreateObject(rt3, L"bg_ground01.png");
-            }
-            objCounter = objects.size();
         }
         {
             std::wstring texPath = L"../../Res/";
@@ -74,6 +55,24 @@ public:
             }
         }
         {
+            RECT rt2 = { 400, 300, 450, 380 };
+            player = std::make_shared<PlayerObject>(GetDevice(), GetContext());
+            player->CreateObject(rt2, L"dopa.jpg");
+            auto sprite = std::make_shared<Sprite>();
+            sprite->Load(L"Mario_nomal.gif", Vector2(50, 0), Vector2(50, 80), 5);
+            sprite->SetAnim(0.5f);
+            player->SetSprite(sprite);
+        }
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                RECT rt3{ i * 32, 0, 32 + (32 * i), 32 };
+                objects.push_back(std::make_shared<Actor>(GetDevice(), GetContext()));
+                objects[i]->CreateObject(rt3, L"bg_ground01.png");
+            }
+            objCounter = objects.size();
+        }
+        {
             // 카메라 초기 위치 설정
             camera = std::make_shared<Camera>();
             camera->SetPosition(Vector3::Zero);
@@ -81,28 +80,17 @@ public:
     }
     void Update() override
     {
-        Vector3 moveDirection = { 0.0f, 0.0f, 0.0f };
 
-        if (Input::KeyCheck('W') == KeyState::KEY_HOLD)
-        {
-            player->Move({ 0.0f, -1.0f, 0.f });
-            camera->Up();
-        }
-        if (Input::KeyCheck('S') == KeyState::KEY_HOLD)
-        {
-            player->Move({ 0.0f, 1.0f, 0.f });
-            camera->Down();
-        }
-        if (Input::KeyCheck('A') == KeyState::KEY_HOLD)
-        {
-            player->Move({ -1.0f, 0.0f, 0.f });
-            camera->Right(-player->GetOffset().x);
-        }
-        if (Input::KeyCheck('D') == KeyState::KEY_HOLD)
-        {
-            player->Move({ 1.0f, 0.0f, 0.f });
-            camera->Right(-player->GetOffset().x);
-        }
+        // 플레이어의 위치를 업데이트
+        player->Update();
+
+        // 카메라가 플레이어를 따라 이동하도록 오프셋을 사용하여 카메라 위치를 갱신
+        camera->move(player->GetOffset());
+        camera->Update();
+
+        // 배경과 오브젝트의 위치를 카메라 뷰 매트릭스를 사용하여 업데이트
+        bg->SetViewTransform(camera->GetMatrix());
+        bg->Update();
 
         for(auto& obj : objects)
         {
@@ -113,18 +101,6 @@ public:
             }
         }
 
-
-        std::string pos;
-        pos += "X = " + std::to_string(player->GetPosition().x) + " Y = " + std::to_string(player->GetPosition().y) + "\n";
-        OutputDebugStringA(pos.c_str());
- /*       std::string rt;
-        rt += "left = " + std::to_string(player->GetRect().left) + " top = " + std::to_string(player->GetRect().top) + "\n";
-        rt += "right = " + std::to_string(player->GetRect().right) + " bottom = " + std::to_string(player->GetRect().bottom) + "\n";
-        OutputDebugStringA(rt.c_str());*/
-
-        camera->Update();
-        bg->Update();
-        player->Update();
         for (int i = 0; i < objects.size(); i++)
         {
             objects[i]->Update();
@@ -136,17 +112,15 @@ public:
     }
     void Render() override
     {
-        bg->SetTransform(camera->GetMatrix());
+        bg->SetViewTransform(camera->GetMatrix());
         bg->Render();
 
-        player->SetTransform(camera->GetMatrix());
-        player->Render();
 
         for (int i = 0; i < objects.size(); i++)
         {
             if (objects[i]->GetActive())
             {
-                objects[i]->SetTransform(camera->GetMatrix());
+                objects[i]->SetViewTransform(camera->GetMatrix());
                 objects[i]->Render();
             }
         }
@@ -159,6 +133,9 @@ public:
             };
         std::for_each(std::begin(ui), std::end(ui), func);
         
+        //player->SetTransform(camera->GetMatrix());
+        player->SetViewTransform(camera->GetMatrix());
+        player->Render();
     }
     void Release() override
     {
@@ -168,7 +145,7 @@ private:
 
 private:
     std::shared_ptr<Actor> bg;
-    std::shared_ptr<Actor> player;
+    std::shared_ptr<PlayerObject> player;
     std::shared_ptr<Camera> camera;
     std::vector<std::shared_ptr<Actor>> objects; // 모든 객체들을 저장
 

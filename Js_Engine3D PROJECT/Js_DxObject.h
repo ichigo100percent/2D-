@@ -63,7 +63,6 @@ namespace Js
 		Vector3 GetSize();
 
 		bool IsActive() { return m_State == eState::Active; }
-		//bool IsActive() { return m_IsActive; }
 		void death() { m_State = eState::Dead; }
 		bool IsDead() { return m_State == eState::Dead; }
 		eState GetState() { return m_State; }
