@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication.cpp">
+    <ClCompile Include="StatePattern.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

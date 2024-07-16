@@ -15,7 +15,7 @@
 
 #include "Js_MoveScripts.h"
 #include "Js_FollowTargetScript.h"
-
+#include "Js_FollowObjectScript.h"
 
 namespace Js
 {
@@ -45,10 +45,21 @@ namespace Js
 			player->AddComponent(meshRender);
 			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
 			meshRender->SetMesh(mesh);
-			auto material = I_Resource->Get<Material>(L"paka");
+			auto material = I_Resource->Get<Material>(L"Default");
 			meshRender->SetMaterial(material);
-			player->GetTransform()->SetScale(Vector3(100, 100, 0));
+			player->GetTransform()->SetScale(Vector3(50, 50, 0));
 			player->AddComponent(std::make_shared<MoveScript>());
+		}
+		std::shared_ptr<DxObject> followObject = object::Instantiate<DxObject>();
+		{
+			auto meshRender = std::make_shared<MeshRenderer>(I_Core.GetDevice(), I_Core.GetContext());
+			followObject->AddComponent(meshRender);
+			auto mesh = I_Resource->Get<Mesh>(L"Rectangle");
+			meshRender->SetMesh(mesh);
+			auto material = I_Resource->Get<Material>(L"Default");
+			meshRender->SetMaterial(material);
+			followObject->GetTransform()->SetScale(Vector3(30, 30, 0));
+			followObject->AddComponent(std::make_shared<FollowObjectScript>(player));
 		}
 
 		camera->AddComponent(std::make_shared<FollowTargetScript>(player));

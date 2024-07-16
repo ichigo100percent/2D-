@@ -189,6 +189,9 @@
       <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Js_TestScene.cpp" />
+    <ClCompile Include="Js_FollowObjectScript.cpp">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Js_Core.h">
@@ -411,6 +414,9 @@
       <Filter>소스 파일\04. Scripts\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Js_TestScene.h" />
+    <ClInclude Include="Js_FollowObjectScript.h">
+      <Filter>소스 파일\04. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Js_Engine.ico">

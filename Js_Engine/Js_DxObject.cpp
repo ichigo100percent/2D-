@@ -57,6 +57,11 @@ namespace Js
 	}
 	void DxObject::UpdateVertexBuffer()
 	{
+		//std::transform(std::begin(m_List), std::end(m_List), std::begin(m_NdcVertices),
+		//	[&](const VertexData& _data)
+		//	{
+		//		return VertexData(ConvertScreenToNDC(_data.position), _data.color, _data.texture);
+		//	});
 		for (int i = 0; i < m_Vertices.size(); i++)
 		{
 			m_NdcVertices[i].position = ConvertScreenToNDC(m_List[i].position);
