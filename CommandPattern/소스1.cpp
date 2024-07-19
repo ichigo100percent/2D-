@@ -1,11 +1,11 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <memory>
 #include <vector>
 #include <map>
 
 using namespace std;
 
-// Command ì¸í„°í˜ì´ìŠ¤
+// Command ÀÎÅÍÆäÀÌ½º
 class Command
 {
 public:
@@ -13,7 +13,7 @@ public:
     virtual ~Command() = default;
 };
 
-// Receiver í´ë˜ìŠ¤
+// Receiver Å¬·¡½º
 class GameCharacter
 {
 public:
@@ -24,7 +24,7 @@ public:
     void Attack() { cout << "Character attacks" << endl; }
 };
 
-// Concrete Command í´ë˜ìŠ¤
+// Concrete Command Å¬·¡½º
 class MoveUpCommand : public Command
 {
 public:
@@ -75,7 +75,7 @@ private:
     shared_ptr<GameCharacter> m_character;
 };
 
-// Invoker í´ë˜ìŠ¤
+// Invoker Å¬·¡½º
 class InputHandler
 {
 public:
@@ -91,7 +91,7 @@ private:
     map<char, shared_ptr<Command>> m_commands;
 };
 
-// Client ì½”ë“œ
+// Client ÄÚµå
 int main()
 {
     shared_ptr<GameCharacter> character = make_shared<GameCharacter>();

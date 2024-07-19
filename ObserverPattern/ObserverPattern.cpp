@@ -20,173 +20,193 @@
 
 using namespace std;
 
-class Player;
-
-class IPlayerObserver abstract
+namespace unit_test
 {
-public:
-	IPlayerObserver() = default;
-	virtual ~IPlayerObserver() = default;
-
-	virtual void OnEvent(shared_ptr<Player> _player) abstract;
-};
-
-class MonsterSpawner : public IPlayerObserver
-{
-public:
-	virtual void OnEvent(shared_ptr<Player> _player) override
+	namespace basic
 	{
-		cout << "MonsterSpawner::OnEvent() 함수 호출" << endl;
-	}
-};
+		class Observer abstract
+		{
+		public:
+			virtual void OnEvent(const string& _msg) abstract;
+		};
 
-class QuestMgr : public IPlayerObserver
-{
-public:
-	virtual void OnEvent(shared_ptr<Player> _player) override
+		class Subject
+		{
+		public:
+			void Attach(shared_ptr<Observer> _observer)
+			{
+				m_Observers.push_back(_observer);
+			}
+
+			void Detach(shared_ptr<Observer> _observer)
+			{
+				m_Observers.erase(remove(begin(m_Observers), end(m_Observers), _observer), m_Observers.end());
+			}
+
+			void Notify()
+			{
+				for (auto& observer : m_Observers)
+					observer->OnEvent(m_Message);
+			}
+
+			void CreateMessage(const string& _message)
+			{
+				m_Message = _message;
+				Notify();
+			}
+
+		private:
+			string m_Message = {};
+			vector<shared_ptr<Observer>> m_Observers = {};
+		};
+
+		class ConcreteObserver : public Observer, public enable_shared_from_this<ConcreteObserver>
+		{
+		public:
+			ConcreteObserver(const string& _name, shared_ptr<Subject> _subject)
+				: m_Name(_name), m_Subject(_subject)
+			{
+			}
+			~ConcreteObserver()
+			{
+				if (auto subject = m_Subject.lock())
+				{
+					subject->Detach(shared_from_this());
+				}
+			}
+			void Init()
+			{
+				auto subject = m_Subject.lock();
+
+				subject->Attach(shared_from_this());
+			}
+			void OnEvent(const string& _message) override
+			{
+				cout << "Observer Name : " << m_Name << " received message : " << _message << endl;
+			}
+
+		private:
+			string m_Name;
+			weak_ptr<Subject> m_Subject;
+		};
+	}
+
+	namespace use_pattern
 	{
-		cout << "QuestMgr::OnEvent() 함수 호출" << endl;
+		class Player;
+
+		class IPlayerObserver abstract
+		{
+		public:
+			IPlayerObserver() = default;
+			virtual ~IPlayerObserver() = default;
+
+			virtual void OnEvent(shared_ptr<Player> _player) abstract;
+		};
+
+		class MonsterSpawner : public IPlayerObserver
+		{
+		public:
+			virtual void OnEvent(shared_ptr<Player> _player) override
+			{
+				cout << "MonsterSpawner::OnEvent() 함수 호출" << endl;
+			}
+		};
+
+		class QuestMgr : public IPlayerObserver
+		{
+		public:
+			virtual void OnEvent(shared_ptr<Player> _player) override
+			{
+				cout << "QuestMgr::OnEvent() 함수 호출" << endl;
+			}
+		};
+
+		class AchievementMgr : public IPlayerObserver
+		{
+		public:
+			virtual void OnEvent(shared_ptr<Player> _player) override
+			{
+				cout << "AchievementMgr::OnEvent() 함수 호출" << endl;
+			}
+		};
+
+		class Player : public enable_shared_from_this<Player>
+		{
+		public:
+			Player(const string& _name) : name(_name) {}
+
+			void Attach(shared_ptr<IPlayerObserver> _observer)
+			{
+				if (_observer == nullptr)
+					return;
+
+				m_Observers.push_back(_observer);
+			}
+
+			void Detach(shared_ptr<IPlayerObserver> _observer)
+			{
+				auto iter = find(begin(m_Observers), end(m_Observers), _observer);
+
+				if (iter == m_Observers.end())
+					return;
+
+				m_Observers.erase(iter);
+			}
+
+			void Notify()
+			{
+				for (auto& observer : m_Observers)
+					observer->OnEvent(shared_from_this());
+			}
+
+			void EnterBossRoom()
+			{
+				Notify();
+			}
+
+			vector<shared_ptr<IPlayerObserver>> m_Observers = {};
+			string name = {};
+		};
 	}
-};
-
-class AchievementMgr : public IPlayerObserver
-{
-public:
-	virtual void OnEvent(shared_ptr<Player> _player) override
-	{
-		cout << "AchievementMgr::OnEvent() 함수 호출" << endl;
-	}
-};
-
-class Player : public enable_shared_from_this<Player>
-{
-public:
-	Player(const string& _name) : name(_name) {}
-
-	void Attach(shared_ptr<IPlayerObserver> _observer)
-	{
-		if (_observer == nullptr)
-			return;
-
-		m_Observers.push_back(_observer);
-	}
-
-	void Detach(shared_ptr<IPlayerObserver> _observer)
-	{
-		auto iter = find(begin(m_Observers), end(m_Observers), _observer);
-
-		if (iter == m_Observers.end())
-			return;
-
-		m_Observers.erase(iter);
-	}
-
-	void Notify()
-	{
-		for (auto& observer : m_Observers)
-			observer->OnEvent(shared_from_this());
-	}
-
-	void EnterBossRoom()
-	{
-		Notify();
-	}
-
-	vector<shared_ptr<IPlayerObserver>> m_Observers = {};
-	string name = {};
-};
-
-int main()
-{
-
-	shared_ptr<Player> player = make_shared<Player>("용사");
-
-	player->Attach(make_shared<MonsterSpawner>());
-	player->Attach(make_shared<QuestMgr>());
-	player->Attach(make_shared<AchievementMgr>());
-
-	player->EnterBossRoom();
-
-	return 0;
 }
 
-
-class Observer abstract
+namespace unit_test
 {
-public:
-	virtual void OnEvent(const string& _msg) abstract;
-};
-
-class Subject
-{
-public:
-	void Attach(shared_ptr<Observer> _observer)
+	namespace basic
 	{
-		m_Observers.push_back(_observer);
-	}
-
-	void Detach(shared_ptr<Observer> _observer)
-	{
-		m_Observers.erase(remove(begin(m_Observers), end(m_Observers), _observer), m_Observers.end());
-	}
-
-	void Notify()
-	{
-		for (auto& observer : m_Observers)
-			observer->OnEvent(m_Message);
-	}
-
-	void CreateMessage(const string& _message)
-	{
-		m_Message = _message;
-		Notify();
-	}
-
-private:
-	string m_Message = {};
-	vector<shared_ptr<Observer>> m_Observers = {};
-};
-
-class ConcreteObserver : public Observer, public enable_shared_from_this<ConcreteObserver>
-{
-public:
-	ConcreteObserver(const string& _name, shared_ptr<Subject> _subject) 
-		: m_Name(_name), m_Subject(_subject)
-	{ 
-	}
-	~ConcreteObserver()
-	{
-		if (auto subject = m_Subject.lock())
+		void test()
 		{
-			subject->Detach(shared_from_this());
+			shared_ptr<Subject> subject = make_shared<Subject>();
+			auto observer1 = make_shared<ConcreteObserver>("Observer1", subject);
+			observer1->Init();
+			auto observer2 = make_shared<ConcreteObserver>("Observer2", subject);
+			observer2->Init();
+
+			subject->CreateMessage("Hello Observer!");
+			subject->CreateMessage("Observer Pattern in C++");
 		}
 	}
-	void Init()
+	namespace use_pattern
 	{
-		auto subject = m_Subject.lock();
+		void test()
+		{
+			shared_ptr<Player> player = make_shared<Player>("용사");
 
-		subject->Attach(shared_from_this());
-	}
-	void OnEvent(const string& _message) override
-	{
-		cout << "Observer Name : " << m_Name << " received message : " << _message << endl;
-	}
+			player->Attach(make_shared<MonsterSpawner>());
+			player->Attach(make_shared<QuestMgr>());
+			player->Attach(make_shared<AchievementMgr>());
 
-private:
-	string m_Name;
-	weak_ptr<Subject> m_Subject;
-};
+			player->EnterBossRoom();
+		}
+	}
+}
 
 int main()
 {
-	shared_ptr<Subject> subject = make_shared<Subject>();
-	auto observer1 = make_shared<ConcreteObserver>("Observer1", subject);
-	observer1->Init();
-	auto observer2 = make_shared<ConcreteObserver>("Observer2", subject);
-	observer2->Init();
-
-	subject->CreateMessage("Hello Observer!");
-	subject->CreateMessage("Observer Pattern in C++");
-
+	//unit_test::basic::test();
+	unit_test::use_pattern::test();
 	return 0;
 }
+
+
