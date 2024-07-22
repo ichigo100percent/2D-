@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <memory>
 #include <stack>
 #include <unordered_map>
@@ -52,7 +52,7 @@ public:
 class ChangeWeaponCommand : public Command
 {
 public:
-	ChangeWeaponCommand(shared_ptr<Weapon>& _cur, shared_ptr<Weapon> _new): m_Current(_cur), m_New(_new) {}
+	ChangeWeaponCommand(shared_ptr<Weapon>& _cur, shared_ptr<Weapon> _new) : m_Current(_cur), m_New(_new) {}
 
 	void Execute() override
 	{
@@ -162,4 +162,6 @@ int main()
 	cout << "Undo last Command" << endl;
 	inputHandler.UndoLastCommand();
 	inputHandler.HandleInput('a');
+
+	return 0;
 }

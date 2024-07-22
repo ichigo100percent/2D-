@@ -3,11 +3,9 @@
 
 namespace Js
 {
-	class FollowObjectScript : public MonoBehaviour
+	class FireBulletsScript : public MonoBehaviour
 	{
 	public:
-		FollowObjectScript(std::shared_ptr<DxObject> _target);
-		virtual ~FollowObjectScript();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -15,14 +13,8 @@ namespace Js
 		virtual void OnCollisionEnter(std::shared_ptr<Collider> _other) override;
 		virtual void OnCollisionStay(std::shared_ptr<Collider> _other) override;
 		virtual void OnCollisionExit(std::shared_ptr<Collider> _other) override;
-
 	private:
-		Vector3  GetFirePos();
-
-	private:
-		std::shared_ptr<DxObject> m_Target = nullptr;
-		UINT m_Length;
-		float m_Angle; 
-		float m_Speed;
+		int cnt;
+		float angle;
 	};
 }

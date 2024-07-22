@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{23751984-ff8c-49bc-94bd-0c06e8b1c320}</ProjectGuid>
-    <RootNamespace>CommandPattern</RootNamespace>
+    <ProjectGuid>{a29cdc33-eaed-4650-8bc5-91cffc2bdaa7}</ProjectGuid>
+    <RootNamespace>PactoryPattern</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>../../output</OutDir>
-    <IntDir>../../output/Command</IntDir>
+    <OutDir>../../output/</OutDir>
+    <IntDir>../../output/pactory</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,8 +132,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="소스.cpp" />
-    <ClCompile Include="소스1.cpp" />
-    <ClCompile Include="소스2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

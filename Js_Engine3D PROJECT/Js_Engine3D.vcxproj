@@ -161,6 +161,7 @@
     <ClInclude Include="Js_EndPointScript.h" />
     <ClInclude Include="Js_Fireball.h" />
     <ClInclude Include="Js_FireballScript.h" />
+    <ClInclude Include="Js_FireBulletsScript.h" />
     <ClInclude Include="Js_FlagScript.h" />
     <ClInclude Include="Js_FlowerWallScript.h" />
     <ClInclude Include="Js_FollowObjectScript.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Js_SceneManager.h" />
     <ClInclude Include="Js_Shader.h" />
     <ClInclude Include="Js_ShaderBase.h" />
+    <ClInclude Include="Js_SimpleBulletScript.h" />
     <ClInclude Include="Js_Sound.h" />
     <ClInclude Include="Js_SoundManager.h" />
     <ClInclude Include="Js_TestScene.h" />
@@ -237,6 +239,7 @@
     <ClCompile Include="Js_EndPointScript.cpp" />
     <ClCompile Include="Js_Fireball.cpp" />
     <ClCompile Include="Js_FireballScript.cpp" />
+    <ClCompile Include="Js_FireBulletsScript.cpp" />
     <ClCompile Include="Js_FlagScript.cpp" />
     <ClCompile Include="Js_FlowerWallScript.cpp" />
     <ClCompile Include="Js_FollowObjectScript.cpp" />
@@ -277,6 +280,7 @@
     <ClCompile Include="Js_SceneManager.cpp" />
     <ClCompile Include="Js_Shader.cpp" />
     <ClCompile Include="Js_ShaderBase.cpp" />
+    <ClCompile Include="Js_SimpleBulletScript.cpp" />
     <ClCompile Include="Js_Sound.cpp" />
     <ClCompile Include="Js_SoundManager.cpp" />
     <ClCompile Include="Js_TestScene.cpp" />

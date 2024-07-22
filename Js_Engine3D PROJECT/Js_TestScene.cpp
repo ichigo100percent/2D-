@@ -16,6 +16,9 @@
 #include "Js_MoveScripts.h"
 #include "Js_FollowTargetScript.h"
 #include "Js_FollowObjectScript.h"
+#include "Js_SimpleBulletScript.h"
+#include "Js_FireBulletsScript.h"
+
 
 namespace Js
 {
@@ -49,6 +52,7 @@ namespace Js
 			meshRender->SetMaterial(material);
 			player->GetTransform()->SetScale(Vector3(50, 50, 0));
 			player->AddComponent(std::make_shared<MoveScript>());
+			player->AddComponent(std::make_shared<FireBulletsScript>());
 		}
 		std::shared_ptr<DxObject> followObject = object::Instantiate<DxObject>();
 		{

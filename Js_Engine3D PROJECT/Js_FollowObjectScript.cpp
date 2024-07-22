@@ -24,12 +24,13 @@ namespace Js
 	{
 		m_Length = 100;
 		m_Angle = 0.0f;
+		m_Speed = 300.0f;
 	}
 	void FollowObjectScript::Update()
 	{
 		if (m_Target)
 		{
-			auto targetPos = m_Target->GetTransform()->GetPosition();
+			//auto targetPos = m_Target->GetTransform()->GetPosition();
 			float time = Time::DeltaTime();
 
 
