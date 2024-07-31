@@ -46,7 +46,7 @@ namespace Js
 
 			// 계산된 위치를 현재 객체의 위치로 설정
 			GetTransform()->SetPosition(pos);
-		}
+		}		
 	}
 	void FollowObjectScript::OnCollisionEnter(std::shared_ptr<Collider> _other)
 	{

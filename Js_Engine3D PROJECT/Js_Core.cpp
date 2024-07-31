@@ -18,7 +18,7 @@ namespace Js
 
 	void Core::Init() {}
 	void Core::Update() {}
-	void Core::LateUpdate(){}
+	void Core::LateUpdate() {}
 	void Core::Render() {}
 	void Core::Release() {}
 
