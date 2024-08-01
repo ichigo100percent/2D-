@@ -1,34 +1,62 @@
 ﻿#include <iostream>
-#include <thread>
-#include <vector>
+#include <memory>
+#include <string>
+#include <bitset>
 
-// 비원자적 카운터 변수
-int counter = 0;
 
-// 카운터 증가 함수
-void increment(int num_iterations) {
-    for (int i = 0; i < num_iterations; ++i) {
-        ++counter; // 비원자적 증감 연산
+using namespace std;
+enum State
+{
+    idle = 0,
+    run = 1 << 0,
+    attack = 1 << 1,
+    both = run | attack
+};
+
+class test
+{
+public:
+    test() : state(0) {}
+
+    void set(State s, bool b)
+    {
+        if (s == both) {
+            state.set(0, b); // run
+            state.set(1, b); // attack
+        }
+        else {
+            state.set(s == run ? 0 : 1, b);
+        }
     }
-}
 
-int main() {
-    const int num_threads = 10;
-    const int num_iterations = 10000;
-
-    std::vector<std::thread> threads;
-
-    // 여러 스레드를 생성하여 카운터를 증가시킴
-    for (int i = 0; i < num_threads; ++i) {
-        threads.push_back(std::thread(increment, num_iterations));
+    bool isSet(State s) const
+    {
+        if (s == both) {
+            return state.test(0) && state.test(1);
+        }
+        else {
+            return state.test(s == run ? 0 : 1);
+        }
     }
 
-    // 모든 스레드가 종료될 때까지 대기
-    for (auto& thread : threads) {
-        thread.join();
-    }
+    std::bitset<2> state;
+};
 
-    std::cout << "Final counter value (without atomic): " << counter << std::endl;
+int main()
+{
+    test t;
+
+    t.set(both, true);
+
+    // 결과 확인을 위한 출력
+    std::cout << "State: " << t.state << std::endl;
+
+    if (t.isSet(both)) {
+        std::cout << "Both run and attack are set." << std::endl;
+    }
+    else {
+        std::cout << "Both run and attack are not set." << std::endl;
+    }
 
     return 0;
 }
